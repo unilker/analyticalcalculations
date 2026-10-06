@@ -1,6 +1,5 @@
-// TÜBİTAK corporate palette: red Pantone 485 C (#E30613) from the corporate identity guide,
-// navy (#154377) and deep navy (#00101A) from tubitak.gov.tr, auxiliary yellow Pantone 1235 C (#F7B500)
-// and graphite Pantone 433 (#383E42). The remaining shades are tints/shades of these.
+// App palette: red, navy and deep navy as primary colors, amber and graphite as accents.
+// The remaining shades are tints/shades of these.
 export const palette = {
   red: '#E30613',
   crimson: '#B0000E',

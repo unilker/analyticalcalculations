@@ -1,8 +1,8 @@
 # Analitik Kimya Hesaplayıcı / Analytical Chemistry Calculator
 
 Analitik kimya kitaplarındaki eşitlikleri konu bazlı, Türkçe/İngilizce hesaplayıcılara dönüştüren
-React Native (Expo) mobil uygulaması. Arayüz TÜBİTAK kurumsal renkleriyle (kırmızı #E30613,
-lacivert #154377, sarı #F7B500) tasarlanmıştır.
+React Native (Expo) mobil uygulaması. Arayüz kırmızı (#E30613), lacivert (#154377) ve sarı (#F7B500)
+ağırlıklı bir renk paletiyle tasarlanmıştır.
 
 ![Ekran görüntüleri](docs/ekran-goruntuleri.png)
 
@@ -48,7 +48,7 @@ src/
   data/formulas/  Modül başına eşitlik tanımları (TR/EN metin, değişkenler, kaynak, örnek)
   data/tables/    Ka, Ksp, atom kütleleri, fiziksel sabitler
   i18n/           Dil, anlamlı rakam ve favori ayarları
-  theme/          TÜBİTAK renk paleti
+  theme/          Renk paleti
 ```
 
 ### Yeni eşitlik eklemek

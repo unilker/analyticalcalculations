@@ -12,7 +12,7 @@ export function Screen({ children }: { children: ReactNode }) {
   );
 }
 
-/** TÜBİTAK-style banner: navy gradient with the red/amber accent stripe. */
+/** Banner: gradient in the module color with the red/amber accent stripe. */
 export function Banner({ color = palette.navy, children }: { color?: string; children: ReactNode }) {
   return (
     <View style={styles.bannerWrap}>
