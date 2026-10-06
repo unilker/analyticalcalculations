@@ -12,8 +12,9 @@ export const KW_25C = 1.0e-14;
 export interface UnitDef {
   id: string;
   label: string;
-  /** Multiply a value in this unit by `factor` to get the base unit. */
+  /** base = value · factor + offset (offset is only used for °C → K). */
   factor: number;
+  offset?: number;
 }
 
 const u = (id: string, factor = 1, label = id): UnitDef => ({ id, label, factor });
@@ -42,6 +43,24 @@ export const DIMENSIONS: Record<DimensionId, UnitDef[]> = {
   massPerArea: [u('µg/cm²')],
   ppm: [u('ppm')],
   ppb: [u('ppb')],
+  temperature: [u('K'), { id: '°C', label: '°C', factor: 1, offset: 273.15 }],
+  potential: [u('V'), u('mV', 1e-3)],
+  molarEnergy: [u('J/mol'), u('kJ/mol', 1e3), u('kcal/mol', 4184)],
+  current: [u('A'), u('mA', 1e-3), u('µA', 1e-6), u('nA', 1e-9)],
+  time: [u('s'), u('min', 60), u('h', 3600), u('ms', 1e-3)],
+  charge: [u('C'), u('mC', 1e-3), u('µC', 1e-6)],
+  diffusion: [u('cm²/s'), u('m²/s', 1e4)],
+  massFlow: [u('mg/s')],
+  area: [u('cm²'), u('mm²', 1e-2)],
+  scanRate: [u('V/s'), u('mV/s', 1e-3)],
+  conductivity: [u('S/cm'), u('mS/cm', 1e-3), u('µS/cm', 1e-6), u('S/m', 1e-2)],
+  conductance: [u('S'), u('mS', 1e-3), u('µS', 1e-6)],
+  perLength: [u('cm⁻¹'), u('m⁻¹', 1e-2)],
+  molarCond: [u('S cm²/mol')],
+  specificVolume: [u('mL/g'), u('L/g', 1e3)],
+  flow: [u('L/s'), u('mL/min', 1e-3 / 60), u('µL/min', 1e-6 / 60), u('L/min', 1 / 60)],
+  mobility: [u('cm²/(V·s)')],
+  voltage: [u('V'), u('kV', 1e3)],
 };
 
 export function unitsOf(dim: DimensionId): UnitDef[] {
@@ -54,9 +73,11 @@ export function findUnit(dim: DimensionId, id?: string): UnitDef {
 }
 
 export function toBase(value: number, dim: DimensionId, unitId?: string): number {
-  return value * findUnit(dim, unitId).factor;
+  const unit = findUnit(dim, unitId);
+  return value * unit.factor + (unit.offset ?? 0);
 }
 
 export function fromBase(value: number, dim: DimensionId, unitId?: string): number {
-  return value / findUnit(dim, unitId).factor;
+  const unit = findUnit(dim, unitId);
+  return (value - (unit.offset ?? 0)) / unit.factor;
 }

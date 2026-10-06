@@ -25,9 +25,40 @@ export type DimensionId =
   | 'normality'
   | 'massPerArea'
   | 'ppm'
-  | 'ppb';
+  | 'ppb'
+  | 'temperature'
+  | 'potential'
+  | 'molarEnergy'
+  | 'current'
+  | 'time'
+  | 'charge'
+  | 'diffusion'
+  | 'massFlow'
+  | 'area'
+  | 'scanRate'
+  | 'conductivity'
+  | 'conductance'
+  | 'perLength'
+  | 'molarCond'
+  | 'specificVolume'
+  | 'flow'
+  | 'mobility'
+  | 'voltage';
 
-export type ModuleId = 'tools' | 'conc' | 'volumetric' | 'stats' | 'calib' | 'acidbase' | 'grav' | 'spectro';
+export type ModuleId =
+  | 'tools'
+  | 'conc'
+  | 'volumetric'
+  | 'stats'
+  | 'calib'
+  | 'acidbase'
+  | 'grav'
+  | 'spectro'
+  | 'equilibrium'
+  | 'titration'
+  | 'electro'
+  | 'extraction'
+  | 'chroma';
 
 export interface VariableDef {
   key: string;

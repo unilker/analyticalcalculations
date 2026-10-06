@@ -15,6 +15,8 @@ import {
   TTestTwoTool,
 } from './StatsTools';
 import { ConstantsTable, CriticalValuesTool, ElementsTable, KaTable, KspTable, MolarMassTool } from './TableTools';
+import { AcidBaseCurveTool, DerivativeTool, EdtaCurveTool, PrecipitationCurveTool, RedoxCurveTool } from './TitrationTools';
+import { CraigTool, EdtaKfTable, IndicatorsTable, IonicStrengthTool, JobTool, PeakResolutionTool, PotentialsTable, VanDeemterTool } from './V2Tools';
 
 export const CUSTOM_COMPONENTS: Record<string, ComponentType<ToolProps>> = {
   'molar-mass': MolarMassTool,
@@ -38,4 +40,17 @@ export const CUSTOM_COMPONENTS: Record<string, ComponentType<ToolProps>> = {
   'ph-converter': PhConverterTool,
   'alpha-fractions': AlphaTool,
   'two-component': TwoComponentTool,
+  'ionic-strength': IonicStrengthTool,
+  'curve-acid-base': AcidBaseCurveTool,
+  'curve-edta': EdtaCurveTool,
+  'curve-precipitation': PrecipitationCurveTool,
+  'curve-redox': RedoxCurveTool,
+  'derivative-endpoint': DerivativeTool,
+  'table-indicators': IndicatorsTable,
+  'table-edta-kf': EdtaKfTable,
+  'table-potentials': PotentialsTable,
+  craig: CraigTool,
+  'van-deemter': VanDeemterTool,
+  'peak-resolution': PeakResolutionTool,
+  'job-method': JobTool,
 };

@@ -5,8 +5,11 @@ React Native (Expo) mobil uygulaması. Arayüz kırmızı (#E30613), lacivert (#
 ağırlıklı bir renk paletiyle tasarlanmıştır.
 
 ![Ekran görüntüleri](docs/ekran-goruntuleri.png)
+![v2 ekran görüntüleri](docs/ekran-goruntuleri-v2.png)
 
-## v1 kapsamı (65 araç)
+## Kapsam (v2: 13 modül, 149 araç)
+
+### v1
 
 | Modül | İçerik |
 |---|---|
@@ -18,6 +21,17 @@ ağırlıklı bir renk paletiyle tasarlanmıştır.
 | Gravimetri ve Çözünürlük | gravimetrik faktör, Ksp ↔ çözünürlük, ortak iyon, pH etkisi, bağıl aşırı doygunluk, kütle kaybı |
 | Spektroskopi | λ–ν–ν̃–E dönüşümleri, %T ↔ A, Beer–Lambert, iki bileşenli karışım, fotometrik hata, floresans doğrusallığı |
 | Araçlar ve Tablolar | molar kütle hesaplayıcı, Ka/pKa, Ksp, atom kütleleri, fiziksel sabitler, kritik t/F/Q/G değerleri |
+
+### v2
+
+| Modül | İçerik |
+|---|---|
+| Denge ve Aktivite | ΔG°–K, ΔG–Q, K birleştirme, aktivite, iyonik şiddet, Debye–Hückel (sınır/genişletilmiş), Davies, termodinamik K, yabancı iyon etkisi |
+| Titrasyon Eğrileri | asit–baz (kuvvetli/zayıf/poliprotik), EDTA, çöktürme ve redoks eğrileri (tam denge çözümü), indikatör önerisi, türevle dönüm noktası, α_Y⁴⁻, koşullu Kf, su sertliği, Mohr, indikatör ve EDTA–Kf tabloları |
+| Elektrokimya | ΔG = −nFE, E°–K, Nernst (pH'lı), hücre potansiyeli, referans dönüşümü, Ag/AgX elektrodu, cam elektrot, ISE (Nikolsky), potansiyometri hatası, Faraday/kulometri, Ilkovič, polarografik dalga, Randles–Ševčík, iletkenlik, Kohlrausch, E° tablosu |
+| Ekstraksiyon ve İyon Değiştirme | K_D, pH'a bağlı D, % ekstraksiyon, ardışık ekstraksiyon, metal şelatları ve pH½, ayırma faktörü, iyon değiştirme D_g ve seçicilik, Craig dağılımı |
+| Kromatografi ve Elektroforez | k, α, N (iki yöntem), H, R_s, Purnell, doğrusal hız, V_R, Kovats, Rf, GC net alıkonma hacmi, KE mobilitesi ve tabaka sayısı, van Deemter grafiği, pik rezolüsyonu görselleştirici |
+| Spektroskopi (ek) | Job yöntemi (sürekli değişim) |
 
 Formül tipindeki her araçta **herhangi bir değişken bilinmeyen seçilebilir**, birimler değiştirilebilir ve sonuç
 yazdıkça hesaplanır. Her kartta kaynak kitap ve denklem numarası verilir (bkz. [docs/icerik-plani.md](docs/icerik-plani.md)).
@@ -33,7 +47,7 @@ npx expo start --web  # tarayıcıda
 ## Geliştirme
 
 ```bash
-npm test              # Jest: kitap örnekleri, kritik değer tabloları, molar kütle
+npm test              # Jest: kitap örnekleri, titrasyon eğrileri, kritik değerler, molar kütle
 npm run typecheck     # TypeScript
 npm run lint          # ESLint (eslint-config-expo)
 ```

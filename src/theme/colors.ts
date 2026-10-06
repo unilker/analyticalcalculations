@@ -11,6 +11,11 @@ export const palette = {
   orange: '#D96C00',
   graphite: '#383E42',
   livid: '#5E6E78',
+  indigo: '#3F4FA0',
+  vermilion: '#C9400B',
+  teal: '#0E7C86',
+  green: '#2B8A3E',
+  purple: '#6741D9',
   white: '#FFFFFF',
 };
 

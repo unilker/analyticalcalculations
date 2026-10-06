@@ -20,15 +20,17 @@ interface Props {
   yLabel?: string;
   xDomain?: [number, number];
   yDomain?: [number, number];
-  /** Vertical marker line (e.g. selected pH). */
-  markerX?: number;
+  /** Vertical marker line(s), e.g. selected pH or equivalence volumes. */
+  markerX?: number | number[];
+  /** Horizontal shaded bands, e.g. indicator transition ranges. */
+  hBands?: { from: number; to: number; color: string }[];
   height?: number;
   formatTick?: (v: number) => string;
 }
 
 const PAD = { left: 48, right: 12, top: 12, bottom: 40 };
 
-export function LineChart({ series, xLabel, yLabel, xDomain, yDomain, markerX, height = 260, formatTick = defaultTick }: Props) {
+export function LineChart({ series, xLabel, yLabel, xDomain, yDomain, markerX, hBands = [], height = 260, formatTick = defaultTick }: Props) {
   const [width, setWidth] = useState(0);
   const { lang } = useApp();
   const tick = (v: number) => (lang === 'tr' ? formatTick(v).replace('.', ',') : formatTick(v));
@@ -63,9 +65,16 @@ export function LineChart({ series, xLabel, yLabel, xDomain, yDomain, markerX, h
               </SvgText>
             </G>
           ))}
-          {markerX !== undefined && markerX >= x0 && markerX <= x1 && (
-            <Line x1={sx(markerX)} x2={sx(markerX)} y1={PAD.top} y2={PAD.top + h} stroke={colors.accent} strokeWidth={1.5} strokeDasharray="5,4" />
-          )}
+          {hBands.map((b, i) => {
+            const top = sy(Math.min(Math.max(b.to, y0), y1));
+            const bottom = sy(Math.min(Math.max(b.from, y0), y1));
+            return <Rect key={`b${i}`} x={PAD.left} y={top} width={w} height={Math.max(bottom - top, 0)} fill={b.color} opacity={0.18} />;
+          })}
+          {(markerX === undefined ? [] : Array.isArray(markerX) ? markerX : [markerX])
+            .filter((m) => m >= x0 && m <= x1)
+            .map((m, i) => (
+              <Line key={`m${i}`} x1={sx(m)} x2={sx(m)} y1={PAD.top} y2={PAD.top + h} stroke={colors.accent} strokeWidth={1.5} strokeDasharray="5,4" />
+            ))}
           {series.map((s) =>
             s.scatter ? (
               <G key={s.label}>

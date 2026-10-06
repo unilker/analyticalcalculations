@@ -2,8 +2,11 @@ import type { CustomToolDef, ModuleDef, ModuleId, ToolDef } from '../core/types'
 import { palette } from '../theme/colors';
 import { ACIDBASE_FORMULAS } from './formulas/acidbase';
 import { CONC_FORMULAS } from './formulas/conc';
+import { ELECTRO_FORMULAS } from './formulas/electro';
+import { EQUILIBRIUM_FORMULAS, TITRATION_FORMULAS } from './formulas/equilibrium';
 import { GRAV_FORMULAS } from './formulas/grav';
 import { l } from './formulas/helpers';
+import { CHROMA_FORMULAS, EXTRACTION_FORMULAS } from './formulas/separations';
 import { SPECTRO_FORMULAS } from './formulas/spectro';
 import { CALIB_FORMULAS, STATS_FORMULAS, TOOLS_FORMULAS } from './formulas/statsCalib';
 import { VOLUMETRIC_FORMULAS } from './formulas/volumetric';
@@ -38,11 +41,25 @@ export const MODULES: ModuleDef[] = [
     glyph: 'R²',
   },
   {
+    id: 'equilibrium',
+    name: l('Denge ve Aktivite', 'Equilibrium & Activity'),
+    description: l('ΔG°–K, K birleştirme, iyonik şiddet, Debye–Hückel, aktivite', 'ΔG°–K, combining K, ionic strength, Debye–Hückel, activity'),
+    color: palette.indigo,
+    glyph: '⇌',
+  },
+  {
     id: 'acidbase',
     name: l('Asit–Baz', 'Acid–Base'),
     description: l('pH, tamponlar, α-fraksiyonları, amfiprotik türler', 'pH, buffers, α fractions, amphiprotic species'),
     color: palette.crimson,
     glyph: 'pH',
+  },
+  {
+    id: 'titration',
+    name: l('Titrasyon Eğrileri', 'Titration Curves'),
+    description: l('Asit–baz, EDTA, çöktürme ve redoks eğrileri, dönüm noktası, indikatörler', 'Acid–base, EDTA, precipitation and redox curves, end points, indicators'),
+    color: palette.vermilion,
+    glyph: 'pM',
   },
   {
     id: 'grav',
@@ -52,11 +69,32 @@ export const MODULES: ModuleDef[] = [
     glyph: 'Ksp',
   },
   {
+    id: 'electro',
+    name: l('Elektrokimya', 'Electrochemistry'),
+    description: l('Nernst, potansiyometri, ISE, kulometri, voltametri, iletkenlik', 'Nernst, potentiometry, ISE, coulometry, voltammetry, conductivity'),
+    color: palette.teal,
+    glyph: 'E°',
+  },
+  {
     id: 'spectro',
     name: l('Spektroskopi', 'Spectroscopy'),
     description: l('Beer–Lambert, %T, iki bileşenli karışım, foton enerjisi', 'Beer–Lambert, %T, two-component mixtures, photon energy'),
     color: palette.orange,
     glyph: 'λ',
+  },
+  {
+    id: 'extraction',
+    name: l('Ekstraksiyon ve İyon Değiştirme', 'Extraction & Ion Exchange'),
+    description: l('K_D, D, % ekstraksiyon, ardışık ekstraksiyon, şelatlar, karşı akım', 'K_D, D, % extracted, repeated extraction, chelates, countercurrent'),
+    color: palette.green,
+    glyph: 'K_D',
+  },
+  {
+    id: 'chroma',
+    name: l('Kromatografi ve Elektroforez', 'Chromatography & Electrophoresis'),
+    description: l('k, α, N, H, R_s, Purnell, van Deemter, Kovats, KE', 'k, α, N, H, R_s, Purnell, van Deemter, Kovats, CE'),
+    color: palette.purple,
+    glyph: 'R_s',
   },
   {
     id: 'tools',
@@ -292,6 +330,154 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
     sources: ['[C] 16.14–16.17', '[K] 24.1–24.4', '[H] 10.3'],
     keywords: ['karışım', 'mixture', 'çok bileşenli', 'multicomponent', 'Beer'],
   }),
+
+  // v2: equilibrium
+  custom({
+    id: 'ionic-strength',
+    module: 'equilibrium',
+    name: l('İyonik şiddet ve aktivite katsayıları', 'Ionic strength & activity coefficients'),
+    purpose: l(
+      'Çözeltideki iyonların derişim ve yüklerinden iyonik şiddeti, ardından her iyonun aktivite katsayısını (sınır yasası, genişletilmiş Debye–Hückel ve Davies) hesaplar.',
+      'Ionic strength from the concentrations and charges of all ions, then the activity coefficient of each ion (limiting law, extended Debye–Hückel and Davies).',
+    ),
+    formula: 'µ = ½ Σ cᵢ·zᵢ²',
+    sources: ['[C] 6.18–6.21', '[T] 5.2–5.7', '[H] 6.9'],
+    keywords: ['iyonik şiddet', 'ionic strength', 'aktivite katsayısı', 'activity coefficient', 'Debye'],
+  }),
+  // v2: titration curves
+  custom({
+    id: 'curve-acid-base',
+    module: 'titration',
+    name: l('Asit–baz titrasyon eğrisi', 'Acid–base titration curve'),
+    purpose: l(
+      'Kuvvetli/zayıf ve poliprotik (en çok 3 pKa) asit ya da bazların titrasyon eğrisini yük denkliğinden tam olarak hesaplar; eşdeğerlik noktalarını ve uygun indikatörleri gösterir.',
+      'Exact titration curve of strong/weak and polyprotic (up to 3 pKa) acids or bases from the charge balance; shows the equivalence points and suitable indicators.',
+    ),
+    formula: '[H⁺] − Kw/[H⁺] + C_Na − C_A·Σi·αᵢ = 0',
+    sources: ['[C] 8.1–8.26', '[H] 9.2', '[K] 5.4'],
+    keywords: ['titrasyon eğrisi', 'titration curve', 'asit', 'baz', 'pH', 'eşdeğerlik', 'indikatör'],
+  }),
+  custom({
+    id: 'curve-edta',
+    module: 'titration',
+    name: l('EDTA (kompleksometrik) titrasyon eğrisi', 'EDTA (complexometric) titration curve'),
+    purpose: l(
+      'Metal iyonunun EDTA ile titrasyonunda pM\'nin hacimle değişimini koşullu oluşum sabitinden (pH ve yardımcı ligand dahil) hesaplar.',
+      'pM versus volume for the titration of a metal ion with EDTA, from the conditional formation constant (including pH and auxiliary ligand).',
+    ),
+    formula: 'K″f·[M′]·[Y′] = [MY]',
+    sources: ['[C] 9.3, 9.14–9.15', '[H] 9.3', '[K] 8.2'],
+    keywords: ['EDTA', 'kompleksometri', 'complexometric', 'pM', 'titrasyon eğrisi'],
+  }),
+  custom({
+    id: 'curve-precipitation',
+    module: 'titration',
+    name: l('Çöktürme titrasyon eğrisi (Ag⁺)', 'Precipitation titration curve (Ag⁺)'),
+    purpose: l(
+      'Halojenür ya da tiyosiyanatın Ag⁺ ile titrasyonunda pAg ve pX değişimini hesaplar; Mohr yöntemi için gereken kromat derişimini gösterir.',
+      'pAg and pX during the titration of halide or thiocyanate with Ag⁺; shows the chromate concentration needed for the Mohr method.',
+    ),
+    formula: '[Ag⁺] − Ksp/[Ag⁺] = (C_Ag·V − Cₓ·Vₓ)/(Vₓ + V)',
+    sources: ['[C] 11.12–11.19', '[H] 9.5', '[K] 7.1'],
+    keywords: ['çöktürme', 'precipitation', 'Mohr', 'Volhard', 'Fajans', 'pAg', 'gümüş'],
+  }),
+  custom({
+    id: 'curve-redox',
+    module: 'titration',
+    name: l('Redoks titrasyon eğrisi', 'Redox titration curve'),
+    purpose: l(
+      'İndirgen bir analitin yükseltgen titrantla titrasyonunda potansiyelin hacimle değişimini elektron denkliğinden hesaplar; eşdeğerlik potansiyelini ve uygun redoks indikatörlerini gösterir.',
+      'Potential versus volume for the titration of a reducing analyte with an oxidizing titrant, from the electron balance; shows the equivalence potential and suitable redox indicators.',
+    ),
+    formula: 'n₁·C₁V₁·f_ox(E) = n₂·C₂V·f_red(E)',
+    sources: ['[C] 14.3', '[H] 9.4', '[K] 6.1'],
+    keywords: ['redoks', 'redox', 'titrasyon eğrisi', 'potansiyel', 'seryum', 'permanganat'],
+  }),
+  custom({
+    id: 'derivative-endpoint',
+    module: 'titration',
+    name: l('Dönüm noktası (türev yöntemi)', 'End point (derivative method)'),
+    purpose: l(
+      'Potansiyometrik titrasyon verisinden (hacim–pH ya da hacim–E) birinci ve ikinci türevi hesaplayıp dönüm noktasını bulur.',
+      'Finds the end point from potentiometric titration data (volume–pH or volume–E) using the first and second derivatives.',
+    ),
+    formula: 'max |ΔpH/ΔV|;  Δ²pH/ΔV² = 0',
+    sources: ['[C] 8.11', '[H] 9.2'],
+    keywords: ['türev', 'derivative', 'dönüm noktası', 'end point', 'potansiyometrik titrasyon'],
+  }),
+  custom({
+    id: 'table-indicators',
+    module: 'titration',
+    name: l('İndikatörler', 'Indicators'),
+    purpose: l('Yaygın asit–baz indikatörlerinin pH geçiş aralıkları ve redoks indikatörlerinin potansiyel aralıkları.', 'pH transition ranges of common acid–base indicators and potential ranges of redox indicators.'),
+    sources: ['[H] Tablo 9.2.3', '[C] Tablo 14.1'],
+    keywords: ['indikatör', 'indicator', 'fenolftalein', 'ferroin', 'tablo'],
+  }),
+  custom({
+    id: 'table-edta-kf',
+    module: 'titration',
+    name: l('EDTA–metal oluşum sabitleri', 'EDTA–metal formation constants'),
+    purpose: l('Metal–EDTA şelatlarının oluşum sabitleri (Kf, log Kf).', 'Formation constants of metal–EDTA chelates (Kf, log Kf).'),
+    sources: ['[C] Ek C, Tablo C.4'],
+    keywords: ['EDTA', 'Kf', 'oluşum sabiti', 'formation constant', 'tablo'],
+  }),
+  // v2: electrochemistry
+  custom({
+    id: 'table-potentials',
+    module: 'electro',
+    name: l('Standart ve formal indirgenme potansiyelleri', 'Standard and formal reduction potentials'),
+    purpose: l('Yarı tepkimelerin SHE\'ye göre standart (E°) ve formal (E°′) indirgenme potansiyelleri.', 'Standard (E°) and formal (E°′) reduction potentials of half-reactions vs. SHE.'),
+    sources: ['[C] Ek C, Tablo C.5'],
+    keywords: ['potansiyel', 'potential', 'E°', 'yarı tepkime', 'half reaction', 'tablo'],
+  }),
+  // v2: extraction
+  custom({
+    id: 'craig',
+    module: 'extraction',
+    name: l('Karşı akım (Craig) dağılımı', 'Countercurrent (Craig) distribution'),
+    purpose: l(
+      'n transferden sonra iki çözünenin tüplere dağılımını binom dağılımıyla hesaplayıp grafiğini çizer; kromatografinin tabaka modelinin temelidir.',
+      'Distribution of two solutes over the tubes after n transfers (binomial distribution), with a plot; the basis of the plate model of chromatography.',
+    ),
+    formula: 'f(r) = n! / (r!(n−r)!) · pʳ · qⁿ⁻ʳ',
+    sources: ['[H] 16.16', '[C] 19.1'],
+    keywords: ['Craig', 'karşı akım', 'countercurrent', 'binom'],
+  }),
+  // v2: chromatography
+  custom({
+    id: 'van-deemter',
+    module: 'chroma',
+    name: l('van Deemter eğrisi ve optimum akış', 'van Deemter curve & optimum flow'),
+    purpose: l(
+      'A (girdap difüzyonu), B (boyuna difüzyon) ve C (kütle aktarımı) terimlerinden H–u eğrisini çizer; en düşük tabaka yüksekliğini veren optimum hızı hesaplar.',
+      'Plots H versus u from the A (eddy diffusion), B (longitudinal diffusion) and C (mass transfer) terms and finds the optimum velocity giving the minimum plate height.',
+    ),
+    formula: 'H = A + B/u + C·u;  u_opt = √(B/C)',
+    sources: ['[C] 19.13–19.19', '[T] 12.9', '[K] 11.9', '[H] 12.3'],
+    keywords: ['van Deemter', 'tabaka yüksekliği', 'plate height', 'akış hızı', 'optimum'],
+  }),
+  custom({
+    id: 'peak-resolution',
+    module: 'chroma',
+    name: l('İki pikin rezolüsyonu (görsel)', 'Resolution of two peaks (visual)'),
+    purpose: l('İki Gauss pikini alıkonma süreleri ve genişliklerinden çizer, rezolüsyonu ve örtüşmeyi gösterir.', 'Draws two Gaussian peaks from their retention times and widths and shows the resolution and overlap.'),
+    formula: 'R_s = 2(t_R2 − t_R1)/(w₁ + w₂)',
+    sources: ['[C] 19.31', '[H] 12.2'],
+    keywords: ['rezolüsyon', 'resolution', 'pik', 'peak', 'kromatogram'],
+  }),
+  // v2: spectroscopy
+  custom({
+    id: 'job-method',
+    module: 'spectro',
+    name: l('Job yöntemi (sürekli değişim)', 'Job’s method (continuous variations)'),
+    purpose: l(
+      'Toplam mol sayısı sabit tutulan metal–ligand karışımlarının absorbanslarından kompleksin stokiyometrisini (L:M oranı) bulur.',
+      'Finds the stoichiometry (L:M ratio) of a complex from absorbances of metal–ligand mixtures with constant total moles.',
+    ),
+    formula: 'x_L(max) / (1 − x_L(max)) = n (L:M)',
+    sources: ['[H] 10.3', '[K] 24'],
+    keywords: ['Job', 'sürekli değişim', 'continuous variations', 'stokiyometri', 'kompleks'],
+  }),
 ];
 
 export const ALL_TOOLS: ToolDef[] = [
@@ -303,6 +489,11 @@ export const ALL_TOOLS: ToolDef[] = [
   ...GRAV_FORMULAS,
   ...SPECTRO_FORMULAS,
   ...TOOLS_FORMULAS,
+  ...EQUILIBRIUM_FORMULAS,
+  ...TITRATION_FORMULAS,
+  ...ELECTRO_FORMULAS,
+  ...EXTRACTION_FORMULAS,
+  ...CHROMA_FORMULAS,
   ...CUSTOM_TOOLS,
 ];
 
@@ -315,6 +506,11 @@ const ORDER: Record<ModuleId, string[]> = {
   grav: [],
   spectro: [],
   tools: ['molar-mass', 'table-ka', 'table-ksp', 'table-elements', 'table-constants', 'table-critical'],
+  equilibrium: ['ionic-strength'],
+  titration: ['curve-acid-base', 'curve-edta', 'curve-precipitation', 'curve-redox', 'derivative-endpoint', 'table-indicators', 'table-edta-kf'],
+  electro: ['table-potentials'],
+  extraction: [],
+  chroma: ['van-deemter', 'peak-resolution'],
 };
 
 /** Tools of a module; listed custom tools come first in the given order, then the rest. */

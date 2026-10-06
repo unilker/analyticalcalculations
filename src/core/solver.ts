@@ -51,8 +51,8 @@ export function findRoot(
     if (Number.isFinite(prevF) && prevF === 0) return map(prevT);
     if (Number.isFinite(prevF) && Number.isFinite(ft) && Math.sign(prevF) !== Math.sign(ft)) {
       const r = bisect(f, map, prevT, t, prevF);
-      // Reject sign changes caused by poles: a true root has a smaller residual than both ends.
-      if (r !== undefined && Math.abs(f(r)) <= Math.min(Math.abs(prevF), Math.abs(ft))) return r;
+      // Reject sign changes caused by poles: there |f| grows beyond both ends instead of vanishing.
+      if (r !== undefined && Math.abs(f(r)) <= Math.max(Math.abs(prevF), Math.abs(ft))) return r;
     }
     prevT = t;
     prevF = ft;
