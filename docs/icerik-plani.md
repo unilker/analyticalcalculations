@@ -1,6 +1,6 @@
 # Analitik Kimya Hesaplayıcı — İçerik Planı / Content Plan
 
-> Bu belge, Google Drive klasöründeki ("Analitik Kimya Kitapları") yedi kitabın
+> Bu belge, Google Drive klasöründeki ("Analitik Kimya Kitapları") altı kitabın
 > taranmasıyla hazırlanmıştır. Her eşitliğin yanında kaynak kitap ve bölüm/denklem
 > numarası verilmiştir; uygulamadaki her kartın "Kaynak" alanı buradan doldurulabilir.
 
@@ -8,22 +8,21 @@
 
 ## 1. Kaynak kitaplar ve gerçek içerikleri
 
-Klasördeki üç dosyanın **adı ile içeriği uyuşmuyor**. Aşağıdaki tablo dosyaların gerçekte
+Klasördeki iki dosyanın **adı ile içeriği uyuşmuyor**. Aşağıdaki tablo dosyaların gerçekte
 hangi kitabı içerdiğini gösterir.
 
 | Kısa ad | Drive'daki dosya adı | Gerçek içerik | Sayfa |
 |---|---|---|---|
 | **[C]** | Analytical-Chemistry-by-Gary-D_-Christian-… | Christian, Dasgupta, Schug — *Analytical Chemistry*, 7. baskı (Wiley) | 850 |
 | **[H]** | Full.pdf | Harvey — *Analytical Chemistry 2.1* (LibreTexts, CC BY-NC-SA 4.0) | 1099 |
-| **[H2]** | Acid-bases-in-analytical-chemistry-by-L.M.-Kolthoff.pdf | ⚠️ **Kolthoff değil.** Harvey — *Analytical Chemistry 2.0* (LibreTexts derlemesi). [H] ile neredeyse aynı içerik, eski sürüm | 201 |
 | **[K]** | Basic_Concepts_of_Analytical_Chemistry_by_SM_Khopkar.pdf | Khopkar — *Basic Concepts of Analytical Chemistry*, 3. baskı | 633 |
 | **[T]** | Basics-of-Analytical-Chemistry-and-Chemical-Equilibria-By-Brian-Tissue.pdf | Tissue — *Basics of Analytical Chemistry and Chemical Equilibria*, 2. baskı (Wiley) | 495 |
 | **[D]** | Analytical-chemistry-a-modern-approach-…-Kellner-H.M.-Widmer.pdf | ⚠️ **Kellner–Widmer değil.** Danzer — *Analytical Chemistry: Theoretical and Metrological Fundamentals* (Springer, 2007) | 339 |
 | **[P]** | Quality-assurance-in-analytical-chemistry-…-B.-W.-Wenclawiak.pdf | ⚠️ **Wenclawiak değil.** Prichard & Barwick — *Quality Assurance in Analytical Chemistry* (Wiley, AnTS serisi, 2007) | 318 |
 
-**Sonuç:** Gerçek Kolthoff (asit–baz) ve Kellner–Widmer kitapları klasörde yok. Bu kitaplar
-eklenmek isteniyorsa doğru dosyaların yüklenmesi gerekir. Harvey 2.0 dosyası Harvey 2.1'in
-eski sürümü olduğu için yeni bir eşitlik getirmiyor.
+Klasördeki "Acid-bases-in-analytical-chemistry-by-L.M.-Kolthoff.pdf" dosyası Kolthoff'un kitabı
+değil, Harvey'nin *Analytical Chemistry 2.0* sürümüdür. [H] ile aynı içeriği taşıdığı için kaynak
+listesinden çıkarılmıştır. Planlama için mevcut altı kitap yeterli görülmüştür.
 
 ### Kitapların uygulamaya katkısı
 
