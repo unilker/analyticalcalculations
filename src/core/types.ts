@@ -153,3 +153,22 @@ export interface ModuleDef {
   glyph: string;
   group: ModuleGroup;
 }
+
+/** Paragraphs or list items in both languages. */
+export type LList = { tr: string[]; en: string[] };
+
+/** Extended explanation shown on a tool's "More details" page. */
+export interface ToolDetail {
+  /** The chemistry behind the tool. Paragraphs are separated by blank lines. */
+  concept: L;
+  /** What the equation says, how it is derived, units. Lines starting with "• " render as bullets. */
+  meaning: L;
+  /** When to use it and its limits. */
+  usage: LList;
+  /** Worked example, step by step; the last step states the result. */
+  solution: LList;
+  /** Common student mistakes. */
+  mistakes: LList;
+  /** Ids of related tools. */
+  related: string[];
+}

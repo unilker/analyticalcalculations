@@ -7,6 +7,7 @@ import type { FormulaDef, ModuleDef, Values } from '../core/types';
 import { findUnit, fromBase, toBase, unitsOf } from '../core/units';
 import { useApp } from '../i18n/AppSettings';
 import { colors, palette } from '../theme/colors';
+import { MoreInfoButton } from './MoreInfoButton';
 import { Button, Card, Chip, Columns, Field, FormulaText, Notice, ResultBox, SectionTitle, UnitButton } from './ui';
 
 interface Props {
@@ -90,6 +91,7 @@ export function FormulaCalculator({ def, module, twoColumn, aside }: Props) {
             {tx(def.assumptions)}
           </Text>
         )}
+        <MoreInfoButton toolId={def.id} color={color} />
       </Card>
     </>
   );

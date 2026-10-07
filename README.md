@@ -51,6 +51,18 @@ denge ve titrimetri; enstrümantal analiz; ayırma yöntemleri; kinetik, radyoki
 Formül tipindeki her araçta **herhangi bir değişken bilinmeyen seçilebilir**, birimler değiştirilebilir ve sonuç
 yazdıkça hesaplanır. Her kartta kaynak kitap ve denklem numarası verilir (bkz. [docs/icerik-plani.md](docs/icerik-plani.md)).
 
+## Ayrıntılı açıklamalar (“Daha fazla bilgi”)
+
+Araç kartındaki **📖 Daha fazla bilgi** düğmesi, lisans öğrencilerine yönelik ayrıntılı bir sayfa açar: kavram,
+eşitliğin anlamı ve türetilmesi, değişkenler ve birimler, kullanım alanı ve sınırlar, adım adım çözümlü örnek,
+sık yapılan hatalar, ilgili araçlar ve kaynaklar. İçerik `src/data/details/` altında modül başına tutulur; çözümlü
+örneğin sonucu testlerde hesaplayıcının sonucuyla karşılaştırılır.
+
+| Modül | Durum |
+|---|---|
+| Derişim ve Çözeltiler (16 araç) | Tamamlandı (pilot) |
+| Diğer modüller | Planlandı |
+
 ## Telefon, katlanabilir ve tablet
 
 Uygulama dikey ve yatay çalışır; düzen ekran genişliğine göre değişir (`src/components/layout.ts`):

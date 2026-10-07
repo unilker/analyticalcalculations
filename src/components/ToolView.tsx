@@ -6,6 +6,7 @@ import { useApp } from '../i18n/AppSettings';
 import { colors, onColor } from '../theme/colors';
 import { FormulaCalculator } from './FormulaCalculator';
 import { BREAKPOINTS, useLayout } from './layout';
+import { MoreInfoButton } from './MoreInfoButton';
 import { CUSTOM_COMPONENTS } from './tools';
 import { Banner, Card, Columns, FormulaText, SectionTitle } from './ui';
 
@@ -28,6 +29,7 @@ export function ToolView({ tool, width }: { tool: ToolDef; width?: number }) {
       {tool.formula ? <FormulaText color={module.color}>{tool.formula}</FormulaText> : null}
       <SectionTitle color={module.color}>{t('whatFor')}</SectionTitle>
       <Text style={{ fontSize: 15, lineHeight: 22, color: colors.text }}>{tx(tool.purpose)}</Text>
+      <MoreInfoButton toolId={tool.id} color={module.color} />
     </Card>
   );
 
@@ -54,7 +56,7 @@ export function ToolView({ tool, width }: { tool: ToolDef; width?: number }) {
   );
 }
 
-function Sources({ tool, module }: { tool: ToolDef; module: ModuleDef }) {
+export function Sources({ tool, module }: { tool: ToolDef; module: ModuleDef }) {
   const { t } = useApp();
   return (
     <Card>
