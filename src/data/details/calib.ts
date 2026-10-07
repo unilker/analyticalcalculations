@@ -46,12 +46,12 @@ export const CALIB_DETAILS: Record<string, ToolDetail> = {
     },
     mistakes: {
       tr: [
-        'Eklemeden sonraki seyrelmeyi ihmal edip Cₓ = Sₓ · ΔC / (S_spk − Sₓ) kısayolunu yanlış yerde kullanmak.',
+        'Eklenen standardın numuneyi seyrelttiğini ihmal etmek; bu yalnızca V_std, Vₓ’e göre çok küçükse kabul edilebilir bir yaklaşımdır.',
         'Kör düzeltmesi yapılmamış sinyal kullanmak; kör sinyali analit gibi davranır ve sonuç yüksek çıkar.',
         'Sonucun ölçülen çözeltiye ait olduğunu unutmak: numune ölçümden önce seyreltildiyse seyreltme faktörü uygulanmalıdır.',
       ],
       en: [
-        'Ignoring the dilution caused by the spike and using the shortcut Cₓ = Sₓ · ΔC / (S_spk − Sₓ) where it does not apply.',
+        'Ignoring the dilution of the sample by the spike; this is an acceptable approximation only when V_std is much smaller than Vₓ.',
         'Using signals that are not blank-corrected; the blank behaves like analyte and the result is too high.',
         'Forgetting that the result refers to the measured solution: if the sample was diluted before measurement, apply the dilution factor.',
       ],
