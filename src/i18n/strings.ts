@@ -23,6 +23,8 @@ export const STRINGS = {
   language: { tr: 'Dil', en: 'Language' },
   sigFigs: { tr: 'Anlamlı rakam sayısı', en: 'Significant figures' },
   about: { tr: 'Hakkında', en: 'About' },
+  developer: { tr: 'Geliştirici', en: 'Developer' },
+  website: { tr: 'Web sitesi', en: 'Website' },
   aboutText: {
     tr: 'Bu uygulama Christian, Harvey, Khopkar, Tissue, Danzer ve Prichard–Barwick kitaplarındaki analitik kimya eşitliklerini konu bazlı hesaplayıcılara dönüştürür. Her kartta kaynak kitap ve denklem numarası verilmiştir.',
     en: 'This app turns the analytical chemistry equations of the Christian, Harvey, Khopkar, Tissue, Danzer and Prichard–Barwick textbooks into topic-based calculators. Each card cites the source book and equation number.',

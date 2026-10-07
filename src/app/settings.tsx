@@ -1,10 +1,13 @@
 import { Stack } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Linking, Pressable, Text, View } from 'react-native';
 
 import { Card, Chip, Screen, SectionTitle } from '../components/ui';
 import { ALL_TOOLS, BOOKS } from '../data/registry';
 import { useApp } from '../i18n/AppSettings';
 import { colors, palette } from '../theme/colors';
+
+const DEVELOPER = 'Dr. İlker ÜN';
+const WEBSITE = { tr: 'https://kimyager.net/', en: 'https://kimyager.net/en/' } as const;
 
 export default function Settings() {
   const { t, lang, setLang, sigFigs, setSigFigs } = useApp();
@@ -31,6 +34,18 @@ export default function Settings() {
           <SectionTitle color={palette.navy}>{t('about')}</SectionTitle>
           <Text style={{ fontSize: 15, lineHeight: 22, color: colors.text }}>{t('aboutText')}</Text>
           <Text style={{ fontSize: 13, color: colors.textMuted }}>{`${ALL_TOOLS.length} ${t('tools')} · v3.0`}</Text>
+        </Card>
+        <Card>
+          <SectionTitle color={palette.navy}>{t('developer')}</SectionTitle>
+          <Text style={{ fontSize: 17, fontWeight: '800', color: colors.text }}>{DEVELOPER}</Text>
+          <Pressable
+            accessibilityRole="link"
+            onPress={() => Linking.openURL(WEBSITE[lang])}
+            style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 8, opacity: pressed ? 0.6 : 1 })}
+          >
+            <Text style={{ fontSize: 14, color: colors.textMuted }}>{t('website')}:</Text>
+            <Text style={{ fontSize: 15, fontWeight: '700', color: palette.red, textDecorationLine: 'underline' }}>{WEBSITE[lang].replace(/^https:\/\//, '').replace(/\/$/, '')}</Text>
+          </Pressable>
         </Card>
         <Card>
           <SectionTitle color={palette.navy}>{t('sources')}</SectionTitle>
