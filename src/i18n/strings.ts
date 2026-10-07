@@ -24,6 +24,15 @@ export const STRINGS = {
   sigFigs: { tr: 'Anlamlı rakam sayısı', en: 'Significant figures' },
   about: { tr: 'Hakkında', en: 'About' },
   developer: { tr: 'Geliştirici', en: 'Developer' },
+  rotation: { tr: 'Ekran yönü', en: 'Screen orientation' },
+  rotationButton: { tr: 'Düğmeyle değiştir', en: 'Switch with a button' },
+  rotationAuto: { tr: 'Otomatik döndür', en: 'Rotate automatically' },
+  rotationHint: {
+    tr: 'Telefon elde hareket ettikçe ekran dönmez; telefonu yana çevirince birkaç saniyeliğine bir döndürme düğmesi çıkar. Tabletlerde ekran her zaman serbestçe döner.',
+    en: 'The screen does not turn as the phone moves in your hand; turning the phone shows a rotate button for a few seconds. On tablets the screen always rotates freely.',
+  },
+  rotateLandscape: { tr: 'Yatay görünüm', en: 'Landscape view' },
+  rotatePortrait: { tr: 'Dikey görünüm', en: 'Portrait view' },
   website: { tr: 'Web sitesi', en: 'Website' },
   aboutText: {
     tr: 'Bu uygulama Christian, Harvey, Khopkar, Tissue, Danzer ve Prichard–Barwick kitaplarındaki analitik kimya eşitliklerini konu bazlı hesaplayıcılara dönüştürür. Her kartta kaynak kitap ve denklem numarası verilmiştir.',

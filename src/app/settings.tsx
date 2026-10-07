@@ -10,7 +10,7 @@ const DEVELOPER = 'Dr. İlker ÜN';
 const WEBSITE = { tr: 'https://kimyager.net/', en: 'https://kimyager.net/en/' } as const;
 
 export default function Settings() {
-  const { t, lang, setLang, sigFigs, setSigFigs } = useApp();
+  const { t, lang, setLang, sigFigs, setSigFigs, rotation, setRotation } = useApp();
   return (
     <>
       <Stack.Screen options={{ title: t('settings') }} />
@@ -29,6 +29,14 @@ export default function Settings() {
               <Chip key={n} label={String(n)} selected={sigFigs === n} onPress={() => setSigFigs(n)} color={palette.navy} />
             ))}
           </View>
+        </Card>
+        <Card>
+          <SectionTitle color={palette.navy}>{t('rotation')}</SectionTitle>
+          <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+            <Chip label={t('rotationButton')} selected={rotation === 'button'} onPress={() => setRotation('button')} color={palette.navy} />
+            <Chip label={t('rotationAuto')} selected={rotation === 'auto'} onPress={() => setRotation('auto')} color={palette.navy} />
+          </View>
+          <Text style={{ fontSize: 13, lineHeight: 19, color: colors.textMuted }}>{t('rotationHint')}</Text>
         </Card>
         <Card>
           <SectionTitle color={palette.navy}>{t('about')}</SectionTitle>

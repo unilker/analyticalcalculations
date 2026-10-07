@@ -63,6 +63,10 @@ Uygulama dikey ve yatay çalışır; düzen ekran genişliğine göre değişir 
 
 Yatay konumda içerik çentik ve Dynamic Island'ın altına girmez; iPad'de Split View desteklenir.
 
+Telefonlarda ekran elde hareket ettikçe dönmez: telefon belirgin şekilde yana çevrilince 4 saniyeliğine
+"Yatay görünüm" / "Dikey görünüm" düğmesi çıkar (`src/components/RotationControl.tsx`). Ayarlar'dan
+"Otomatik döndür" seçilebilir. Tabletler her zaman serbestçe döner.
+
 ![Tablet ve katlanabilir ekran görüntüleri](docs/ekran-goruntuleri-tablet.png)
 
 ## Çalıştırma

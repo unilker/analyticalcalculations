@@ -8,15 +8,20 @@ import { STRINGS, type StringKey } from './strings';
 
 const STORAGE_KEY = 'akh.settings.v1';
 
+/** Phones: 'button' keeps the orientation and offers a switch when turned; 'auto' follows the device. */
+export type RotationMode = 'button' | 'auto';
+
 interface Persisted {
   lang: Lang;
   sigFigs: number;
   favorites: string[];
+  rotation: RotationMode;
 }
 
 interface AppSettings extends Persisted {
   setLang: (lang: Lang) => void;
   setSigFigs: (n: number) => void;
+  setRotation: (mode: RotationMode) => void;
   toggleFavorite: (id: string) => void;
   /** Static UI string. */
   t: (key: StringKey) => string;
@@ -36,7 +41,7 @@ function deviceLang(): Lang {
 const Ctx = createContext<AppSettings | null>(null);
 
 export function AppSettingsProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<Persisted>({ lang: deviceLang(), sigFigs: 4, favorites: [] });
+  const [state, setState] = useState<Persisted>({ lang: deviceLang(), sigFigs: 4, favorites: [], rotation: 'button' });
 
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY)
@@ -57,6 +62,7 @@ export function AppSettingsProvider({ children }: { children: ReactNode }) {
       ...state,
       setLang: (lang) => update({ lang }),
       setSigFigs: (sigFigs) => update({ sigFigs }),
+      setRotation: (rotation) => update({ rotation }),
       toggleFavorite: (id) =>
         update({ favorites: state.favorites.includes(id) ? state.favorites.filter((f) => f !== id) : [...state.favorites, id] }),
       t: (key) => STRINGS[key][state.lang],
