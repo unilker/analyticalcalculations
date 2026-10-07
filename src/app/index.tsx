@@ -1,21 +1,28 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, Text, TextInput, View, useWindowDimensions } from 'react-native';
+import { Pressable, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ToolRow } from '../components/ToolRow';
+import { useLayout } from '../components/layout';
 import { Banner, Notice, Screen, SectionTitle, styles as ui } from '../components/ui';
-import type { ModuleDef } from '../core/types';
+import type { ModuleDef, ToolDef } from '../core/types';
 import { MODULE_GROUPS, MODULES, TOOL_BY_ID, searchTools, toolsOf } from '../data/registry';
 import { useApp } from '../i18n/AppSettings';
 import { colors, onColor, palette, tint } from '../theme/colors';
+
+const TILE_GAP = 12;
 
 export default function Home() {
   const { t, tx, favorites, lang, setLang } = useApp();
   const [query, setQuery] = useState('');
   const insets = useSafeAreaInsets();
-  const { width } = useWindowDimensions();
-  const columns = width >= 700 ? 3 : 2;
+  const layout = useLayout();
+  const columns = layout.homeColumns;
+  // Fixed tile width, so a group whose last row is not full keeps tiles of the same size.
+  const [gridWidth, setGridWidth] = useState(0);
+  const content = gridWidth || Math.min(layout.width - insets.left - insets.right, layout.maxWidth) - 2 * 16;
+  const tileWidth = Math.floor((content - TILE_GAP * (columns - 1)) / columns);
   const results = query.trim() ? searchTools(query) : [];
   const favTools = favorites.map((id) => TOOL_BY_ID[id]).filter(Boolean);
 
@@ -60,24 +67,22 @@ export default function Home() {
         {query.trim() ? (
           <View style={{ gap: 10 }}>
             <SectionTitle color={palette.red}>{`${results.length} ${t('tools')}`}</SectionTitle>
-            {results.length ? results.map((tool) => <ToolRow key={tool.id} tool={tool} showModule />) : <Notice text={t('noResults')} />}
+            {results.length ? <ToolGrid tools={results} twoColumn={layout.twoColumn} /> : <Notice text={t('noResults')} />}
           </View>
         ) : (
           <>
             {favTools.length > 0 && (
               <View style={{ gap: 10 }}>
                 <SectionTitle color={palette.amber}>{`★ ${t('favorites')}`}</SectionTitle>
-                {favTools.map((tool) => (
-                  <ToolRow key={tool.id} tool={tool} showModule />
-                ))}
+                <ToolGrid tools={favTools} twoColumn={layout.twoColumn} />
               </View>
             )}
             {MODULE_GROUPS.map((g) => (
               <View key={g.id} style={{ gap: 10 }}>
                 <SectionTitle color={palette.navy}>{tx(g.name)}</SectionTitle>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+                <View onLayout={(e) => setGridWidth(e.nativeEvent.layout.width)} style={{ flexDirection: 'row', flexWrap: 'wrap', gap: TILE_GAP }}>
                   {MODULES.filter((m) => m.group === g.id).map((m) => (
-                    <ModuleTile key={m.id} module={m} columns={columns} />
+                    <ModuleTile key={m.id} module={m} width={tileWidth} />
                   ))}
                 </View>
               </View>
@@ -89,7 +94,21 @@ export default function Home() {
   );
 }
 
-function ModuleTile({ module: m, columns }: { module: ModuleDef; columns: number }) {
+/** Tool rows: one column on phones, two on wide screens. */
+function ToolGrid({ tools, twoColumn }: { tools: ToolDef[]; twoColumn: boolean }) {
+  if (!twoColumn) return tools.map((tool) => <ToolRow key={tool.id} tool={tool} showModule />);
+  return (
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
+      {tools.map((tool) => (
+        <View key={tool.id} style={{ width: '49.2%', flexGrow: 1 }}>
+          <ToolRow tool={tool} showModule />
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function ModuleTile({ module: m, width }: { module: ModuleDef; width: number }) {
   const { t, tx } = useApp();
   const fg = onColor(m.color);
   return (
@@ -97,8 +116,7 @@ function ModuleTile({ module: m, columns }: { module: ModuleDef; columns: number
         onPress={() => router.push({ pathname: '/module/[id]', params: { id: m.id } })}
       accessibilityRole="button"
       style={({ pressed }) => ({
-        width: `${100 / columns - 2.5}%`,
-        flexGrow: 1,
+        width,
         minHeight: 128,
         backgroundColor: m.color,
         borderRadius: 18,

@@ -3,7 +3,7 @@
     "name": "Analitik Kimya Hesaplayıcı",
     "slug": "analitik-kimya",
     "version": "3.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {

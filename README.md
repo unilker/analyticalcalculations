@@ -51,6 +51,20 @@ denge ve titrimetri; enstrümantal analiz; ayırma yöntemleri; kinetik, radyoki
 Formül tipindeki her araçta **herhangi bir değişken bilinmeyen seçilebilir**, birimler değiştirilebilir ve sonuç
 yazdıkça hesaplanır. Her kartta kaynak kitap ve denklem numarası verilir (bkz. [docs/icerik-plani.md](docs/icerik-plani.md)).
 
+## Telefon, katlanabilir ve tablet
+
+Uygulama dikey ve yatay çalışır; düzen ekran genişliğine göre değişir (`src/components/layout.ts`):
+
+| Genişlik | Cihaz örnekleri | Düzen |
+|---|---|---|
+| < 720 | Telefonlar, iPhone Duo dış ekranı, tabletlerde bölünmüş ekran | Tek sütun |
+| 720–999 | Yatay telefon, iPhone Duo iç ekranı (yatay), Galaxy Fold, dikey iPad | Araçlarda girişler solda, formül ve sonuç sağda |
+| ≥ 1000 | Yatay iPad, büyük tabletler | Modül sayfasında araç listesi solda, seçili araç sağda |
+
+Yatay konumda içerik çentik ve Dynamic Island'ın altına girmez; iPad'de Split View desteklenir.
+
+![Tablet ve katlanabilir ekran görüntüleri](docs/ekran-goruntuleri-tablet.png)
+
 ## Çalıştırma
 
 ```bash
@@ -84,7 +98,7 @@ npm run lint          # ESLint (eslint-config-expo)
 ```
 src/
   app/            Expo Router ekranları (ana sayfa, modül, araç, ayarlar)
-  components/     Ortak arayüz bileşenleri, formül hesaplayıcı, grafik, özel araçlar
+  components/     Ortak arayüz bileşenleri, ekran düzeni (layout), formül hesaplayıcı, grafik, özel araçlar
   core/           Sayısal çözücü, birimler, istatistik, asit-baz, molar kütle, biçimlendirme
   data/formulas/  Modül başına eşitlik tanımları (TR/EN metin, değişkenler, kaynak, örnek)
   data/tables/    Ka, Ksp, atom kütleleri, fiziksel sabitler
