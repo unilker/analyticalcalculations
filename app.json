@@ -13,7 +13,7 @@
     "android": {
       "package": "net.kimyager.analitikkimya",
       "adaptiveIcon": {
-        "backgroundColor": "#154377",
+        "backgroundColor": "#F7B500",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
