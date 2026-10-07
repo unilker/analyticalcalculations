@@ -1,14 +1,59 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import type { ReactNode } from 'react';
-import { Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Keyboard, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { colors, onColor, palette, textColor, tint } from '../theme/colors';
 
+/** Space kept between the focused input and the top of the keyboard. */
+const KEYBOARD_GAP = 24;
+
+/**
+ * Scrollable page. While the keyboard is open the page shrinks to the space above it and the
+ * focused input is scrolled into view (Android draws edge-to-edge, so the window no longer
+ * resizes by itself).
+ */
 export function Screen({ children }: { children: ReactNode }) {
+  const frame = useRef<View>(null);
+  const scroll = useRef<ScrollView>(null);
+  const scrollY = useRef(0);
+  const [inset, setInset] = useState(0);
+
+  useEffect(() => {
+    const reveal = (keyboardTop: number) => {
+      const input = TextInput.State.currentlyFocusedInput();
+      input?.measureInWindow((_x, y, _w, h) => {
+        const overflow = y + h - (keyboardTop - KEYBOARD_GAP);
+        if (overflow > 0) scroll.current?.scrollTo({ y: scrollY.current + overflow, animated: true });
+      });
+    };
+    const show = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', (e) => {
+      const keyboardTop = e.endCoordinates.screenY;
+      frame.current?.measureInWindow((_x, y, _w, h) => {
+        // Zero when the system already resized the window for the keyboard.
+        setInset(Math.max(0, y + h - keyboardTop));
+        setTimeout(() => reveal(keyboardTop), 60);
+      });
+    });
+    const hide = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide', () => setInset(0));
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
+
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={styles.screenContent} keyboardShouldPersistTaps="handled">
-      <View style={styles.inner}>{children}</View>
-    </ScrollView>
+    <View ref={frame} style={[styles.screen, { paddingBottom: inset }]}>
+      <ScrollView
+        ref={scroll}
+        style={styles.screen}
+        contentContainerStyle={styles.screenContent}
+        keyboardShouldPersistTaps="handled"
+        onScroll={(e) => (scrollY.current = e.nativeEvent.contentOffset.y)}
+        scrollEventThrottle={32}
+      >
+        <View style={styles.inner}>{children}</View>
+      </ScrollView>
+    </View>
   );
 }
 
