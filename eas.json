@@ -9,13 +9,15 @@
       "android": {
         "buildType": "apk",
         "image": "latest"
-      }
+      },
+      "channel": "preview"
     },
     "production": {
       "autoIncrement": true,
       "android": {
         "image": "latest"
-      }
+      },
+      "channel": "production"
     }
   },
   "submit": {

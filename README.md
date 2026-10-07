@@ -101,6 +101,13 @@ npx eas-cli@latest build -p android --profile preview   # telefona kurulabilir .
 Derleme bitince verilen bağlantıyı telefonda açıp APK'yı indirin ve kurun. `production` profili Google Play
 için `.aab` üretir.
 
+### Kablosuz güncellemeler (EAS Update)
+
+`preview` profiliyle derlenen uygulamalar `preview` kanalını dinler. Geliştirme dalına her push'ta
+`.eas/workflows/publish-preview-update.yml` iş akışı yeni bir güncelleme yayınlar. Uygulama açılışta güncellemeyi
+indirir, bir sonraki açılışta uygular. Çalışma sürümü `fingerprint` politikasıyla belirlenir: yeni bir yerel modül
+eklendiğinde güncelleme eski derlemelere gitmez, yeni derleme gerekir.
+
 ## Geliştirme
 
 ```bash

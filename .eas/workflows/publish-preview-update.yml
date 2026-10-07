@@ -1,0 +1,17 @@
+# Publishes an over-the-air update to installed "preview" builds whenever code is pushed
+# to the development branch. Updates only reach builds with the same native runtime
+# (fingerprint); after adding a native module, make a new build instead.
+name: Publish preview update
+
+on:
+  push:
+    branches:
+      - claude/analytical-chemistry-calculator-664bht
+
+jobs:
+  publish_update:
+    name: Publish update to the preview channel
+    type: update
+    params:
+      channel: preview
+      platform: all
