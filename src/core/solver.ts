@@ -82,7 +82,7 @@ function bisect(
     } else {
       hi = mid;
     }
-    if (Math.abs(hi - lo) <= 1e-15 * Math.max(1, Math.abs(mid))) break;
+    if (Math.abs(hi - lo) <= 1e-15 * Math.abs(mid)) break;
   }
   return map((lo + hi) / 2);
 }

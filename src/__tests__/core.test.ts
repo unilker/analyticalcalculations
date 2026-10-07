@@ -186,3 +186,12 @@ describe('number formatting and parsing', () => {
     ]);
   });
 });
+
+describe('display ↔ input round trip', () => {
+  it.each([1.75e-5, 2.5e-4, 0.001234, 0.5, 12.08, 4321.5, 6.022e23, -3.3e-12, 1e-300])('parses back what it displays: %p', (x) => {
+    for (const lang of ['tr', 'en'] as const) {
+      const shown = formatNumber(x, lang, 6);
+      expect(Math.abs(parseNumber(shown) - x)).toBeLessThanOrEqual(Math.abs(x) * 1e-5);
+    }
+  });
+});

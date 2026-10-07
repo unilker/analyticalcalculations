@@ -6,8 +6,12 @@ ağırlıklı bir renk paletiyle tasarlanmıştır.
 
 ![Ekran görüntüleri](docs/ekran-goruntuleri.png)
 ![v2 ekran görüntüleri](docs/ekran-goruntuleri-v2.png)
+![v3 ekran görüntüleri](docs/ekran-goruntuleri-v3.png)
 
-## Kapsam (v2: 13 modül, 149 araç)
+## Kapsam (v3: 18 modül, 214 araç)
+
+Ana sayfada modüller altı başlık altında gruplanır: temel hesaplar; veri, kalibrasyon ve kalite;
+denge ve titrimetri; enstrümantal analiz; ayırma yöntemleri; kinetik, radyokimya ve araçlar.
 
 ### v1
 
@@ -33,6 +37,17 @@ ağırlıklı bir renk paletiyle tasarlanmıştır.
 | Kromatografi ve Elektroforez | k, α, N (iki yöntem), H, R_s, Purnell, doğrusal hız, V_R, Kovats, Rf, GC net alıkonma hacmi, KE mobilitesi ve tabaka sayısı, van Deemter grafiği, pik rezolüsyonu görselleştirici |
 | Spektroskopi (ek) | Job yöntemi (sürekli değişim) |
 
+### v3
+
+| Modül | İçerik |
+|---|---|
+| Kalite Güvencesi ve Belirsizlik | geri kazanım, bias/D%, geri kazanım düzeltmesi, Horwitz ve HorRat, B tipi belirsizlik, genişletilmiş belirsizlik, z/ζ/Eₙ skorları, σ_L; belirsizlik bütçesi, Shewhart kontrol grafiği (kural denetimli), Youden sağlamlık testi, 2ᵏ faktöriyel tasarım, tarama testi performansı |
+| Örnekleme | örnekleme + analiz varyansı, Ingamells sabiti, binom tanecik örneklemesi, doğrulamada tekrar sayısı, iteratif numune sayısı |
+| Atomik Spektroskopi ve X-Işınları | Boltzmann dağılımı, emisyon kalibrasyonu (I = kCⁿ), Duane–Hunt, Bragg, Moseley, X-ışını soğurması, XPS bağlanma enerjisi, Mössbauer geri tepme ve Doppler kayması |
+| Kütle Spektrometrisi | çözünürlük, ppm kütle doğruluğu, manyetik sektör, TOF, ICR frekansı, izotop dağılımı ve DBE hesaplayıcısı |
+| Kinetik, Radyokimya ve Termal | 1. ve 2. derece hız yasaları, t½, Michaelis–Menten, Arrhenius (tek/iki sıcaklık), radyoaktif bozunma, aktivite–madde miktarı, sayım istatistiği, izotop seyreltme, NAA (karşılaştırmalı ve oluşan aktivite), TGA kütle kaybı; veriden tepkime derecesi, Lineweaver–Burk |
+| Spektroskopi (tamamlama) | IR (Hooke), ATR kritik açısı, Raman kayması, türbidimetri, molar refraksiyon, polarimetri, NMR kimyasal kayma ve Larmor frekansı, ESR, kırınım ağı, fiber NA, Stern–Volmer; çok bileşenli en küçük kareler, mol oranı/fotometrik titrasyon |
+
 Formül tipindeki her araçta **herhangi bir değişken bilinmeyen seçilebilir**, birimler değiştirilebilir ve sonuç
 yazdıkça hesaplanır. Her kartta kaynak kitap ve denklem numarası verilir (bkz. [docs/icerik-plani.md](docs/icerik-plani.md)).
 
@@ -47,7 +62,7 @@ npx expo start --web  # tarayıcıda
 ## Geliştirme
 
 ```bash
-npm test              # Jest: kitap örnekleri, titrasyon eğrileri, kritik değerler, molar kütle
+npm test              # Jest: kitap örnekleri, titrasyon eğrileri, QA/MS/kinetik motorları, kritik değerler
 npm run typecheck     # TypeScript
 npm run lint          # ESLint (eslint-config-expo)
 ```

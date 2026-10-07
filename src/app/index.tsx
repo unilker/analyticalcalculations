@@ -5,7 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ToolRow } from '../components/ToolRow';
 import { Banner, Notice, Screen, SectionTitle, styles as ui } from '../components/ui';
-import { MODULES, TOOL_BY_ID, searchTools, toolsOf } from '../data/registry';
+import type { ModuleDef } from '../core/types';
+import { MODULE_GROUPS, MODULES, TOOL_BY_ID, searchTools, toolsOf } from '../data/registry';
 import { useApp } from '../i18n/AppSettings';
 import { colors, onColor, palette, tint } from '../theme/colors';
 
@@ -71,65 +72,73 @@ export default function Home() {
                 ))}
               </View>
             )}
-            <SectionTitle color={palette.navy}>{t('modules')}</SectionTitle>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
-              {MODULES.map((m) => {
-                const fg = onColor(m.color);
-                return (
-                  <Pressable
-                    key={m.id}
-                    onPress={() => router.push({ pathname: '/module/[id]', params: { id: m.id } })}
-                    accessibilityRole="button"
-                    style={({ pressed }) => ({
-                      width: `${100 / columns - 2.5}%`,
-                      flexGrow: 1,
-                      minHeight: 150,
-                      backgroundColor: m.color,
-                      borderRadius: 18,
-                      padding: 14,
-                      justifyContent: 'space-between',
-                      transform: [{ scale: pressed ? 0.97 : 1 }],
-                      shadowColor: m.color,
-                      shadowOpacity: 0.35,
-                      shadowRadius: 8,
-                      shadowOffset: { width: 0, height: 4 },
-                      elevation: 3,
-                      overflow: 'hidden',
-                    })}
-                  >
-                    <View
-                      style={{
-                        position: 'absolute',
-                        right: -18,
-                        top: -18,
-                        width: 90,
-                        height: 90,
-                        borderRadius: 45,
-                        backgroundColor: fg === '#FFFFFF' ? 'rgba(255,255,255,0.12)' : 'rgba(0,16,26,0.08)',
-                      }}
-                    />
-                    <Text style={{ fontSize: 30, fontWeight: '900', color: fg }}>{m.glyph}</Text>
-                    <View style={{ gap: 4 }}>
-                      <Text style={{ fontSize: 16, fontWeight: '800', color: fg }}>{tx(m.name)}</Text>
-                      <View
-                        style={{
-                          alignSelf: 'flex-start',
-                          backgroundColor: fg === '#FFFFFF' ? 'rgba(255,255,255,0.2)' : tint(palette.ink, 0.85),
-                          borderRadius: 999,
-                          paddingHorizontal: 8,
-                          paddingVertical: 2,
-                        }}
-                      >
-                        <Text style={{ fontSize: 12, fontWeight: '700', color: fg }}>{`${toolsOf(m.id).length} ${t('tools')}`}</Text>
-                      </View>
-                    </View>
-                  </Pressable>
-                );
-              })}
-            </View>
+            {MODULE_GROUPS.map((g) => (
+              <View key={g.id} style={{ gap: 10 }}>
+                <SectionTitle color={palette.navy}>{tx(g.name)}</SectionTitle>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+                  {MODULES.filter((m) => m.group === g.id).map((m) => (
+                    <ModuleTile key={m.id} module={m} columns={columns} />
+                  ))}
+                </View>
+              </View>
+            ))}
           </>
         )}
       </Screen>
     </View>
+  );
+}
+
+function ModuleTile({ module: m, columns }: { module: ModuleDef; columns: number }) {
+  const { t, tx } = useApp();
+  const fg = onColor(m.color);
+  return (
+    <Pressable
+        onPress={() => router.push({ pathname: '/module/[id]', params: { id: m.id } })}
+      accessibilityRole="button"
+      style={({ pressed }) => ({
+        width: `${100 / columns - 2.5}%`,
+        flexGrow: 1,
+        minHeight: 128,
+        backgroundColor: m.color,
+        borderRadius: 18,
+        padding: 14,
+        justifyContent: 'space-between',
+        transform: [{ scale: pressed ? 0.97 : 1 }],
+        shadowColor: m.color,
+        shadowOpacity: 0.35,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 4 },
+        elevation: 3,
+        overflow: 'hidden',
+      })}
+    >
+      <View
+        style={{
+          position: 'absolute',
+          right: -18,
+          top: -18,
+          width: 90,
+          height: 90,
+          borderRadius: 45,
+          backgroundColor: fg === '#FFFFFF' ? 'rgba(255,255,255,0.12)' : 'rgba(0,16,26,0.08)',
+        }}
+      />
+      <Text style={{ fontSize: 30, fontWeight: '900', color: fg }}>{m.glyph}</Text>
+      <View style={{ gap: 4 }}>
+        <Text style={{ fontSize: 16, fontWeight: '800', color: fg }}>{tx(m.name)}</Text>
+        <View
+          style={{
+            alignSelf: 'flex-start',
+            backgroundColor: fg === '#FFFFFF' ? 'rgba(255,255,255,0.2)' : tint(palette.ink, 0.85),
+            borderRadius: 999,
+            paddingHorizontal: 8,
+            paddingVertical: 2,
+          }}
+        >
+          <Text style={{ fontSize: 12, fontWeight: '700', color: fg }}>{`${toolsOf(m.id).length} ${t('tools')}`}</Text>
+        </View>
+      </View>
+    </Pressable>
   );
 }

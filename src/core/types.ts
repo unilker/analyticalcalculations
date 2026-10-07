@@ -43,7 +43,18 @@ export type DimensionId =
   | 'specificVolume'
   | 'flow'
   | 'mobility'
-  | 'voltage';
+  | 'voltage'
+  | 'angle'
+  | 'magneticField'
+  | 'activity'
+  | 'rateConst1'
+  | 'rateConst2'
+  | 'rate'
+  | 'crossSection'
+  | 'flux'
+  | 'forceConst'
+  | 'molarVolume'
+  | 'massAtten';
 
 export type ModuleId =
   | 'tools'
@@ -58,7 +69,14 @@ export type ModuleId =
   | 'titration'
   | 'electro'
   | 'extraction'
-  | 'chroma';
+  | 'chroma'
+  | 'qa'
+  | 'sampling'
+  | 'atomic'
+  | 'ms'
+  | 'kinetics';
+
+export type ModuleGroup = 'basics' | 'data' | 'equilibria' | 'instrumental' | 'separations' | 'other';
 
 export interface VariableDef {
   key: string;
@@ -133,4 +151,5 @@ export interface ModuleDef {
   color: string;
   /** Short glyph shown on the module tile. */
   glyph: string;
+  group: ModuleGroup;
 }

@@ -4,6 +4,18 @@
 > taranmasıyla hazırlanmıştır. Her eşitliğin yanında kaynak kitap ve bölüm/denklem
 > numarası verilmiştir; uygulamadaki her kartın "Kaynak" alanı buradan doldurulabilir.
 
+
+## Uygulama durumu
+
+| Sürüm | Modüller | Durum |
+|---|---|---|
+| v1 | Derişim, Hacimsel analiz, İstatistik, Kalibrasyon, Asit–baz, Gravimetri, Spektroskopi (temel), Araçlar | Tamamlandı |
+| v2 | Denge ve aktivite, Titrasyon eğrileri, Elektrokimya, Ekstraksiyon, Kromatografi | Tamamlandı |
+| v3 | Kalite güvencesi, Örnekleme, Atomik spektroskopi ve X-ışınları, Kütle spektrometrisi, Kinetik/radyokimya/termal, Spektroskopi (kalan eşitlikler) | Tamamlandı |
+| — | Modül 18 (Kemometri) | Planlandığı gibi ayrı modül olarak eklenmedi; çok bileşenli en küçük kareler (CLS) Spektroskopi modülünde yer alıyor |
+
+Toplam: 18 modül, 214 araç (169 eşitlik hesaplayıcısı, 45 veri/grafik/tablo aracı).
+
 ---
 
 ## 1. Kaynak kitaplar ve gerçek içerikleri

@@ -1,5 +1,7 @@
 import type { Lang } from './types';
 
+const SUP_TO_ASCII: Record<string, string> = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁻': '-', '⁺': '+' };
+
 const SUP: Record<string, string> = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
 
 /**
@@ -31,7 +33,12 @@ function trimZeros(s: string): string {
  * e.g. "1,8e-5", "1.8E-5", "1,8×10^-5", "1.8x10-5".
  */
 export function parseNumber(raw: string): number {
-  let s = raw.trim().replace(/\s+/g, '').replace(/−/g, '-');
+  let s = raw
+    .trim()
+    .replace(/\s+/g, '')
+    .replace(/−/g, '-')
+    // Accept our own display format "1,23 × 10⁻⁵" (superscript exponent).
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]/g, (c) => SUP_TO_ASCII[c]);
   if (!s) return NaN;
   s = s.replace(/[×xX*]10\^?/, 'e');
   // A comma is a decimal separator unless a point is also present (then it is a thousands separator).

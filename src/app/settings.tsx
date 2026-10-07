@@ -30,7 +30,7 @@ export default function Settings() {
         <Card>
           <SectionTitle color={palette.navy}>{t('about')}</SectionTitle>
           <Text style={{ fontSize: 15, lineHeight: 22, color: colors.text }}>{t('aboutText')}</Text>
-          <Text style={{ fontSize: 13, color: colors.textMuted }}>{`${ALL_TOOLS.length} ${t('tools')} · v2.0`}</Text>
+          <Text style={{ fontSize: 13, color: colors.textMuted }}>{`${ALL_TOOLS.length} ${t('tools')} · v3.0`}</Text>
         </Card>
         <Card>
           <SectionTitle color={palette.navy}>{t('sources')}</SectionTitle>
