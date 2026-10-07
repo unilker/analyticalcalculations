@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Analitik Kimya Hesaplayıcı",
-    "slug": "analitik-kimya-hesaplayici",
+    "slug": "analitik-kimya",
     "version": "3.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -33,6 +33,12 @@
     "scheme": "analitikkimya",
     "experiments": {
       "typedRoutes": true
+    },
+    "owner": "unilkers-team",
+    "extra": {
+      "eas": {
+        "projectId": "d38d3808-5a97-467c-bc42-3f5ba3429916"
+      }
     }
   }
 }
