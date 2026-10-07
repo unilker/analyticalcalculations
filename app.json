@@ -7,9 +7,11 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "net.kimyager.analitikkimya"
     },
     "android": {
+      "package": "net.kimyager.analitikkimya",
       "adaptiveIcon": {
         "backgroundColor": "#154377",
         "foregroundImage": "./assets/android-icon-foreground.png",

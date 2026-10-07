@@ -59,6 +59,18 @@ npx expo start        # QR kodu Expo Go ile okutun (Android/iOS)
 npx expo start --web  # tarayıcıda
 ```
 
+### Android APK (bağımsız kurulum)
+
+Paket adı: `net.kimyager.analitikkimya`. Derleme EAS bulut sunucularında yapılır (ücretsiz expo.dev hesabı gerekir):
+
+```bash
+npx eas-cli@latest login
+npx eas-cli@latest build -p android --profile preview   # telefona kurulabilir .apk
+```
+
+Derleme bitince verilen bağlantıyı telefonda açıp APK'yı indirin ve kurun. `production` profili Google Play
+için `.aab` üretir.
+
 ## Geliştirme
 
 ```bash
