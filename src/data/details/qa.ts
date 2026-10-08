@@ -590,16 +590,16 @@ export const QA_DETAILS: Record<string, ToolDetail> = {
     },
     solution: {
       tr: [
-        'Verilen (NaOH’ın KHP ile standartlaştırılması, c = m·P / (M·V)): m = 0,3888 g (u = 0,00013 g); P = 1,0000 (u = 0,00029); M = 204,2212 g/mol (u = 0,0038 g/mol); V = 18,64 mL (u = 0,013 mL); c = 0,10214 mol/L.',
-        'Bağıl standart belirsizlikler: m 3,34 × 10⁻⁴; P 2,90 × 10⁻⁴; M 1,86 × 10⁻⁵; V 6,97 × 10⁻⁴.',
-        'u_c/c = √(3,34² + 2,90² + 0,186² + 6,97²) × 10⁻⁴ = 8,26 × 10⁻⁴ (%0,0826). Varyansa katkılar: V %71,3; m %16,4; P %12,3; M %0,05. Baskın bileşen büret hacmidir.',
-        'Sonuç: U/c = 2 × %0,0826 = %0,165; U = 0,10214 × 0,00165 = 0,00017 mol/L → c = 0,10214 ± 0,00017 mol/L (k = 2).',
+        'Verilen (NaOH’ın KHP ile standartlaştırılması, c = m·P / (M·V)): m = 0,3888 g (u = 0,00013 g); P = 1,0000 (u = 0,00029); M = 204,2212 g/mol (u = 0,0038 g/mol); V = 18,64 mL (u = 0,013 mL); tekrarlanabilirlik (bağıl) 0,0005; c = 0,10214 mol/L.',
+        'Bağıl standart belirsizlikler: m 3,34 × 10⁻⁴; P 2,90 × 10⁻⁴; M 1,86 × 10⁻⁵; V 6,97 × 10⁻⁴; tekrarlanabilirlik 5,00 × 10⁻⁴.',
+        'u_c/c = √(3,34² + 2,90² + 0,186² + 6,97² + 5,00²) × 10⁻⁴ = 9,66 × 10⁻⁴ (%0,0966). Varyansa katkılar: V %52,2; tekrarlanabilirlik %26,8; m %12,0; P %9,0; M %0,04. Baskın bileşenler büret hacmi ve tekrarlanabilirliktir.',
+        'Sonuç: U/c = 2 × %0,0966 = %0,193; U = 0,10214 × 0,00193 = 0,00020 mol/L → c = 0,10214 ± 0,00020 mol/L (k = 2).',
       ],
       en: [
-        'Given (standardising NaOH with KHP, c = m·P / (M·V)): m = 0.3888 g (u = 0.00013 g); P = 1.0000 (u = 0.00029); M = 204.2212 g/mol (u = 0.0038 g/mol); V = 18.64 mL (u = 0.013 mL); c = 0.10214 mol/L.',
-        'Relative standard uncertainties: m 3.34 × 10⁻⁴; P 2.90 × 10⁻⁴; M 1.86 × 10⁻⁵; V 6.97 × 10⁻⁴.',
-        'u_c/c = √(3.34² + 2.90² + 0.186² + 6.97²) × 10⁻⁴ = 8.26 × 10⁻⁴ (0.0826%). Shares of the variance: V 71.3%; m 16.4%; P 12.3%; M 0.05%. The burette volume dominates.',
-        'Result: U/c = 2 × 0.0826% = 0.165%; U = 0.10214 × 0.00165 = 0.00017 mol/L → c = 0.10214 ± 0.00017 mol/L (k = 2).',
+        'Given (standardising NaOH with KHP, c = m·P / (M·V)): m = 0.3888 g (u = 0.00013 g); P = 1.0000 (u = 0.00029); M = 204.2212 g/mol (u = 0.0038 g/mol); V = 18.64 mL (u = 0.013 mL); repeatability (relative) 0.0005; c = 0.10214 mol/L.',
+        'Relative standard uncertainties: m 3.34 × 10⁻⁴; P 2.90 × 10⁻⁴; M 1.86 × 10⁻⁵; V 6.97 × 10⁻⁴; repeatability 5.00 × 10⁻⁴.',
+        'u_c/c = √(3.34² + 2.90² + 0.186² + 6.97² + 5.00²) × 10⁻⁴ = 9.66 × 10⁻⁴ (0.0966%). Shares of the variance: V 52.2%; repeatability 26.8%; m 12.0%; P 9.0%; M 0.04%. The burette volume and the repeatability dominate.',
+        'Result: U/c = 2 × 0.0966% = 0.193%; U = 0.10214 × 0.00193 = 0.00020 mol/L → c = 0.10214 ± 0.00020 mol/L (k = 2).',
       ],
     },
     mistakes: {
@@ -644,13 +644,13 @@ export const QA_DETAILS: Record<string, ToolDetail> = {
       tr: [
         'Verilen: 19 kontrol sonucu (10,02; 9,98; … ; 10,08), merkez çizgi 10,00, s = 0,04 (geçmiş veriden).',
         'Sınırlar: uyarı 10,00 ± 2 × 0,04 → 9,92–10,08; eylem 10,00 ± 3 × 0,04 → 9,88–10,12.',
-        '12. ölçüm (10,21) eylem sınırının (10,12) üstünde → kontrol dışı. 11. ölçümden itibaren tüm sonuçlar merkezin üstünde: 17. ölçümde 7 ardışık nokta kuralı tetiklenir (18 ve 19’da sürer). Ayrıca 10,21 ve 10,09 uyarı sınırının üstünde, 10,08 değerleri ise tam sınırda olduğundan araç 14. ve 19. ölçümleri “3 noktadan 2’si” kuralıyla da işaretler.',
+        '12. ölçüm (10,21) eylem sınırının (10,12) üstünde → kontrol dışı. 11. ölçümden itibaren tüm sonuçlar merkezin üstünde: 17. ölçümde 7 ardışık nokta kuralı tetiklenir (18 ve 19’da sürer). Uyarı sınırının dışında yalnızca 10,21 ve 10,09 vardır (10,08 değerleri sınırın üzerindedir, dışında değil) ve ardışık üç ölçümde bunlardan ikisi bulunmadığından “3 noktadan 2’si” kuralı tetiklenmez.',
         'Sonuç: süreç kontrol dışıdır; tek bir uç değerin ardından yukarı yönlü kalıcı bir kayma (sistematik hata) görülür. Neden (ör. yeni standart, kalibrasyon kayması) bulunup giderilmeden bu serilerin sonuçları raporlanmamalıdır.',
       ],
       en: [
         'Given: 19 control results (10.02, 9.98, …, 10.08), centre line 10.00, s = 0.04 (from historical data).',
         'Limits: warning 10.00 ± 2 × 0.04 → 9.92–10.08; action 10.00 ± 3 × 0.04 → 9.88–10.12.',
-        'Run 12 (10.21) is above the action limit (10.12) → out of control. From run 11 on every result lies above the centre: at run 17 the seven-in-a-row rule fires (and continues at 18 and 19). In addition 10.21 and 10.09 are above the warning limit and the 10.08 values sit right on it, so the tool also flags runs 14 and 19 under the “2 of 3” rule.',
+        'Run 12 (10.21) is above the action limit (10.12) → out of control. From run 11 on every result lies above the centre: at run 17 the seven-in-a-row rule fires (and continues at 18 and 19). Only 10.21 and 10.09 are beyond the warning limit (the 10.08 values lie on it, not beyond it), and no three consecutive runs contain two of them, so the “2 of 3” rule is not triggered.',
         'Result: the process is out of control; a single outlier is followed by a persistent upward shift (systematic error). The cause (e.g. a new standard, calibration drift) must be found and removed before these runs are reported.',
       ],
     },

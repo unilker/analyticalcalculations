@@ -184,20 +184,20 @@ export const SAMPLING_DETAILS: Record<string, ToolDetail> = {
     solution: {
       tr: [
         'Verilen (aracın örnek değerleri): s_s = %2,0, izin verilen hata e = %0,80, %95 güven.',
-        'İlk tahmin z ile: n = (1,960 × 2,0 / 0,80)² = 24,0 → 24.',
-        't(23) = 2,069 ile n = 26,7 → 27; t(26) = 2,056 ile n = 26,4 → 26; t(25) = 2,060 ile tekrar 27 çıkar.',
-        'Sonuç: değerler 26 ile 27 arasında gidip geldiği için büyük olan alınır: 27 numune.',
+        'İlk tahmin z ile: n = (1,960 × 2,0 / 0,80)² = 24,01 → 25 (n her zaman yukarı yuvarlanır).',
+        't(24) = 2,064 ile n = 26,6 → 27; t(26) = 2,056 ile n = 26,4 → 27. Değer değişmediği için iterasyon biter.',
+        'Sonuç: 27 numune.',
       ],
       en: [
         'Given (the tool’s sample values): s_s = 2.0%, allowed error e = 0.80%, 95% confidence.',
-        'First estimate with z: n = (1.960 × 2.0 / 0.80)² = 24.0 → 24.',
-        'With t(23) = 2.069, n = 26.7 → 27; with t(26) = 2.056, n = 26.4 → 26; with t(25) = 2.060 it is 27 again.',
-        'Result: since the values alternate between 26 and 27, the larger is taken: 27 samples.',
+        'First estimate with z: n = (1.960 × 2.0 / 0.80)² = 24.01 → 25 (n is always rounded up).',
+        'With t(24) = 2.064, n = 26.6 → 27; with t(26) = 2.056, n = 26.4 → 27. The value no longer changes, so the iteration stops.',
+        'Result: 27 samples.',
       ],
     },
     mistakes: {
-      tr: ['İterasyonu ilk z tahmininde bırakmak (24 numune, gerekenden az).', 's_s ile e’yi farklı birimlerde girmek.', 'Sonucu aşağı yuvarlamak.'],
-      en: ['Stopping at the first z estimate (24 samples, fewer than needed).', 'Entering s_s and e in different units.', 'Rounding the result down.'],
+      tr: ['İterasyonu ilk z tahmininde bırakmak (25 numune, gerekenden az).', 's_s ile e’yi farklı birimlerde girmek.', 'Sonucu aşağı yuvarlamak.'],
+      en: ['Stopping at the first z estimate (25 samples, fewer than needed).', 'Entering s_s and e in different units.', 'Rounding the result down.'],
     },
     related: ['sampling-variance', 'ingamells', 'descriptive'],
   },

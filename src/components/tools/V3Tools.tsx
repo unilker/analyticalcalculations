@@ -26,9 +26,10 @@ export function UncertaintyBudgetTool({ color }: ToolProps) {
   const L = useL();
   const [rows, setRows] = useState([
     { name: 'm (KHP, g)', value: '0.3888', u: '0.00013' },
-    { name: 'P (saflık)', value: '1.0000', u: '0.00029' },
+    { name: L('P (saflık)', 'P (purity)'), value: '1.0000', u: '0.00029' },
     { name: 'M (KHP, g/mol)', value: '204.2212', u: '0.0038' },
     { name: 'V (NaOH, mL)', value: '18.64', u: '0.013' },
+    { name: L('Tekrarlanabilirlik (bağıl)', 'Repeatability (relative)'), value: '1', u: '0.0005' },
   ]);
   const [result, setResult] = useState('0.10214');
   const [k, setK] = useState('2');
@@ -155,7 +156,7 @@ export function ControlChartTool({ color }: ToolProps) {
 // ---------------- Youden ruggedness ----------------
 
 const FACTORS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-const YOUDEN_LETTERS = ['l', 'm', 'p', 'w', 'v', 'x', 'y', 'z'];
+const YOUDEN_LETTERS = ['s', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 export function YoudenTool({ color }: ToolProps) {
   const { fmt } = useApp();

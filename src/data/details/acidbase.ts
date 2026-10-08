@@ -596,13 +596,13 @@ export const ACIDBASE_DETAILS: Record<string, ToolDetail> = {
         'Verilen (aracın varsayılan değeri): pH = 7,40.',
         'pOH = 14,00 − 7,40 = 6,60.',
         '[H⁺] = 10^(−7,40) = 3,981 × 10⁻⁸ M; [OH⁻] = Kw / [H⁺] = 1,0 × 10⁻¹⁴ / 3,981 × 10⁻⁸ = 2,512 × 10⁻⁷ M.',
-        'Sonuç: pOH = 6,6, [H⁺] = 3,981 × 10⁻⁸ M, [OH⁻] = 2,512 × 10⁻⁷ M (iki anlamlı rakamla 4,0 × 10⁻⁸ M ve 2,5 × 10⁻⁷ M).',
+        'Sonuç: pOH = 6,60, [H⁺] = 3,981 × 10⁻⁸ M, [OH⁻] = 2,512 × 10⁻⁷ M (iki anlamlı rakamla 4,0 × 10⁻⁸ M ve 2,5 × 10⁻⁷ M).',
       ],
       en: [
         'Given (the tool’s default value): pH = 7.40.',
         'pOH = 14.00 − 7.40 = 6.60.',
         '[H⁺] = 10^(−7.40) = 3.981 × 10⁻⁸ M; [OH⁻] = Kw / [H⁺] = 1.0 × 10⁻¹⁴ / 3.981 × 10⁻⁸ = 2.512 × 10⁻⁷ M.',
-        'Result: pOH = 6.6, [H⁺] = 3.981 × 10⁻⁸ M, [OH⁻] = 2.512 × 10⁻⁷ M (to two significant figures 4.0 × 10⁻⁸ M and 2.5 × 10⁻⁷ M).',
+        'Result: pOH = 6.60, [H⁺] = 3.981 × 10⁻⁸ M, [OH⁻] = 2.512 × 10⁻⁷ M (to two significant figures 4.0 × 10⁻⁸ M and 2.5 × 10⁻⁷ M).',
       ],
     },
     mistakes: {

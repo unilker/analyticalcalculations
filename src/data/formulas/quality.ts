@@ -98,8 +98,8 @@ export const QA_FORMULAS: FormulaDef[] = [
     module: 'qa',
     name: l('B tipi standart belirsizlik', 'Type B standard uncertainty'),
     purpose: l(
-      'Sertifika ya da tolerans olarak ±a verilen bir değeri standart belirsizliğe çevirir: dikdörtgen dağılımda k = √3, üçgen dağılımda k = √6 (ör. cam malzeme toleransı).',
-      'Converts a value quoted as ±a (certificate or tolerance) into a standard uncertainty: k = √3 for a rectangular and √6 for a triangular distribution (e.g. glassware tolerance).',
+      'Sertifika ya da tolerans olarak ±a verilen bir değeri standart belirsizliğe çevirir: dikdörtgen dağılımda a √3’e, üçgen dağılımda √6’ya bölünür; k alanına 3 ya da 6 girin (ör. cam malzeme toleransı). Buradaki k, genişletilmiş belirsizlikteki kapsam faktörü değildir.',
+      'Converts a value quoted as ±a (certificate or tolerance) into a standard uncertainty: divide a by √3 for a rectangular and by √6 for a triangular distribution; enter 3 or 6 as k (e.g. glassware tolerance). This k is not the coverage factor of the expanded uncertainty.',
     ),
     formula: l('u = a / √k   (dikdörtgen: k = 3, üçgen: k = 6)', 'u = a / √k   (rectangular: k = 3, triangular: k = 6)'),
     variables: [pos('u', 'u', 'Standart belirsizlik', 'Standard uncertainty'), pos('a', 'a', 'Yarı genişlik (±a)', 'Half-width (±a)'), pos('k', 'k', 'Dağılım çarpanı (3 veya 6)', 'Distribution factor (3 or 6)', { defaultValue: 3 })],
@@ -194,8 +194,8 @@ export const SAMPLING_FORMULAS: FormulaDef[] = [
     module: 'sampling',
     name: l('Toplam varyans: örnekleme + analiz', 'Total variance: sampling + analysis'),
     purpose: l(
-      'Toplam varyansı örnekleme ve analiz bileşenlerine ayırır. Analiz varyansı örnekleme varyansının yaklaşık üçte birinin altındaysa yöntemi iyileştirmek toplam belirsizliği pek azaltmaz.',
-      'Splits the overall variance into sampling and analysis contributions. If the analytical variance is below about a third of the sampling variance, improving the method barely reduces the total.',
+      'Toplam varyansı örnekleme ve analiz bileşenlerine ayırır. Analiz standart sapması örnekleme standart sapmasının yaklaşık üçte birinin altındaysa (s_a < s_s/3) yöntemi iyileştirmek toplam belirsizliği pek azaltmaz.',
+      'Splits the overall variance into sampling and analysis contributions. If the analytical standard deviation is below about a third of the sampling standard deviation (s_a < s_s/3), improving the method barely reduces the total.',
     ),
     formula: 's_o² = s_s² + s_a²',
     variables: [pos('so', 's_o', 'Toplam standart sapma', 'Overall std. deviation'), pos('ss', 's_s', 'Örnekleme standart sapması', 'Sampling std. deviation'), pos('sa', 's_a', 'Analiz standart sapması', 'Analytical std. deviation')],

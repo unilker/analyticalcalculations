@@ -50,7 +50,7 @@ export const KINETICS_FORMULAS: FormulaDef[] = [
   formula({
     id: 'second-order',
     module: 'kinetics',
-    name: l('İkinci derece hız yasası (2A → P)', 'Second-order rate law (2A → P)'),
+    name: l('İkinci derece hız yasası (−d[A]/dt = k[A]²)', 'Second-order rate law (−d[A]/dt = k[A]²)'),
     purpose: l('İkinci derece tepkimede 1/[A] zamanla doğrusal artar; yarılanma süresi başlangıç derişimine bağlıdır (t½ = 1/(k[A]₀)).', 'For a second-order reaction 1/[A] increases linearly with time; the half-life depends on the initial concentration (t½ = 1/(k[A]₀)).'),
     formula: '1/[A] = 1/[A]₀ + k·t',
     variables: [

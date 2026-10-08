@@ -322,14 +322,14 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
       en: 'Tabulated equilibrium constants are usually thermodynamic constants (K°), defined with activities and corresponding to infinite dilution. In the laboratory, however, we often work in salt-containing solutions and want to calculate with concentrations. The constant written with concentrations (Kc) depends on ionic strength.\n\nAs an inert salt (e.g. KNO₃) is added, activity coefficients fall. More ions are then needed to reach the same activity product, so weak acids dissociate more and sparingly soluble salts become more soluble. This is called the diverse-ion (inert-salt) effect.',
     },
     meaning: {
-      tr: 'HA ⇌ H⁺ + A⁻ için: K° = a(H⁺)·a(A⁻) / a(HA) = (γ₊[H⁺]·γ₋[A⁻]) / (γ_HA[HA]).\n\nYüksüz HA için γ_HA ≈ 1 alınırsa K° = Kc · γ₊ · γ₋ olur, buradan Kc = K° / (γ₊ · γ₋). AgCl ⇌ Ag⁺ + Cl⁻ için de katının aktivitesi 1 olduğundan aynı ifade geçerlidir.\n\n• γ < 1 olduğundan her zaman Kc > K°’dir.\n• İyonik şiddet arttıkça γ’lar küçülür ve Kc büyür.\n• pKc = pK° + log γ₊ + log γ₋; yani pKc, pK°’den küçüktür.',
-      en: 'For HA ⇌ H⁺ + A⁻: K° = a(H⁺)·a(A⁻) / a(HA) = (γ₊[H⁺]·γ₋[A⁻]) / (γ_HA[HA]).\n\nTaking γ_HA ≈ 1 for the neutral HA gives K° = Kc · γ₊ · γ₋, so Kc = K° / (γ₊ · γ₋). The same expression holds for AgCl ⇌ Ag⁺ + Cl⁻ because the activity of the solid is 1.\n\n• Since γ < 1, Kc > K° always.\n• As ionic strength increases the γ values fall and Kc rises.\n• pKc = pK° + log γ₊ + log γ₋, so pKc is smaller than pK°.',
+      tr: 'HA ⇌ H⁺ + A⁻ için: K° = a(H⁺)·a(A⁻) / a(HA) = (γ₊[H⁺]·γ₋[A⁻]) / (γ_HA[HA]).\n\nYüksüz HA için γ_HA ≈ 1 alınırsa K° = Kc · γ₊ · γ₋ olur, buradan Kc = K° / (γ₊ · γ₋). AgCl ⇌ Ag⁺ + Cl⁻ için de katının aktivitesi 1 olduğundan aynı ifade geçerlidir.\n\n• Seyreltik ve orta iyonik şiddette (μ ≲ 0,5 M) γ < 1 olduğundan Kc > K°’dir.\n• İyonik şiddet arttıkça γ’lar küçülür ve Kc büyür.\n• pKc = pK° + log γ₊ + log γ₋; yani bu aralıkta pKc, pK°’den küçüktür.',
+      en: 'For HA ⇌ H⁺ + A⁻: K° = a(H⁺)·a(A⁻) / a(HA) = (γ₊[H⁺]·γ₋[A⁻]) / (γ_HA[HA]).\n\nTaking γ_HA ≈ 1 for the neutral HA gives K° = Kc · γ₊ · γ₋, so Kc = K° / (γ₊ · γ₋). The same expression holds for AgCl ⇌ Ag⁺ + Cl⁻ because the activity of the solid is 1.\n\n• At low and moderate ionic strength (μ ≲ 0.5 M) γ < 1, so Kc > K°.\n• As ionic strength increases the γ values fall and Kc rises.\n• pKc = pK° + log γ₊ + log γ₋, so in this range pKc is smaller than pK°.',
     },
     usage: {
       tr: [
         'Belirli iyonik şiddetteki bir çözeltide derişimlerle doğru denge hesabı yapmak.',
         'Önce μ’yü, sonra γ₊ ve γ₋’yi (Debye–Hückel ya da Davies ile) bulun, ardından bu aracı kullanın.',
-        'Yalnızca iki tek iyon veren tepkimeler içindir; MA₂ gibi tuzlarda γ’ların üsleri farklıdır.',
+        'Yalnızca iki iyon veren (giren türü yüksüz ya da katı olan) tepkimeler içindir; MA₂ gibi tuzlarda γ’ların üsleri farklıdır.',
         'Yüksüz türün γ’sı yüksek iyonik şiddette 1’den sapabilir.',
       ],
       en: [
@@ -379,13 +379,13 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
     },
     usage: {
       tr: [
-        'AgCl, BaSO₄ gibi 1:1 tuzların inert elektrolit içindeki çözünürlüğünü hesaplamak.',
+        'AgCl (z = 1) ya da BaSO₄ (z = 2; γ’lar iki yüklü iyonlar için alınmalı) gibi MA tipi tuzların inert elektrolit içindeki çözünürlüğünü hesaplamak.',
         'Gravimetride çökelek kaybını ve yıkama sıvısının etkisini değerlendirmek.',
         'Formül yalnızca 1:1 tuzlar ve ortak iyonun bulunmadığı durum içindir; ortak iyon varsa onun derişimi ayrıca hesaba katılmalıdır.',
         'Katyon ya da anyonun asit–baz veya kompleksleşme tepkimesi varsa çözünürlük ayrıca pH’a ve ligandlara bağlıdır.',
       ],
       en: [
-        'Solubility of 1:1 salts such as AgCl or BaSO₄ in an inert electrolyte.',
+        'Solubility of MA-type salts such as AgCl (z = 1) or BaSO₄ (z = 2; use γ for doubly charged ions) in an inert electrolyte.',
         'Assessing precipitate losses and the effect of the wash liquid in gravimetry.',
         'Valid only for 1:1 salts without a common ion; a common ion must be included separately.',
         'If the cation or anion takes part in acid–base or complexation reactions, solubility also depends on pH and ligands.',

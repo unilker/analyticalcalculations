@@ -569,7 +569,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
       'Yedi yöntem parametresinin sonuca etkisini sekiz deneyle (Plackett–Burman tasarımı) inceler; |Δ| > t·s/√2 olan etkileri önemli olarak işaretler.',
       'Examines the effect of seven method parameters with eight experiments (Plackett–Burman design); flags effects with |Δ| > t·s/√2 as significant.',
     ),
-    formula: 'Δ_A = (l+m+p+w)/4 − (v+x+y+z)/4;  |Δ| > t·s/√2',
+    formula: 'Δ_A = (s+t+u+v)/4 − (w+x+y+z)/4;  |Δ| > t·s/√2',
     sources: ['[P] 4.15–4.17', '[H] 14.2'],
     keywords: ['Youden', 'sağlamlık', 'ruggedness', 'robustness', 'Plackett-Burman', 'doğrulama'],
   }),

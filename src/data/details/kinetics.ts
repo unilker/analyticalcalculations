@@ -383,7 +383,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     usage: {
       tr: [
         'Ölçülen aktiviteden radyoizotopun mol ya da atom sayısını bulmak.',
-        'Bilinen bir miktarın beklenen aktivitesini ya da özgül aktivitesinini hesaplamak.',
+        'Bilinen bir miktarın beklenen aktivitesini ya da özgül aktivitesini hesaplamak.',
         'Bilinen miktar ve ölçülen aktiviteden çok uzun bir yarılanma süresini tahmin etmek.',
         'A, dedektörde sayılan değil gerçek bozunma hızıdır; sayım hızı önce dedektör verimiyle düzeltilmelidir.',
       ],

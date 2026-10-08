@@ -70,12 +70,15 @@ export function controlChart(x: number[], center?: number, s?: number): ControlC
   const c = center ?? mean(x);
   const sd = s ?? stdev(x);
   const violations: ControlChart['violations'] = [];
+  // A point lying on a limit is not beyond it; the tolerance absorbs rounding (10.08 − 10.00 = 0.08000000000000007).
+  const eps = 1e-9 * sd;
+  const beyond2 = (v: number, side: number) => side * (v - c) > 2 * sd + eps;
   x.forEach((xi, i) => {
-    if (Math.abs(xi - c) > 3 * sd) violations.push({ index: i, rule: '3s' });
+    if (Math.abs(xi - c) > 3 * sd + eps) violations.push({ index: i, rule: '3s' });
     if (i >= 2) {
       const win = x.slice(i - 2, i + 1);
       for (const side of [1, -1]) {
-        if (win.filter((w) => side * (w - c) > 2 * sd).length >= 2 && side * (xi - c) > 2 * sd) violations.push({ index: i, rule: '2of3' });
+        if (win.filter((w) => beyond2(w, side)).length >= 2 && beyond2(xi, side)) violations.push({ index: i, rule: '2of3' });
       }
     }
     if (i >= 6) {
@@ -115,10 +118,11 @@ export function screening(tp: number, fp: number, tn: number, fn: number): Scree
  */
 export function samplesNeeded(s: number, e: number, conf: number): { n: number; iterations: number[] } {
   const iterations: number[] = [];
-  let n = Math.max(2, Math.round((zCritical(conf) * s / e) ** 2));
+  // Always round up: rounding down would leave the sampling error slightly above e.
+  let n = Math.max(2, Math.ceil((zCritical(conf) * s / e) ** 2 - 1e-9));
   iterations.push(n);
   for (let i = 0; i < 50; i++) {
-    const next = Math.max(2, Math.round((tCritical(conf, n - 1) * s / e) ** 2));
+    const next = Math.max(2, Math.ceil((tCritical(conf, n - 1) * s / e) ** 2 - 1e-9));
     if (next === n) break;
     if (iterations.includes(next)) {
       // The iteration oscillates between neighbouring values; keep the larger (conservative) one.

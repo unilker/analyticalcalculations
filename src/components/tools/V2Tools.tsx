@@ -41,6 +41,12 @@ export function IonicStrengthTool({ color }: ToolProps) {
   const rows = parseTable(raw).filter((r) => r[0] >= 0 && r[1] !== 0);
   const ions = rows.map((r) => ({ c: r[0], z: r[1], alpha: r[2] }));
   const mu = ionicStrength(ions);
+  // Validity limits (25 °C): limiting law µ < 0.01 M, extended Debye–Hückel µ < 0.1 M, Davies µ ≲ 0.5 M.
+  const outLim = mu > 0.01;
+  const outExt = mu > 0.1;
+  const outDav = mu > 0.5;
+  const mark = (text: string, out: boolean) => (out ? `${text}*` : text);
+  const outNames = [outLim && L('sınır yasası', 'limiting law'), outExt && L('genişletilmiş Debye–Hückel', 'extended Debye–Hückel'), outDav && 'Davies'].filter(Boolean).join(', ');
   return (
     <View style={{ gap: 14 }}>
       <DataCard
@@ -69,13 +75,22 @@ export function IonicStrengthTool({ color }: ToolProps) {
                 flex={[1.2, 1, 1, 1]}
                 cells={[
                   `${i.z > 0 ? '+' : ''}${i.z}${i.alpha ? ` (${i.alpha})` : ''}`,
-                  fmt(10 ** logGammaLimiting(i.z, mu)),
-                  i.alpha ? fmt(10 ** logGammaExtended(i.z, mu, i.alpha)) : '—',
-                  fmt(10 ** logGammaDavies(i.z, mu)),
+                  mark(fmt(10 ** logGammaLimiting(i.z, mu)), outLim),
+                  i.alpha ? mark(fmt(10 ** logGammaExtended(i.z, mu, i.alpha)), outExt) : '—',
+                  mark(fmt(10 ** logGammaDavies(i.z, mu)), outDav),
                 ]}
               />
             ))}
           </Card>
+          {outNames ? (
+            <Notice
+              tone="error"
+              text={L(
+                `* µ = ${fmt(mu)} M bu eşitliklerin geçerlilik aralığının dışında: ${outNames}. Bu sütunlardaki γ değerleri güvenilir değildir; aralığı uygun olan eşitliği kullanın.`,
+                `* µ = ${fmt(mu)} M is outside the validity range of: ${outNames}. The γ values in these columns are not reliable; use an equation valid at this µ.`,
+              )}
+            />
+          ) : null}
           <Notice
             text={L(
               'Sınır yasası µ < 0,01 M, genişletilmiş Debye–Hückel µ < 0,1 M, Davies µ ≲ 0,5 M için uygundur (25 °C).',
@@ -169,12 +184,15 @@ export function CraigTool({ color }: ToolProps) {
       <Card>
         <View style={{ flexDirection: 'row', gap: 8 }}>
           {fld('n', L('Transfer sayısı n', 'Transfers n'))}
-          {fld('r', 'V_üst / V_alt')}
+          {fld('r', L('V_üst / V_alt', 'V_upper / V_lower'))}
         </View>
         <View style={{ flexDirection: 'row', gap: 8 }}>
           {fld('d1', L('1. maddenin D değeri', 'D of solute 1'))}
           {fld('d2', L('2. maddenin D değeri', 'D of solute 2'))}
         </View>
+        <Text style={{ fontSize: 12, color: colors.textMuted }}>
+          {L('D = C_üst / C_alt (hareketli faz / sabit faz); üst faz her transferde bir sonraki tüpe aktarılır.', 'D = C_upper / C_lower (mobile / stationary phase); the upper phase moves to the next tube at each transfer.')}
+        </Text>
       </Card>
       {ok ? (
         <>

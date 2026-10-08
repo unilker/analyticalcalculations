@@ -7,7 +7,7 @@ const near = (a: number, b: number, tol: number) => expect(Math.abs(a - b)).toBe
 
 describe('quality assurance', () => {
   it('Youden effects follow Prichard Eq. 4.15–4.16', () => {
-    const r = [10, 11, 12, 13, 14, 15, 16, 17]; // l m p w v x y z
+    const r = [10, 11, 12, 13, 14, 15, 16, 17]; // s t u v w x y z
     const e = youdenEffects(r);
     near(e[0], (10 + 11 + 12 + 13) / 4 - (14 + 15 + 16 + 17) / 4, 1e-12); // A
     near(e[1], (10 + 11 + 14 + 15) / 4 - (12 + 13 + 16 + 17) / 4, 1e-12); // B
@@ -165,5 +165,20 @@ describe('audit regressions (solubility)', () => {
     expect(pureWaterSolubility(5.5e-6, 1, 2, true) / (5.5e-6 / 4) ** (1 / 3)).toBeCloseTo(1, 6);
     // non-hydroxide: simple formula
     expect(pureWaterSolubility(1.8e-10, 1, 1, false)).toBeCloseTo(Math.sqrt(1.8e-10), 12);
+  });
+});
+
+describe('audit regressions (QA)', () => {
+  it('a point on the warning limit is not beyond it', () => {
+    expect(controlChart([10, 10, 10.08, 10.08, 10], 10, 0.04).violations).toEqual([]);
+    expect(controlChart([10, 10, 9.92, 9.92, 10], 10, 0.04).violations).toEqual([]);
+    expect(controlChart([10, 10, 10.09, 10.09, 10], 10, 0.04).violations.map((v) => v.rule)).toEqual(['2of3']);
+  });
+  it('default control-chart data: action limit at run 12, run of seven from run 17, no 2-of-3', () => {
+    const x = [10.02, 9.98, 10.05, 9.97, 10.01, 10.03, 9.96, 10.0, 10.04, 9.99, 10.02, 10.21, 10.06, 10.08, 10.07, 10.05, 10.09, 10.06, 10.08];
+    const v = controlChart(x, 10, 0.04).violations;
+    expect(v.filter((r) => r.rule === '3s').map((r) => r.index + 1)).toEqual([12]);
+    expect(v.filter((r) => r.rule === 'run7').map((r) => r.index + 1)).toEqual([17, 18, 19]);
+    expect(v.filter((r) => r.rule === '2of3')).toEqual([]);
   });
 });
