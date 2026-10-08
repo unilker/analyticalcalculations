@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Text, View } from 'react-native';
 
+import { parseList, unreadTokens } from '../../core/format';
 import type { Lang } from '../../core/types';
 import { useApp } from '../../i18n/AppSettings';
 import { colors } from '../../theme/colors';
@@ -43,12 +44,23 @@ export function DataCard({
   rows?: number;
   children?: ReactNode;
 }) {
-  const { t } = useApp();
+  const { t, lang } = useApp();
+  const unread = unreadTokens(value);
   return (
     <Card>
       <SectionTitle color={color}>{title}</SectionTitle>
       <TextArea value={value} onChangeText={onChange} rows={rows} />
-      <Text style={{ fontSize: 12, color: colors.textMuted }}>{hint ?? t('dataHintList')}</Text>
+      <Text style={{ fontSize: 12, color: colors.textMuted }}>
+        {hint ?? t('dataHintList')}
+        {hint ? '' : ` (n = ${parseList(value).length})`}
+      </Text>
+      {unread.length > 0 && (
+        <Text style={{ fontSize: 13, fontWeight: '700', color: colors.danger }}>
+          {lang === 'tr'
+            ? `Okunamayan ve hesaba katılmayan giriş: ${unread.slice(0, 5).join('  ')}${unread.length > 5 ? ' …' : ''}`
+            : `Not a number, left out of the calculation: ${unread.slice(0, 5).join('  ')}${unread.length > 5 ? ' …' : ''}`}
+        </Text>
+      )}
       {children}
     </Card>
   );

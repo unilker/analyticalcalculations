@@ -1,5 +1,5 @@
 import { alphaFractions, speciesLabels } from '../core/acidBase';
-import { formatNumber, parseList, parseNumber, parseTable } from '../core/format';
+import { formatNumber, parseList, parseNumber, parseTable, unreadTokens } from '../core/format';
 import { molarMass } from '../core/molarMass';
 import { findUnit, unitLabel } from '../core/units';
 import {
@@ -250,5 +250,13 @@ describe('normal distribution accuracy', () => {
   ])('Φ(%f) = %f', (z, p) => near(normCdf(z), p, 2e-7));
   it('is monotonic around z = 0.7', () => {
     expect(normCdf(0.70711)).toBeGreaterThan(normCdf(0.7071));
+  });
+});
+
+describe('data entry', () => {
+  it('reports tokens that are not numbers', () => {
+    expect(unreadTokens('10.1 10,3 1O.2 9.9')).toEqual(['1O.2']);
+    expect(parseList('10.1 10,3 1O.2 9.9')).toEqual([10.1, 10.3, 9.9]);
+    expect(unreadTokens('1.2, 3.4; 5e-3\n6,0')).toEqual([]);
   });
 });

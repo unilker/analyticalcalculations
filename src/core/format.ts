@@ -57,6 +57,14 @@ export function parseList(raw: string): number[] {
     .filter((n) => Number.isFinite(n));
 }
 
+/** Tokens of a list or table that are not numbers (they are skipped by parseList/parseTable). */
+export function unreadTokens(raw: string): string[] {
+  return raw
+    .split(/[\s;\t]+/)
+    .map((t) => t.trim().replace(/,$/, ''))
+    .filter((t) => t && !Number.isFinite(parseNumber(t)));
+}
+
 /** Parses rows of 2 or 3 columns (x y [s]) separated by spaces, tabs or semicolons. */
 export function parseTable(raw: string): number[][] {
   return raw
