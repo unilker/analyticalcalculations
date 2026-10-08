@@ -4,6 +4,18 @@
 > taranmasıyla hazırlanmıştır. Her eşitliğin yanında kaynak kitap ve bölüm/denklem
 > numarası verilmiştir; uygulamadaki her kartın "Kaynak" alanı buradan doldurulabilir.
 
+
+## Uygulama durumu
+
+| Sürüm | Modüller | Durum |
+|---|---|---|
+| v1 | Derişim, Hacimsel analiz, İstatistik, Kalibrasyon, Asit–baz, Gravimetri, Spektroskopi (temel), Araçlar | Tamamlandı |
+| v2 | Denge ve aktivite, Titrasyon eğrileri, Elektrokimya, Ekstraksiyon, Kromatografi | Tamamlandı |
+| v3 | Kalite güvencesi, Örnekleme, Atomik spektroskopi ve X-ışınları, Kütle spektrometrisi, Kinetik/radyokimya/termal, Spektroskopi (kalan eşitlikler) | Tamamlandı |
+| — | Modül 18 (Kemometri) | Planlandığı gibi ayrı modül olarak eklenmedi; çok bileşenli en küçük kareler (CLS) Spektroskopi modülünde yer alıyor |
+
+Toplam: 18 modül, 214 araç (169 eşitlik hesaplayıcısı, 45 veri/grafik/tablo aracı).
+
 ---
 
 ## 1. Kaynak kitaplar ve gerçek içerikleri
@@ -372,8 +384,8 @@ Tip sütunu: F = formül çözücü, V = veri seti aracı, S = simülatör, R = 
 
 | Eşitlik | Formül | Ne işe yarar | Kaynak |
 |---|---|---|---|
-| Düzeltilmiş tutunma süresi | t_R′ = t_R − t_M | Temel | [C] 19.10, [T] 12.2 |
-| Tutunma faktörü / Retention factor | k = (t_R − t_M) / t_M | Tutunma gücü | [C] 19.12, [T] 12.5, [K] 16.7 |
+| Düzeltilmiş alıkonma süresi | t_R′ = t_R − t_M | Temel | [C] 19.10, [T] 12.2 |
+| Alıkonma faktörü / Retention factor | k = (t_R − t_M) / t_M | Alıkonma gücü | [C] 19.12, [T] 12.5, [K] 16.7 |
 | Seçicilik faktörü / Selectivity | α = k₂ / k₁ | İki pikin ayrılabilirliği | [C] 19.32, [T] 12.11, [K] 16.10 |
 | Teorik plaka sayısı | N = 16 (t_R/w)²; N = 5.545 (t_R/w½)² | Kolon verimi | [C] 19.6–19.11, [K] 16.12–16.15, [T] 12.6 |
 | Plaka yüksekliği | H = L / N; h = H / d_p | Kolon karşılaştırma | [C] 19.5, 19.20; [T] 12.7 |
@@ -381,9 +393,9 @@ Tip sütunu: F = formül çözücü, V = veri seti aracı, S = simülatör, R = 
 | Purnell (temel rezolüsyon) eşitliği | R_s = (√N/4) [(α − 1)/α] [k₂/(1 + k₂)] | Ayırma optimizasyonu | [C] 19.33, [T] 12.10, [K] 16.18, [H] 12.3 |
 | Gereken plaka sayısı | N_req = 16 R_s² [α/(α − 1)]² [(1 + k)/k]² | Kolon boyu seçimi | [C] 19.34–19.35 |
 | van Deemter, Golay, Huber, Knox | H = A + B/u + C u (ve türevleri) | Optimum akış hızı | [C] 19.13–19.28, [T] 12.9, [K] 11.9 |
-| Lineer hız ve tutunma hacmi | u = L / t_M; V_R = F t_R | Akış hesapları | [T] 12.4, 12.8 |
-| GC: sıkıştırılabilirlik düzeltmesi, net tutunma hacmi | j = 3/2 [(P_i/P_o)² − 1] / [(P_i/P_o)³ − 1]; V_N = j V_R′ | GC'de gerçek tutunma | [K] 16.3–16.6 |
-| Kovats tutunma indeksi | I = 100 [n + (log t′_x − log t′_n) / (log t′_n+1 − log t′_n)] | GC'de pik tanımlama | [C] 20.1, [H] 12.4 |
+| Lineer hız ve alıkonma hacmi | u = L / t_M; V_R = F t_R | Akış hesapları | [T] 12.4, 12.8 |
+| GC: sıkıştırılabilirlik düzeltmesi, net alıkonma hacmi | j = 3/2 [(P_i/P_o)² − 1] / [(P_i/P_o)³ − 1]; V_N = j V_R′ | GC'de gerçek alıkonma | [K] 16.3–16.6 |
+| Kovats alıkonma indeksi | I = 100 [n + (log t′_x − log t′_n) / (log t′_n+1 − log t′_n)] | GC'de pik tanımlama | [C] 20.1, [H] 12.4 |
 | TLC Rf | R_f = analitin aldığı yol / çözücü cephesinin aldığı yol | İnce tabaka kromatografisi | [T] 12.1, [P] 4.6, [K] 15.7 |
 | Poiseuille basınç düşüşü | ΔP = 8 F η L / (π r⁴) | Kapiler/HPLC basıncı | [C] 21.10 |
 | Elektroforetik mobilite | µ_ep = q / (6π η r); µ_net = µ_ep + µ_eo | KE'de göç | [C] 21.11–21.12, 21.24; [K] 22.3–22.10 |

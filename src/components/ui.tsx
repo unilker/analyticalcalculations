@@ -1,14 +1,84 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import type { ReactNode } from 'react';
-import { Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Keyboard, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
+
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { colors, onColor, palette, textColor, tint } from '../theme/colors';
+import { useLayout } from './layout';
 
-export function Screen({ children }: { children: ReactNode }) {
+/** Space kept between the focused input and the top of the keyboard. */
+const KEYBOARD_GAP = 24;
+
+/**
+ * Scrollable page. While the keyboard is open the page shrinks to the space above it and the
+ * focused input is scrolled into view (Android draws edge-to-edge, so the window no longer
+ * resizes by itself). Content keeps clear of notches and the Dynamic Island in landscape.
+ * `edges` picks which horizontal safe-area insets apply, for panes placed side by side.
+ */
+export function Screen({ children, maxWidth, edges = 'both' }: { children: ReactNode; maxWidth?: number; edges?: 'both' | 'left' | 'right' }) {
+  const layout = useLayout();
+  const insets = useSafeAreaInsets();
+  const frame = useRef<View>(null);
+  const scroll = useRef<ScrollView>(null);
+  const scrollY = useRef(0);
+  const [inset, setInset] = useState(0);
+
+  useEffect(() => {
+    const reveal = (keyboardTop: number, paneX: number, paneW: number) => {
+      const input = TextInput.State.currentlyFocusedInput();
+      input?.measureInWindow((x, y, w, h) => {
+        // With panes side by side, only the pane holding the input scrolls.
+        if (x + w / 2 < paneX || x + w / 2 > paneX + paneW) return;
+        const overflow = y + h - (keyboardTop - KEYBOARD_GAP);
+        if (overflow > 0) scroll.current?.scrollTo({ y: scrollY.current + overflow, animated: true });
+      });
+    };
+    const show = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', (e) => {
+      const keyboardTop = e.endCoordinates.screenY;
+      frame.current?.measureInWindow((x, y, w, h) => {
+        // Zero when the system already resized the window for the keyboard.
+        setInset(Math.max(0, y + h - keyboardTop));
+        setTimeout(() => reveal(keyboardTop, x, w), 60);
+      });
+    });
+    const hide = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide', () => setInset(0));
+    return () => {
+      show.remove();
+      hide.remove();
+    };
+  }, []);
+
   return (
-    <ScrollView style={styles.screen} contentContainerStyle={styles.screenContent} keyboardShouldPersistTaps="handled">
-      <View style={styles.inner}>{children}</View>
-    </ScrollView>
+    <View ref={frame} style={[styles.screen, { paddingBottom: inset }]}>
+      <ScrollView
+        ref={scroll}
+        style={styles.screen}
+        contentContainerStyle={[
+          styles.screenContent,
+          {
+            paddingLeft: edges === 'right' ? 0 : insets.left,
+            paddingRight: edges === 'left' ? 0 : insets.right,
+            paddingBottom: 48 + insets.bottom,
+          },
+        ]}
+        keyboardShouldPersistTaps="handled"
+        onScroll={(e) => (scrollY.current = e.nativeEvent.contentOffset.y)}
+        scrollEventThrottle={32}
+      >
+        <View style={[styles.inner, { maxWidth: maxWidth ?? layout.maxWidth }]}>{children}</View>
+      </ScrollView>
+    </View>
+  );
+}
+
+/** Side-by-side columns for wide screens: main 3 : side 2. */
+export function Columns({ main, side }: { main: ReactNode; side: ReactNode }) {
+  return (
+    <View style={{ flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
+      <View style={{ flex: 3, minWidth: 0, gap: 14 }}>{main}</View>
+      <View style={{ flex: 2, minWidth: 0, gap: 14 }}>{side}</View>
+    </View>
   );
 }
 
@@ -220,8 +290,8 @@ export function Notice({ text, tone = 'info' }: { text: string; tone?: 'info' | 
 
 export const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
-  screenContent: { paddingBottom: 48, alignItems: 'center' },
-  inner: { width: '100%', maxWidth: 760, paddingHorizontal: 16, paddingTop: 16, gap: 14 },
+  screenContent: { alignItems: 'center' },
+  inner: { width: '100%', paddingHorizontal: 16, paddingTop: 16, gap: 14 },
   bannerWrap: { borderRadius: 18, overflow: 'hidden', shadowColor: '#000', shadowOpacity: 0.15, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 4 },
   banner: { padding: 20, gap: 8 },
   stripe: { flexDirection: 'row', height: 6 },

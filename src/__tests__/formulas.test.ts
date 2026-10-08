@@ -1,3 +1,4 @@
+import { localizeFormula } from '../core/format';
 import { solveFormula } from '../core/solver';
 import type { FormulaDef } from '../core/types';
 import { ALL_TOOLS, MODULES, TOOL_BY_ID, searchTools, toolsOf } from '../data/registry';
@@ -91,5 +92,26 @@ describe('custom tool registry', () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { CUSTOM_COMPONENTS } = require('../components/tools') as typeof import('../components/tools');
     for (const t of ALL_TOOLS.filter((x) => x.kind === 'custom')) expect([t.id, typeof CUSTOM_COMPONENTS[t.id]]).toEqual([t.id, 'function']);
+  });
+});
+
+describe('formula text localisation', () => {
+  const TURKISH = /[çğıöşüÇĞİÖŞÜ]/;
+  it('English formula strings and symbols contain no Turkish words or decimal commas', () => {
+    const bad: string[] = [];
+    for (const tool of ALL_TOOLS) {
+      const texts = [tool.formula, ...(tool.kind === 'formula' ? tool.variables.map((v) => v.symbol) : [])];
+      for (const t of texts) {
+        if (t === undefined) continue;
+        const en = localizeFormula(t, 'en');
+        if (TURKISH.test(en) || /\d,\d/.test(en)) bad.push(`${tool.id}: ${en}`);
+      }
+    }
+    expect(bad).toEqual([]);
+  });
+  it('shows decimal points in English and commas in Turkish', () => {
+    expect(localizeFormula('pH = 6,10 + log x', 'en')).toBe('pH = 6.10 + log x');
+    expect(localizeFormula('pH = 6,10 + log x', 'tr')).toBe('pH = 6,10 + log x');
+    expect(localizeFormula({ tr: 'E_eş', en: 'E_eq' }, 'en')).toBe('E_eq');
   });
 });

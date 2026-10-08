@@ -1,10 +1,10 @@
-import type { DimensionId, FormulaDef, L, VariableDef } from '../../core/types';
+import type { DimensionId, FormulaDef, L, LText, VariableDef } from '../../core/types';
 
 export const l = (tr: string, en: string): L => ({ tr, en });
 
 export function v(
   key: string,
-  symbol: string,
+  symbol: LText,
   tr: string,
   en: string,
   dim: DimensionId,

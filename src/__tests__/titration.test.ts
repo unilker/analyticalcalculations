@@ -115,3 +115,15 @@ describe('Job plot with curvature near the maximum', () => {
     near(r.ratio, 2, 0.05);
   });
 });
+
+describe('EDTA curve with an auxiliary complexing agent', () => {
+  // Harvey Example 9.3.x: 50.0 mL 5.00 mM Cd²⁺ with 0.0100 M EDTA, pH 10, α_Cd = 0.0881, Kf = 2.88e16.
+  const aM = 0.0881;
+  const p = { cm: 5.0e-3, vm: 0.05, cy: 0.01, kEff: aM * alphaY4(10) * 2.88e16, alphaM: aM };
+  it('before equivalence pCd follows the excess metal', () => {
+    expect(edtaPM(p, 0.005)).toBeCloseTo(3.494, 2);
+  });
+  it('after equivalence pCd matches Harvey (≈15.3 at 30 mL)', () => {
+    expect(Math.abs(edtaPM(p, 0.03) - 15.32)).toBeLessThan(0.03);
+  });
+});

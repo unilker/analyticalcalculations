@@ -67,7 +67,7 @@ export function RegressionTool({ color }: ToolProps) {
             <ResultBox>
               <StatRow label={L('Derişim x', 'Concentration x')} value={fmt(pred.x)} strong />
               <StatRow label="s_x" value={fmt(pred.sx)} />
-              <StatRow label={`${pct(conf)} ${L('güven aralığı', 'confidence interval')}`} value={`${fmt(pred.x)} ± ${fmt(pred.half)}`} />
+              <StatRow label={`${pct(conf, lang)} ${L('güven aralığı', 'confidence interval')}`} value={`${fmt(pred.x)} ± ${fmt(pred.half)}`} />
             </ResultBox>
           )}
         </>
@@ -120,7 +120,7 @@ export function StdAdditionMultiTool({ color }: ToolProps) {
           <ResultBox>
             <StatRow label={L('Numunedeki derişim Cₓ', 'Concentration in sample Cₓ')} value={fmt(res.x)} strong />
             <StatRow label="s" value={fmt(res.sx)} />
-            <StatRow label={`${pct(conf)} ${L('güven aralığı', 'confidence interval')}`} value={`${fmt(res.x)} ± ${fmt(res.half)}`} />
+            <StatRow label={`${pct(conf, lang)} ${L('güven aralığı', 'confidence interval')}`} value={`${fmt(res.x)} ± ${fmt(res.half)}`} />
             <StatRow label={L('Eğim / kesişim', 'Slope / intercept')} value={`${fmt(reg.slope)} / ${fmt(reg.intercept)}`} />
             <StatRow label="R²" value={fmt(reg.r2)} />
           </ResultBox>

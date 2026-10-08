@@ -11,18 +11,22 @@ export type MolarMassResult = { ok: true; molarMass: number; composition: Compos
 
 /**
  * Parses formulas such as "CuSO4·5H2O", "K4[Fe(CN)6]", "Ca3(PO4)2" or "(NH4)2SO4".
- * Hydrate separators "·", "." and "*" are accepted, with an optional leading coefficient.
+ * Hydrate separators "·", "*", "•" and "." are accepted, with an optional leading coefficient.
+ * When "·", "*" or "•" is used the coefficient may be decimal ("CaSO4·0.5H2O", "CaSO4·0,5H2O");
+ * with "." as the separator it must be a whole number ("CuSO4.5H2O"), since "0.5" would be ambiguous.
  */
 export function molarMass(formula: string): MolarMassResult {
   const clean = formula.replace(/\s+/g, '');
   if (!clean) return { ok: false, error: 'empty' };
   const counts: Record<string, number> = {};
   try {
-    for (const part of clean.split(/[·.*•]/)) {
+    const explicit = /[·*•]/.test(clean);
+    for (const part of clean.split(explicit ? /[·*•]/ : /\./)) {
       if (!part) throw new Error('syntax');
-      const m = /^(\d+)(.*)$/.exec(part);
-      const coef = m ? parseInt(m[1], 10) : 1;
+      const m = (explicit ? /^(\d+(?:[.,]\d+)?)(.*)$/ : /^(\d+)(.*)$/).exec(part);
+      const coef = m ? parseFloat(m[1].replace(',', '.')) : 1;
       const body = m ? m[2] : part;
+      if (!body || !(coef > 0)) throw new Error('syntax');
       const [parsed, pos] = parseGroup(body, 0);
       if (pos !== body.length) throw new Error('syntax');
       for (const [el, n] of Object.entries(parsed)) counts[el] = (counts[el] ?? 0) + n * coef;

@@ -1,13 +1,21 @@
 import { Stack } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Linking, Pressable, Text, View } from 'react-native';
 
 import { Card, Chip, Screen, SectionTitle } from '../components/ui';
 import { ALL_TOOLS, BOOKS } from '../data/registry';
 import { useApp } from '../i18n/AppSettings';
 import { colors, palette } from '../theme/colors';
 
+const DEVELOPER = 'Dr. İlker ÜN';
+const WEBSITE = { tr: 'https://kimyager.net/', en: 'https://kimyager.net/en/' } as const;
+const LICENSE_URL = 'https://www.apache.org/licenses/LICENSE-2.0';
+const PRIVACY_URL = {
+  tr: 'https://kimyager.net/uygulamalar/analitik-kimya-hesaplayici/gizlilik/',
+  en: 'https://kimyager.net/en/apps/analytical-chemistry-calculator/privacy/',
+} as const;
+
 export default function Settings() {
-  const { t, lang, setLang, sigFigs, setSigFigs } = useApp();
+  const { t, lang, setLang, sigFigs, setSigFigs, rotation, setRotation } = useApp();
   return (
     <>
       <Stack.Screen options={{ title: t('settings') }} />
@@ -28,9 +36,38 @@ export default function Settings() {
           </View>
         </Card>
         <Card>
+          <SectionTitle color={palette.navy}>{t('rotation')}</SectionTitle>
+          <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+            <Chip label={t('rotationButton')} selected={rotation === 'button'} onPress={() => setRotation('button')} color={palette.navy} />
+            <Chip label={t('rotationAuto')} selected={rotation === 'auto'} onPress={() => setRotation('auto')} color={palette.navy} />
+          </View>
+          <Text style={{ fontSize: 13, lineHeight: 19, color: colors.textMuted }}>{t('rotationHint')}</Text>
+        </Card>
+        <Card>
           <SectionTitle color={palette.navy}>{t('about')}</SectionTitle>
           <Text style={{ fontSize: 15, lineHeight: 22, color: colors.text }}>{t('aboutText')}</Text>
-          <Text style={{ fontSize: 13, color: colors.textMuted }}>{`${ALL_TOOLS.length} ${t('tools')} · v2.0`}</Text>
+          <Text style={{ fontSize: 13, color: colors.textMuted }}>{`${ALL_TOOLS.length} ${t('tools')} · v3.0`}</Text>
+        </Card>
+        <Card>
+          <SectionTitle color={palette.navy}>{t('developer')}</SectionTitle>
+          <Text style={{ fontSize: 17, fontWeight: '800', color: colors.text }}>{DEVELOPER}</Text>
+          <Pressable
+            accessibilityRole="link"
+            onPress={() => Linking.openURL(WEBSITE[lang])}
+            style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 8, opacity: pressed ? 0.6 : 1 })}
+          >
+            <Text style={{ fontSize: 14, color: colors.textMuted }}>{t('website')}:</Text>
+            <Text style={{ fontSize: 15, fontWeight: '700', color: palette.red, textDecorationLine: 'underline' }}>{WEBSITE[lang].replace(/^https:\/\//, '').replace(/\/$/, '')}</Text>
+          </Pressable>
+          <Pressable accessibilityRole="link" onPress={() => Linking.openURL(LICENSE_URL)} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
+            <Text style={{ fontSize: 13, lineHeight: 19, color: colors.textMuted }}>
+              {`© 2026 ${DEVELOPER}. ${t('license')} `}
+              <Text style={{ color: palette.red, textDecorationLine: 'underline' }}>apache.org/licenses/LICENSE-2.0</Text>
+            </Text>
+          </Pressable>
+          <Pressable accessibilityRole="link" onPress={() => Linking.openURL(PRIVACY_URL[lang])} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
+            <Text style={{ fontSize: 15, fontWeight: '700', color: palette.red, textDecorationLine: 'underline' }}>{t('privacyPolicy')}</Text>
+          </Pressable>
         </Card>
         <Card>
           <SectionTitle color={palette.navy}>{t('sources')}</SectionTitle>

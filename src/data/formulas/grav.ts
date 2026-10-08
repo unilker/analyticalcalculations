@@ -22,7 +22,7 @@ export const GRAV_FORMULAS: FormulaDef[] = [
       'Tartılan çökelek kütlesini aranan madde kütlesine çeviren orandır. a ve b, analit ile çökelek arasındaki mol oranını sağlayan katsayılardır (ör. Fe₂O₃ → 2 Fe: a = 2, b = 1).',
       'Converts the mass of the weighed precipitate into mass of the sought substance. a and b balance the analyte/precipitate mole ratio (e.g. Fe₂O₃ → 2 Fe: a = 2, b = 1).',
     ),
-    formula: 'GF = a · M(analit) / (b · M(çökelek))',
+    formula: l('GF = a · M(analit) / (b · M(çökelek))', 'GF = a · M(analyte) / (b · M(precipitate))'),
     variables: [
       v('GF', 'GF', 'Gravimetrik faktör', 'Gravimetric factor', 'none'),
       v('a', 'a', 'Analit katsayısı', 'Analyte coefficient', 'none', { defaultValue: 1 }),
@@ -42,7 +42,7 @@ export const GRAV_FORMULAS: FormulaDef[] = [
     module: 'grav',
     name: l('Gravimetrik % analit', 'Percent analyte by gravimetry'),
     purpose: l('Çökelek kütlesi ve gravimetrik faktörden numunedeki analit yüzdesini hesaplar.', 'Weight percent of analyte from precipitate mass and gravimetric factor.'),
-    formula: '%A = m(çökelek) · GF / m(numune) × 100',
+    formula: l('%A = m(çökelek) · GF / m(numune) × 100', '%A = m(precipitate) · GF / m(sample) × 100'),
     variables: [
       v('P', '%A', 'Analit yüzdesi', 'Percent analyte', 'percent'),
       v('mP', 'm_P', 'Çökelek kütlesi', 'Precipitate mass', 'mass'),
@@ -82,7 +82,10 @@ export const GRAV_FORMULAS: FormulaDef[] = [
       Ksp: (x) => x.x ** x.x * x.y ** x.y * x.s ** (x.x + x.y),
     },
     defaultUnknown: 's',
-    assumptions: l('Aktivite katsayıları 1, yan tepkime (hidroliz, kompleksleşme) yok.', 'Activity coefficients of 1 and no side reactions (hydrolysis, complexation).'),
+    assumptions: l(
+      'Aktivite katsayıları 1, yan tepkime (hidroliz, kompleksleşme) yok. Hidroksitlerde suyun kendi OH⁻ iyonu ihmal edilir; Fe(OH)₃, Al(OH)₃ gibi çok az çözünen hidroksitlerde bu formül çok yüksek s verir (Ksp tablosu suyun OH⁻ iyonunu hesaba katar).',
+      'Activity coefficients of 1 and no side reactions (hydrolysis, complexation). For hydroxides the OH⁻ from water is neglected; for very insoluble hydroxides such as Fe(OH)₃ or Al(OH)₃ this formula gives far too high an s (the Ksp table includes water’s OH⁻).',
+    ),
     sources: ['[C] 10.7–10.9', '[T] 8.1–8.2'],
     examples: [
       { values: { Ksp: 1.1e-12, x: 2, y: 1 }, unknown: 's', expected: 6.503e-5, description: l('Ag₂CrO₄', 'Ag₂CrO₄') },
@@ -109,6 +112,10 @@ export const GRAV_FORMULAS: FormulaDef[] = [
     equation: (x) => Math.log((x.x * x.s) ** x.x * (x.C + x.y * x.s) ** x.y) - Math.log(x.Ksp),
     solve: { Ksp: (x) => (x.x * x.s) ** x.x * (x.C + x.y * x.s) ** x.y },
     defaultUnknown: 's',
+    assumptions: l(
+      'Aktivite katsayıları 1 alınır; ortak iyon kaynağı tamamen çözünmüştür. Yüksek C\'de iyonik şiddet çözünürlüğü artırır ve kompleksleşme (ör. aşırı Cl⁻ ile AgCl₂⁻) bu sonuçtan sapmaya yol açar.',
+      'Activity coefficients of 1; the common-ion source is fully dissolved. At high C the ionic strength raises the solubility and complexation (e.g. AgCl₂⁻ in excess Cl⁻) causes deviations from this result.',
+    ),
     sources: ['[C] 6.12, 10.6', '[T] 8.3'],
     examples: [{ values: { Ksp: 1.0e-10, C: 0.01, x: 1, y: 1 }, unknown: 's', expected: 9.99999e-9, description: l('0,010 M NaCl içinde AgCl', 'AgCl in 0.010 M NaCl') }],
     keywords: ['ortak iyon', 'common ion', 'Ksp'],
@@ -131,6 +138,10 @@ export const GRAV_FORMULAS: FormulaDef[] = [
     equation: (x) => Math.log(x.s * x.s * alphaA1(x.pKa, x.pH)) - Math.log(x.Ksp),
     solve: { s: (x) => Math.sqrt(x.Ksp / alphaA1(x.pKa, x.pH)), Ksp: (x) => x.s * x.s * alphaA1(x.pKa, x.pH) },
     defaultUnknown: 's',
+    assumptions: l(
+      'pH tamponla sabit tutulur; aktivite katsayıları 1; metal iyonunun hidrolizi ve kompleksleşmesi ihmal edilir.',
+      'The pH is held constant by a buffer; activity coefficients of 1; hydrolysis and complexation of the metal ion are neglected.',
+    ),
     sources: ['[C] 11.1', '[T] 8.4', '[H] 6.7'],
     examples: [{ values: { Ksp: 1e-10, pKa: 4, pH: 2 }, unknown: 's', expected: Math.sqrt(1e-10 / (1e-4 / (1e-4 + 1e-2))) }],
     keywords: ['pH', 'çözünürlük', 'solubility', 'alfa'],
@@ -154,6 +165,10 @@ export const GRAV_FORMULAS: FormulaDef[] = [
     equation: (x) => Math.log(x.s * x.s * alphaA2(x.pKa1, x.pKa2, x.pH)) - Math.log(x.Ksp),
     solve: { s: (x) => Math.sqrt(x.Ksp / alphaA2(x.pKa1, x.pKa2, x.pH)), Ksp: (x) => x.s * x.s * alphaA2(x.pKa1, x.pKa2, x.pH) },
     defaultUnknown: 's',
+    assumptions: l(
+      'pH tamponla sabit tutulur; aktivite katsayıları 1; metal iyonunun hidrolizi ve kompleksleşmesi ihmal edilir.',
+      'The pH is held constant by a buffer; activity coefficients of 1; hydrolysis and complexation of the metal ion are neglected.',
+    ),
     sources: ['[C] 11.2–11.5', '[T] 8.4'],
     examples: [
       {
@@ -194,7 +209,7 @@ export const GRAV_FORMULAS: FormulaDef[] = [
       'Kurutma ya da yakma öncesi ve sonrası tartımlardan nem, uçucu madde veya kızdırma kaybı yüzdesini hesaplar.',
       'Percent moisture, volatiles or loss on ignition from masses before and after drying or ignition.',
     ),
-    formula: '% kayıp = (m₁ − m₂) / m₁ × 100',
+    formula: l('% kayıp = (m₁ − m₂) / m₁ × 100', '% loss = (m₁ − m₂) / m₁ × 100'),
     variables: [
       v('P', '%', 'Kütle kaybı', 'Mass loss', 'percent', linear(0, 100)),
       v('m1', 'm₁', 'Önceki kütle', 'Initial mass', 'mass'),

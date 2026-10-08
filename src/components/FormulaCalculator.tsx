@@ -1,17 +1,22 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { Text, View } from 'react-native';
 
 import { formatNumber, parseNumber } from '../core/format';
 import { solveFormula } from '../core/solver';
 import type { FormulaDef, ModuleDef, Values } from '../core/types';
-import { findUnit, fromBase, toBase, unitsOf } from '../core/units';
+import { findUnit, fromBase, toBase, unitLabel, unitsOf } from '../core/units';
 import { useApp } from '../i18n/AppSettings';
 import { colors, palette } from '../theme/colors';
-import { Button, Card, Chip, Field, FormulaText, Notice, ResultBox, SectionTitle, UnitButton } from './ui';
+import { MoreInfoButton } from './MoreInfoButton';
+import { Button, Card, Chip, Columns, Field, FormulaText, Notice, ResultBox, SectionTitle, UnitButton } from './ui';
 
 interface Props {
   def: FormulaDef;
   module: ModuleDef;
+  /** Inputs on the left, formula and result on the right. */
+  twoColumn?: boolean;
+  /** Extra cards shown after the result (e.g. sources). */
+  aside?: ReactNode;
 }
 
 function initialValues(def: FormulaDef, lang: 'tr' | 'en'): Record<string, string> {
@@ -22,9 +27,9 @@ function initialValues(def: FormulaDef, lang: 'tr' | 'en'): Record<string, strin
   return out;
 }
 
-export function FormulaCalculator({ def, module }: Props) {
-  const { t, tx, fmt, lang } = useApp();
-  const label = (v: FormulaDef['variables'][number]) => (tx(v.name) === v.symbol ? v.symbol : `${v.symbol} — ${tx(v.name)}`);
+export function FormulaCalculator({ def, module, twoColumn, aside }: Props) {
+  const { t, tx, tf, fmt, lang } = useApp();
+  const label = (v: FormulaDef['variables'][number]) => (tx(v.name) === tf(v.symbol) ? tf(v.symbol) : `${tf(v.symbol)} — ${tx(v.name)}`);
   const color = module.color;
   const solvable = def.variables.filter((v) => !v.inputOnly);
   const [unknown, setUnknown] = useState(def.defaultUnknown);
@@ -74,10 +79,10 @@ export function FormulaCalculator({ def, module }: Props) {
     setValues(next);
   };
 
-  return (
-    <View style={{ gap: 14 }}>
+  const about = (
+    <>
       <Card accent={color}>
-        <FormulaText color={color}>{def.formula}</FormulaText>
+        <FormulaText color={color}>{tf(def.formula)}</FormulaText>
         <SectionTitle color={color}>{t('whatFor')}</SectionTitle>
         <Text style={{ fontSize: 15, lineHeight: 22, color: colors.text }}>{tx(def.purpose)}</Text>
         {def.assumptions && (
@@ -86,14 +91,18 @@ export function FormulaCalculator({ def, module }: Props) {
             {tx(def.assumptions)}
           </Text>
         )}
+        <MoreInfoButton toolId={def.id} color={color} />
       </Card>
-
+    </>
+  );
+  const controls = (
+    <>
       {solvable.length > 1 && (
         <Card>
           <SectionTitle color={color}>{t('solveFor')}</SectionTitle>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
             {solvable.map((v) => (
-              <Chip key={v.key} label={v.symbol} selected={v.key === unknown} onPress={() => setUnknown(v.key)} color={color} />
+              <Chip key={v.key} label={tf(v.symbol)} selected={v.key === unknown} onPress={() => setUnknown(v.key)} color={color} />
             ))}
           </View>
           <Text style={{ fontSize: 13, color: colors.textMuted }}>{tx(unknownVar.name)}</Text>
@@ -111,7 +120,7 @@ export function FormulaCalculator({ def, module }: Props) {
                 label={label(v)}
                 value={values[v.key] ?? ''}
                 onChangeText={(s) => setValues({ ...values, [v.key]: s })}
-                unit={unit.label}
+                unit={unitLabel(unit, lang)}
                 onUnitPress={unitsOf(v.dim).length > 1 ? () => cycleUnit(v.key) : undefined}
                 invalid={invalid.includes(v.key)}
                 color={color}
@@ -124,7 +133,10 @@ export function FormulaCalculator({ def, module }: Props) {
           <Button label={t('clear')} onPress={() => setValues(initialValues(def, lang))} color={palette.livid} outline />
         </View>
       </Card>
-
+    </>
+  );
+  const outcome = (
+    <>
       {result?.ok ? (
         <ResultBox>
           <Text style={{ fontSize: 14, fontWeight: '800', color: palette.crimson, letterSpacing: 0.5 }}>{t('result').toLocaleUpperCase(lang === 'tr' ? 'tr-TR' : 'en-US')}</Text>
@@ -135,7 +147,7 @@ export function FormulaCalculator({ def, module }: Props) {
             </Text>
             {unknownUnit.label ? (
               <UnitButton
-                unit={unknownUnit.label}
+                unit={unitLabel(unknownUnit, lang)}
                 onPress={unitsOf(unknownVar.dim).length > 1 ? () => cycleUnit(unknown) : undefined}
                 color={color}
               />
@@ -156,6 +168,30 @@ export function FormulaCalculator({ def, module }: Props) {
           <Text style={{ fontSize: 14, color: colors.text }}>{tx(def.examples[0].description)}</Text>
         </Card>
       )}
+    </>
+  );
+
+  if (twoColumn) {
+    // Inputs on the left; formula and result on the right, so the result stays level with the inputs.
+    return (
+      <Columns
+        main={controls}
+        side={
+          <>
+            {about}
+            {outcome}
+            {aside}
+          </>
+        }
+      />
+    );
+  }
+  return (
+    <View style={{ gap: 14 }}>
+      {about}
+      {controls}
+      {outcome}
+      {aside}
     </View>
   );
 }

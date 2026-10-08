@@ -86,7 +86,7 @@ export const ACIDBASE_FORMULAS: FormulaDef[] = [
     defaultUnknown: 'pH',
     assumptions: l('25 °C, aktivite katsayıları 1.', '25 °C, unit activity coefficients.'),
     sources: ['[C] 7.20–7.22', '[T] 5.6', '[H] 6.7'],
-    examples: [{ values: { pKa: -Math.log10(1.75e-5), C: 0.1 }, unknown: 'pH', expected: 2.8813, description: l('0,100 M asetik asit', '0.100 M acetic acid') }],
+    examples: [{ values: { pKa: -Math.log10(1.75e-5), C: 0.1 }, unknown: 'pH', expected: 2.8814, description: l('0,100 M asetik asit', '0.100 M acetic acid') }],
     keywords: ['pH', 'zayıf asit', 'weak acid', 'asetik', 'acetic'],
   }),
   formula({
@@ -112,8 +112,9 @@ export const ACIDBASE_FORMULAS: FormulaDef[] = [
       },
     },
     defaultUnknown: 'pH',
+    assumptions: l('25 °C (Kw = 1,0 × 10⁻¹⁴), aktivite katsayıları 1 kabul edilir.', '25 °C (Kw = 1.0 × 10⁻¹⁴); activity coefficients taken as 1.'),
     sources: ['[C] 7.23–7.32', '[H] 6.7'],
-    examples: [{ values: { pKb: -Math.log10(1.75e-5), C: 0.1 }, unknown: 'pH', expected: 11.1187, description: l('0,100 M NH₃', '0.100 M NH₃') }],
+    examples: [{ values: { pKb: -Math.log10(1.75e-5), C: 0.1 }, unknown: 'pH', expected: 11.1186, description: l('0,100 M NH₃', '0.100 M NH₃') }],
     keywords: ['pH', 'zayıf baz', 'weak base', 'amonyak', 'ammonia'],
   }),
   formula({
@@ -132,6 +133,7 @@ export const ACIDBASE_FORMULAS: FormulaDef[] = [
       return oh - (kb * x.C) / (kb + oh) - KW / oh;
     },
     defaultUnknown: 'pH',
+    assumptions: l('25 °C (Kw = 1,0 × 10⁻¹⁴), aktivite katsayıları 1 kabul edilir.', '25 °C (Kw = 1.0 × 10⁻¹⁴); activity coefficients taken as 1.'),
     sources: ['[C] 7.28–7.32'],
     examples: [{ values: { pKa: -Math.log10(1.75e-5), C: 0.1 }, unknown: 'pH', expected: 8.8785, description: l('0,100 M NaOAc', '0.100 M NaOAc') }],
     keywords: ['hidroliz', 'hydrolysis', 'tuz', 'salt'],
@@ -173,7 +175,7 @@ export const ACIDBASE_FORMULAS: FormulaDef[] = [
       Ca: (x) => x.Cb / pow10(x.pH - x.pKa),
     },
     defaultUnknown: 'pH',
-    assumptions: l('Derişimler Ka ve Kw/Ka\'dan çok büyük (yaklaşık 10⁻³ M üstü).', 'Concentrations much larger than Ka and Kw/Ka (roughly above 10⁻³ M).'),
+    assumptions: l('[A⁻] ve [HA], [H⁺] ve [OH⁻]\'den çok büyük (yaklaşık 10⁻³ M üstü); [A⁻]/[HA] oranı 0,1–10 arasında.', '[A⁻] and [HA] much larger than [H⁺] and [OH⁻] (roughly above 10⁻³ M); [A⁻]/[HA] ratio between 0.1 and 10.'),
     sources: ['[C] 7.40–7.47', '[T] 6.1', '[H] 6.8'],
     examples: [{ values: { pKa: 4.757, Cb: 0.15, Ca: 0.1 }, unknown: 'pH', expected: 4.933 }],
     keywords: ['tampon', 'buffer', 'Henderson'],
@@ -203,6 +205,7 @@ export const ACIDBASE_FORMULAS: FormulaDef[] = [
       },
     },
     defaultUnknown: 'pH',
+    assumptions: l('−n_A⁻ < Δn < n_HA olmalıdır (tampon tükenmemeli); Henderson–Hasselbalch koşulları geçerlidir.', 'Requires −n_A⁻ < Δn < n_HA (the buffer must not be exhausted); the Henderson–Hasselbalch conditions apply.'),
     sources: ['[C] 7.52–7.53', '[H] 6.8'],
     examples: [{ values: { pKa: 4.757, nA: 0.01, nHA: 0.01, dn: 0.001 }, unknown: 'pH', expected: 4.8441 }],
     keywords: ['tampon', 'buffer'],
@@ -212,8 +215,8 @@ export const ACIDBASE_FORMULAS: FormulaDef[] = [
     module: 'acidbase',
     name: l('Tampon kapasitesi', 'Buffer capacity'),
     purpose: l(
-      'Tamponun pH değişimine direncini (β) hesaplar: pH\'ı bir birim değiştirmek için gereken kuvvetli asit/baz miktarı. β, pH = pKa\'da en büyüktür.',
-      'Resistance of a buffer to pH change (β): strong acid/base needed to change the pH by one unit. β is largest at pH = pKa.',
+      'Tamponun pH değişimine direncini hesaplar: β = dC_b/dpH, yani küçük eklemelerde pH\'taki birim değişim başına litre başına eklenen kuvvetli baz (ya da asit) miktarı. n ≈ β·V·ΔpH yalnızca küçük ΔpH (≈ 0,1) için geçerlidir. β, pH = pKa\'da en büyüktür.',
+      'Resistance of a buffer to pH change: β = dC_b/dpH, the strong base (or acid) per litre per unit pH change for a small addition. n ≈ β·V·ΔpH holds only for small ΔpH (≈ 0.1). β is largest at pH = pKa.',
     ),
     formula: 'β = 2,303 (Kw/[H⁺] + [H⁺] + C·Ka·[H⁺] / (Ka + [H⁺])²)',
     variables: [
@@ -267,6 +270,7 @@ export const ACIDBASE_FORMULAS: FormulaDef[] = [
       },
     },
     defaultUnknown: 'pH',
+    assumptions: l('[HA⁻] ≈ C (ara tür çok az ayrışır); 25 °C, Kw = 1,0 × 10⁻¹⁴.', '[HA⁻] ≈ C (the intermediate species barely reacts); 25 °C, Kw = 1.0 × 10⁻¹⁴.'),
     sources: ['[C] 7.93–7.99', '[T] 6.7', '[H] 6.7'],
     examples: [
       {

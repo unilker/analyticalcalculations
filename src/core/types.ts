@@ -3,6 +3,9 @@ export type Lang = 'tr' | 'en';
 /** Localized text. */
 export type L = { tr: string; en: string };
 
+/** Formula or symbol text: one string for both languages, or a TR/EN pair when it contains words. */
+export type LText = string | L;
+
 export type DimensionId =
   | 'none'
   | 'conc'
@@ -43,7 +46,18 @@ export type DimensionId =
   | 'specificVolume'
   | 'flow'
   | 'mobility'
-  | 'voltage';
+  | 'voltage'
+  | 'angle'
+  | 'magneticField'
+  | 'activity'
+  | 'rateConst1'
+  | 'rateConst2'
+  | 'rate'
+  | 'crossSection'
+  | 'flux'
+  | 'forceConst'
+  | 'molarVolume'
+  | 'massAtten';
 
 export type ModuleId =
   | 'tools'
@@ -58,12 +72,19 @@ export type ModuleId =
   | 'titration'
   | 'electro'
   | 'extraction'
-  | 'chroma';
+  | 'chroma'
+  | 'qa'
+  | 'sampling'
+  | 'atomic'
+  | 'ms'
+  | 'kinetics';
+
+export type ModuleGroup = 'basics' | 'data' | 'equilibria' | 'instrumental' | 'separations' | 'other';
 
 export interface VariableDef {
   key: string;
   /** Display symbol, e.g. "ε" or "C₁". */
-  symbol: string;
+  symbol: LText;
   name: L;
   dim: DimensionId;
   /** Default unit id within the dimension (falls back to the base unit). */
@@ -97,8 +118,8 @@ export interface FormulaDef {
   module: ModuleId;
   name: L;
   purpose: L;
-  /** Human-readable formula. */
-  formula: string;
+  /** Human-readable formula (Turkish decimal commas; shown with points in English). */
+  formula: LText;
   variables: VariableDef[];
   /** Residual (left side − right side) evaluated in base units; zero when the equation holds. */
   equation: (v: Values) => number;
@@ -119,7 +140,7 @@ export interface CustomToolDef {
   name: L;
   purpose: L;
   /** Short formula or method summary shown on the card. */
-  formula?: string;
+  formula?: LText;
   sources: string[];
   keywords?: string[];
 }
@@ -133,4 +154,24 @@ export interface ModuleDef {
   color: string;
   /** Short glyph shown on the module tile. */
   glyph: string;
+  group: ModuleGroup;
+}
+
+/** Paragraphs or list items in both languages. */
+export type LList = { tr: string[]; en: string[] };
+
+/** Extended explanation shown on a tool's "More details" page. */
+export interface ToolDetail {
+  /** The chemistry behind the tool. Paragraphs are separated by blank lines. */
+  concept: L;
+  /** What the equation says, how it is derived, units. Lines starting with "• " render as bullets. */
+  meaning: L;
+  /** When to use it and its limits. */
+  usage: LList;
+  /** Worked example, step by step; the last step states the result. */
+  solution: LList;
+  /** Common student mistakes. */
+  mistakes: LList;
+  /** Ids of related tools. */
+  related: string[];
 }

@@ -16,6 +16,11 @@ export const palette = {
   teal: '#0E7C86',
   green: '#2B8A3E',
   purple: '#6741D9',
+  raspberry: '#A61E4D',
+  olive: '#5F7A1A',
+  cerulean: '#0B6FA4',
+  brown: '#7B4B2A',
+  grape: '#9C36B5',
   white: '#FFFFFF',
 };
 

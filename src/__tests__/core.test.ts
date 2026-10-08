@@ -1,12 +1,14 @@
 import { alphaFractions, speciesLabels } from '../core/acidBase';
-import { formatNumber, parseList, parseNumber, parseTable } from '../core/format';
+import { formatNumber, parseList, parseNumber, parseTable, unreadTokens } from '../core/format';
 import { molarMass } from '../core/molarMass';
+import { findUnit, unitLabel } from '../core/units';
 import {
   fCritical,
   grubbsCritical,
   grubbsTest,
   inversePrediction,
   linearRegression,
+  normCdf,
   oneWayAnova,
   propagate,
   qTest,
@@ -53,18 +55,18 @@ describe('statistics', () => {
   });
 
   it('t-test against a known value', () => {
-    const r = tTestKnown([98.9, 99.1, 99.4, 99.6, 98.8], 100, 0.95);
+    const r = tTestKnown([98.9, 99.1, 99.4, 99.6, 98.8], 100, 0.95)!;
     expect(r.significant).toBe(true);
   });
 
   it('two-means t-test pools when variances are similar', () => {
-    const r = tTestTwoMeans([10.1, 10.3, 10.2, 10.4], [10.6, 10.8, 10.7, 10.5], 0.95);
+    const r = tTestTwoMeans([10.1, 10.3, 10.2, 10.4], [10.6, 10.8, 10.7, 10.5], 0.95)!;
     expect(r.pooled).toBe(true);
     expect(r.significant).toBe(true);
   });
 
   it('paired t-test', () => {
-    const r = tTestPaired([10.2, 12.7, 8.6, 17.5, 11.2], [10.6, 13.0, 8.4, 17.8, 11.5], 0.95);
+    const r = tTestPaired([10.2, 12.7, 8.6, 17.5, 11.2], [10.6, 13.0, 8.4, 17.8, 11.5], 0.95)!;
     near(r.meanDiff, -0.22, 1e-9);
     expect(r.df).toBe(4);
   });
@@ -74,6 +76,14 @@ describe('statistics', () => {
     expect(r?.suspect).toBe(2.514);
     expect(r?.significant).toBe(true);
     near(r!.statistic, (3.039 - 2.514) / (3.109 - 2.514), 1e-9);
+  });
+
+  it('tests give no verdict when the data have no spread', () => {
+    expect(tTestKnown([3.1, 3.1, 3.1], 3.0, 0.95)).toBeUndefined();
+    expect(tTestPaired([10.5, 20.5, 30.5], [10.1, 20.1, 30.1], 0.95)).toBeUndefined();
+    expect(tTestTwoMeans([5, 5, 5], [5.1, 5.2, 5.3], 0.95)).toBeUndefined();
+    expect(qTest([2.5, 2.5, 2.5, 2.5], '0.05')).toBeUndefined();
+    expect(grubbsTest([2.5, 2.5, 2.5, 2.5], 0.05)).toBeUndefined();
   });
 
   it('Grubbs test flags the same outlier', () => {
@@ -125,7 +135,7 @@ describe('statistics', () => {
     near(r2, 5, 1e-12);
     near(u2 / r2, Math.sqrt(0.01 ** 2 + 0.02 ** 2), 1e-12);
     const [, u3] = propagate('log10', [{ value: 1e-4, u: 1e-6 }]);
-    near(u3, 0.004343, 1e-9);
+    near(u3, 0.01 * Math.LOG10E, 1e-12); // 0.4343·u/x with the exact constant
   });
 });
 
@@ -151,6 +161,10 @@ describe('molar mass', () => {
     ['(NH4)2SO4', 132.13],
     ['KHC8H4O4', 204.22],
     ['Co', 58.933],
+    ['CuSO4.5H2O', 249.68],
+    ['CaSO4·0.5H2O', 145.15],
+    ['CaSO4·0,5H2O', 145.15],
+    ['2CaSO4·H2O', 290.29],
   ])('%s = %f', (f, m) => {
     const r = molarMass(f);
     expect(r.ok).toBe(true);
@@ -161,6 +175,8 @@ describe('molar mass', () => {
     expect(molarMass('Xx2').ok).toBe(false);
     expect(molarMass('Ca(OH').ok).toBe(false);
     expect(molarMass('').ok).toBe(false);
+    expect(molarMass('CuSO4·5').ok).toBe(false);
+    expect(molarMass('CaSO4.0.5H2O').ok).toBe(false);
   });
 });
 
@@ -184,5 +200,63 @@ describe('number formatting and parsing', () => {
       [0.1, 12.36],
       [0.2, 24.83, 0.5],
     ]);
+  });
+});
+
+describe('display ↔ input round trip', () => {
+  it.each([1.75e-5, 2.5e-4, 0.001234, 0.5, 12.08, 4321.5, 6.022e23, -3.3e-12, 1e-300])('parses back what it displays: %p', (x) => {
+    for (const lang of ['tr', 'en'] as const) {
+      const shown = formatNumber(x, lang, 6);
+      expect(Math.abs(parseNumber(shown) - x)).toBeLessThanOrEqual(Math.abs(x) * 1e-5);
+    }
+  });
+});
+
+describe('unit labels', () => {
+  it('shows minutes as dk in Turkish and min in English', () => {
+    const minute = findUnit('time', 'min');
+    expect(unitLabel(minute, 'tr')).toBe('dk');
+    expect(unitLabel(minute, 'en')).toBe('min');
+    expect(unitLabel(findUnit('rateConst1', 'min⁻¹'), 'tr')).toBe('dk⁻¹');
+    expect(unitLabel(findUnit('flow', 'mL/min'), 'tr')).toBe('mL/dk');
+    expect(unitLabel(findUnit('massConc', 'mg/mL'), 'tr')).toBe('mg/mL');
+  });
+});
+
+describe('weighted inverse prediction', () => {
+  it('uses the weight at the unknown level (Miller & Miller 5.17)', () => {
+    const x = [0, 0.1, 0.2, 0.3, 0.4, 0.5];
+    const y = [0, 12.36, 24.83, 35.91, 48.79, 60.42];
+    const sy = [0.02, 0.02, 0.07, 0.13, 0.22, 0.33];
+    const reg = linearRegression(x, y, sy);
+    const p = inversePrediction(reg, 29.32, 3);
+    const s0 = 0.07 + ((0.13 - 0.07) * (p.x - 0.2)) / 0.1;
+    const w0 = (6 / s0 ** 2) / sy.reduce((a, s) => a + 1 / s ** 2, 0);
+    const expected = (reg.sr / reg.slope) * Math.sqrt(1 / (3 * w0) + 1 / 6 + (29.32 - reg.yMean) ** 2 / (reg.slope ** 2 * reg.sxx));
+    near(p.sx, expected, 1e-12);
+    // Much wider than treating the sample as weight 1.
+    const naive = (reg.sr / reg.slope) * Math.sqrt(1 / 3 + 1 / 6 + (29.32 - reg.yMean) ** 2 / (reg.slope ** 2 * reg.sxx));
+    expect(p.sx / naive).toBeGreaterThan(1.3);
+  });
+});
+
+describe('normal distribution accuracy', () => {
+  it.each([
+    [0.7071, 0.7602478],
+    [0.75, 0.7733726],
+    [1, 0.8413447],
+    [1.96, 0.9750021],
+    [3.5, 0.9997674],
+  ])('Φ(%f) = %f', (z, p) => near(normCdf(z), p, 2e-7));
+  it('is monotonic around z = 0.7', () => {
+    expect(normCdf(0.70711)).toBeGreaterThan(normCdf(0.7071));
+  });
+});
+
+describe('data entry', () => {
+  it('reports tokens that are not numbers', () => {
+    expect(unreadTokens('10.1 10,3 1O.2 9.9')).toEqual(['1O.2']);
+    expect(parseList('10.1 10,3 1O.2 9.9')).toEqual([10.1, 10.3, 9.9]);
+    expect(unreadTokens('1.2, 3.4; 5e-3\n6,0')).toEqual([]);
   });
 });

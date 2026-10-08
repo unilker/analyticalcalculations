@@ -7,10 +7,10 @@ export const STATS_FORMULAS: FormulaDef[] = [
   formula({
     id: 'relative-error',
     module: 'stats',
-    name: l('Mutlak ve bağıl hata', 'Absolute and relative error'),
+    name: l('Bağıl hata', 'Relative error'),
     purpose: l(
-      'Ölçülen (ya da ortalama) değerin kabul edilen gerçek değerden sapmasını yüzde olarak verir; doğruluğun ölçüsüdür.',
-      'Deviation of a measured (or mean) value from the accepted true value, as a percentage; a measure of accuracy.',
+      'Ölçülen (ya da ortalama) değerin kabul edilen gerçek değerden sapmasını yüzde olarak verir; doğruluğun ölçüsüdür. Mutlak hata E = x − μ\'dür.',
+      'Deviation of a measured (or mean) value from the accepted true value, as a percentage; a measure of accuracy. The absolute error is E = x − μ.',
     ),
     formula: 'Eᵣ (%) = (x − μ) / μ × 100',
     variables: [
@@ -105,6 +105,7 @@ export const CALIB_FORMULAS: FormulaDef[] = [
       Sspk: (x) => (x.Sx * x.Cstd * x.Vstd / x.Cx + x.Sx * x.Vx) / (x.Vx + x.Vstd),
     },
     defaultUnknown: 'Cx',
+    assumptions: l('Sₓ seyreltilmemiş numunede ölçülür, standart doğrudan Vₓ hacmindeki numuneye eklenir. Eklemesiz ve eklemeli numuneler aynı son hacme tamamlanıyorsa Cₓ = Sₓ·C_std·V_std / [(S_spk − Sₓ)·Vₓ] kullanılır. Sinyal derişimle doğrusal ve tanık sinyali sıfırdır.', 'Sₓ is measured on the undiluted sample and the standard is added straight to the volume Vₓ. If the unspiked and spiked aliquots are both made up to the same final volume, use Cₓ = Sₓ·C_std·V_std / [(S_spk − Sₓ)·Vₓ]. The signal is linear in concentration with zero blank.'),
     sources: ['[C] 17.4–17.8', '[H] 5.3', '[K] 28.2–28.5'],
     examples: [
       {

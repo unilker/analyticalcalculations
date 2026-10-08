@@ -26,7 +26,11 @@ export function solveFormula(def: FormulaDef, unknown: string, known: Values): S
   const closed = def.solve?.[unknown];
   if (closed) {
     const value = closed(known);
-    return Number.isFinite(value) ? { ok: true, value } : { ok: false, reason: 'noRoot' };
+    // Closed forms can return physically impossible values (e.g. a negative concentration for an
+    // impossible pH); reject anything outside the variable's domain, as the numeric path does.
+    const d = domain(variable);
+    const inDomain = Number.isFinite(value) && (d.log ? value > 0 : true) && value >= d.lo && value <= d.hi;
+    return inDomain ? { ok: true, value } : { ok: false, reason: 'noRoot' };
   }
 
   const f = (x: number) => def.equation({ ...known, [unknown]: x });
@@ -82,7 +86,7 @@ function bisect(
     } else {
       hi = mid;
     }
-    if (Math.abs(hi - lo) <= 1e-15 * Math.max(1, Math.abs(mid))) break;
+    if (Math.abs(hi - lo) <= 1e-15 * Math.abs(mid)) break;
   }
   return map((lo + hi) / 2);
 }

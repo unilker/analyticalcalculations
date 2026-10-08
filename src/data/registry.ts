@@ -1,13 +1,17 @@
-import type { CustomToolDef, ModuleDef, ModuleId, ToolDef } from '../core/types';
+import type { CustomToolDef, L, ModuleDef, ModuleGroup, ModuleId, ToolDef } from '../core/types';
 import { palette } from '../theme/colors';
 import { ACIDBASE_FORMULAS } from './formulas/acidbase';
+import { ATOMIC_FORMULAS, MS_FORMULAS } from './formulas/atomicMs';
 import { CONC_FORMULAS } from './formulas/conc';
 import { ELECTRO_FORMULAS } from './formulas/electro';
 import { EQUILIBRIUM_FORMULAS, TITRATION_FORMULAS } from './formulas/equilibrium';
 import { GRAV_FORMULAS } from './formulas/grav';
 import { l } from './formulas/helpers';
+import { KINETICS_FORMULAS } from './formulas/kinetics';
+import { QA_FORMULAS, SAMPLING_FORMULAS } from './formulas/quality';
 import { CHROMA_FORMULAS, EXTRACTION_FORMULAS } from './formulas/separations';
 import { SPECTRO_FORMULAS } from './formulas/spectro';
+import { SPECTRO2_FORMULAS } from './formulas/spectro2';
 import { CALIB_FORMULAS, STATS_FORMULAS, TOOLS_FORMULAS } from './formulas/statsCalib';
 import { VOLUMETRIC_FORMULAS } from './formulas/volumetric';
 
@@ -18,6 +22,7 @@ export const MODULES: ModuleDef[] = [
     description: l('Molarite, yüzde, ppm, seyreltme, çözelti hazırlama', 'Molarity, percent, ppm, dilution, solution preparation'),
     color: palette.navy,
     glyph: 'M',
+    group: 'basics',
   },
   {
     id: 'volumetric',
@@ -25,6 +30,7 @@ export const MODULES: ModuleDef[] = [
     description: l('Titrasyon stokiyometrisi, ayarlama, geri titrasyon, Kjeldahl', 'Titration stoichiometry, standardization, back titration, Kjeldahl'),
     color: palette.red,
     glyph: 'V',
+    group: 'basics',
   },
   {
     id: 'stats',
@@ -32,6 +38,7 @@ export const MODULES: ModuleDef[] = [
     description: l('Ortalama, s, güven aralığı, t/F testleri, aykırı değer, ANOVA', 'Mean, s, confidence interval, t/F tests, outliers, ANOVA'),
     color: palette.blue,
     glyph: 'σ',
+    group: 'data',
   },
   {
     id: 'calib',
@@ -39,6 +46,7 @@ export const MODULES: ModuleDef[] = [
     description: l('Doğrusal regresyon, standart ekleme, iç standart, LOD/LOQ', 'Linear regression, standard addition, internal standard, LOD/LOQ'),
     color: palette.amber,
     glyph: 'R²',
+    group: 'data',
   },
   {
     id: 'equilibrium',
@@ -46,6 +54,7 @@ export const MODULES: ModuleDef[] = [
     description: l('ΔG°–K, K birleştirme, iyonik şiddet, Debye–Hückel, aktivite', 'ΔG°–K, combining K, ionic strength, Debye–Hückel, activity'),
     color: palette.indigo,
     glyph: '⇌',
+    group: 'equilibria',
   },
   {
     id: 'acidbase',
@@ -53,6 +62,7 @@ export const MODULES: ModuleDef[] = [
     description: l('pH, tamponlar, α-fraksiyonları, amfiprotik türler', 'pH, buffers, α fractions, amphiprotic species'),
     color: palette.crimson,
     glyph: 'pH',
+    group: 'equilibria',
   },
   {
     id: 'titration',
@@ -60,6 +70,7 @@ export const MODULES: ModuleDef[] = [
     description: l('Asit–baz, EDTA, çöktürme ve redoks eğrileri, dönüm noktası, indikatörler', 'Acid–base, EDTA, precipitation and redox curves, end points, indicators'),
     color: palette.vermilion,
     glyph: 'pM',
+    group: 'equilibria',
   },
   {
     id: 'grav',
@@ -67,6 +78,7 @@ export const MODULES: ModuleDef[] = [
     description: l('Gravimetrik faktör, Ksp, ortak iyon, pH etkisi', 'Gravimetric factor, Ksp, common ion, effect of pH'),
     color: palette.deepNavy,
     glyph: 'Ksp',
+    group: 'basics',
   },
   {
     id: 'electro',
@@ -74,6 +86,7 @@ export const MODULES: ModuleDef[] = [
     description: l('Nernst, potansiyometri, ISE, kulometri, voltametri, iletkenlik', 'Nernst, potentiometry, ISE, coulometry, voltammetry, conductivity'),
     color: palette.teal,
     glyph: 'E°',
+    group: 'instrumental',
   },
   {
     id: 'spectro',
@@ -81,6 +94,7 @@ export const MODULES: ModuleDef[] = [
     description: l('Beer–Lambert, %T, iki bileşenli karışım, foton enerjisi', 'Beer–Lambert, %T, two-component mixtures, photon energy'),
     color: palette.orange,
     glyph: 'λ',
+    group: 'instrumental',
   },
   {
     id: 'extraction',
@@ -88,6 +102,7 @@ export const MODULES: ModuleDef[] = [
     description: l('K_D, D, % ekstraksiyon, ardışık ekstraksiyon, şelatlar, karşı akım', 'K_D, D, % extracted, repeated extraction, chelates, countercurrent'),
     color: palette.green,
     glyph: 'K_D',
+    group: 'separations',
   },
   {
     id: 'chroma',
@@ -95,6 +110,47 @@ export const MODULES: ModuleDef[] = [
     description: l('k, α, N, H, R_s, Purnell, van Deemter, Kovats, KE', 'k, α, N, H, R_s, Purnell, van Deemter, Kovats, CE'),
     color: palette.purple,
     glyph: 'R_s',
+    group: 'separations',
+  },
+  {
+    id: 'qa',
+    name: l('Kalite Güvencesi ve Belirsizlik', 'Quality Assurance & Uncertainty'),
+    description: l('Geri kazanım, Horwitz, belirsizlik bütçesi, kontrol grafiği, yeterlilik skorları, Youden', 'Recovery, Horwitz, uncertainty budget, control charts, proficiency scores, Youden'),
+    color: palette.raspberry,
+    glyph: 'U',
+    group: 'data',
+  },
+  {
+    id: 'sampling',
+    name: l('Örnekleme', 'Sampling'),
+    description: l('Örnekleme varyansı, Ingamells sabiti, numune sayısı ve kütlesi', 'Sampling variance, Ingamells constant, number and mass of samples'),
+    color: palette.olive,
+    glyph: 'n',
+    group: 'data',
+  },
+  {
+    id: 'atomic',
+    name: l('Atomik Spektroskopi ve X-Işınları', 'Atomic Spectroscopy & X-rays'),
+    description: l('Boltzmann dağılımı, emisyon kalibrasyonu, Bragg, Moseley, X-ışını soğurması, XPS, Mössbauer', 'Boltzmann distribution, emission calibration, Bragg, Moseley, X-ray absorption, XPS, Mössbauer'),
+    color: palette.cerulean,
+    glyph: 'AAS',
+    group: 'instrumental',
+  },
+  {
+    id: 'ms',
+    name: l('Kütle Spektrometrisi', 'Mass Spectrometry'),
+    description: l('Çözünürlük, kütle doğruluğu, sektör/TOF/ICR, izotop dağılımı, DBE', 'Resolution, mass accuracy, sector/TOF/ICR, isotope patterns, DBE'),
+    color: palette.brown,
+    glyph: 'm/z',
+    group: 'instrumental',
+  },
+  {
+    id: 'kinetics',
+    name: l('Kinetik, Radyokimya ve Termal', 'Kinetics, Radiochemistry & Thermal'),
+    description: l('Hız yasaları, Michaelis–Menten, Arrhenius, radyoaktif bozunma, izotop seyreltme, NAA, TGA', 'Rate laws, Michaelis–Menten, Arrhenius, radioactive decay, isotope dilution, NAA, TGA'),
+    color: palette.grape,
+    glyph: 'k',
+    group: 'other',
   },
   {
     id: 'tools',
@@ -102,6 +158,7 @@ export const MODULES: ModuleDef[] = [
     description: l('Molar kütle, Ka, Ksp, atom kütleleri, kritik değerler', 'Molar mass, Ka, Ksp, atomic weights, critical values'),
     color: palette.graphite,
     glyph: '⚙',
+    group: 'other',
   },
 ];
 
@@ -155,8 +212,8 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
     module: 'tools',
     name: l('Kritik değerler (t, F, Q, G)', 'Critical values (t, F, Q, G)'),
     purpose: l(
-      'Serbestlik derecesi ve güven düzeyine göre t, F, Dixon Q ve Grubbs G kritik değerleri. t, F ve G hesapla üretilir.',
-      'Critical values of t, F, Dixon Q and Grubbs G for any degrees of freedom and confidence level. t, F and G are computed.',
+      '%90, %95 ve %99 güven düzeylerinde t, F, Dixon Q ve Grubbs G kritik değerleri. t, F ve G hesapla üretilir; Q, n = 3–10 için Rorabacher (1991) tablosundandır.',
+      'Critical values of t, F, Dixon Q and Grubbs G at 90%, 95% and 99% confidence. t, F and G are computed; Q is tabulated for n = 3–10 (Rorabacher 1991).',
     ),
     sources: ['[H] 16.4–16.7', '[P] Ek'],
     keywords: ['kritik', 'critical', 't tablosu', 'F tablosu', 'Q', 'Grubbs'],
@@ -224,7 +281,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
     module: 'stats',
     name: l('Dixon Q-testi', 'Dixon Q-test'),
     purpose: l('Küçük veri setlerinde (n = 3–10) şüpheli uç değerin atılıp atılamayacağına karar verir.', 'Decides whether a suspected outlier can be rejected in small data sets (n = 3–10).'),
-    formula: 'Q = |x_şüpheli − x_en yakın| / (x_max − x_min)',
+    formula: l('Q = |x_şüpheli − x_en yakın| / (x_max − x_min)', 'Q = |x_suspect − x_nearest| / (x_max − x_min)'),
     sources: ['[K] 2.9', '[T] 1.13', '[H] 4.6, 16.6'],
     keywords: ['Q-testi', 'Q-test', 'aykırı', 'outlier', 'Dixon'],
   }),
@@ -233,7 +290,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
     module: 'stats',
     name: l('Grubbs testi', 'Grubbs test'),
     purpose: l('ISO\'nun önerdiği aykırı değer testi; ortalamadan en uzak değeri standart sapma cinsinden değerlendirir.', 'Outlier test recommended by ISO; evaluates the value farthest from the mean in units of standard deviation.'),
-    formula: 'G = |x_şüpheli − x̄| / s',
+    formula: l('G = |x_şüpheli − x̄| / s', 'G = |x_suspect − x̄| / s'),
     sources: ['[H] 4.6, 16.7', '[D] 4.36'],
     keywords: ['Grubbs', 'aykırı', 'outlier'],
   }),
@@ -245,7 +302,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
       'Üç veya daha fazla grubun (laboratuvar, analist, yöntem) ortalamaları arasında anlamlı fark olup olmadığını test eder.',
       'Tests whether the means of three or more groups (laboratories, analysts, methods) differ significantly.',
     ),
-    formula: 'F = MS_gruplar arası / MS_grup içi',
+    formula: l('F = MS_gruplar arası / MS_grup içi', 'F = MS_between / MS_within'),
     sources: ['[H] 14.4', '[D] 5.1', '[C] 3'],
     keywords: ['ANOVA', 'varyans analizi', 'analysis of variance'],
   }),
@@ -291,7 +348,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
       'Eklenen standart derişimine karşı sinyal doğrusunun x-kesişiminden numunedeki analit derişimini ve belirsizliğini bulur.',
       'Analyte concentration and its uncertainty from the x-intercept of signal versus added standard concentration.',
     ),
-    formula: 'Cₓ = b₀ / b₁  (|x-kesişimi|)',
+    formula: l('Cₓ = b₀ / b₁  (|x-kesişimi|)', 'Cₓ = b₀ / b₁  (|x-intercept|)'),
     sources: ['[H] 5.3', '[C] 17.5'],
     keywords: ['standart ekleme', 'standard addition'],
   }),
@@ -308,7 +365,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
   custom({
     id: 'alpha-fractions',
     module: 'acidbase',
-    name: l('α-Fraksiyonları ve dağılım diyagramı', 'α fractions & distribution diagram'),
+    name: l('α kesirleri ve tür dağılım diyagramı', 'α fractions & distribution diagram'),
     purpose: l(
       'Poliprotik bir asidin (en çok 4 pKa) türlerinin pH\'a göre kesirlerini hesaplar ve grafiğini çizer; log C–pH diyagramı da gösterilebilir.',
       'Fractions of each species of a polyprotic acid (up to 4 pKa values) versus pH, with a plot; a log C–pH diagram can also be shown.',
@@ -478,6 +535,135 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
     sources: ['[H] 10.3', '[K] 24'],
     keywords: ['Job', 'sürekli değişim', 'continuous variations', 'stokiyometri', 'kompleks'],
   }),
+
+  // v3: quality assurance
+  custom({
+    id: 'uncertainty-budget',
+    module: 'qa',
+    name: l('Ölçüm belirsizliği bütçesi', 'Measurement uncertainty budget'),
+    purpose: l(
+      'Çarpım/bölüm şeklindeki bir sonucun (ör. C = m·P/(M·V)) her girdisinin standart belirsizliğinden birleşik ve genişletilmiş belirsizliği hesaplar; her bileşenin toplam varyansa katkısını gösterir.',
+      'Combined and expanded uncertainty of a product/quotient result (e.g. C = m·P/(M·V)) from the standard uncertainty of each input, with each component’s share of the total variance.',
+    ),
+    formula: 'u_c(y)/y = √Σ (u(xᵢ)/xᵢ)²;  U = k·u_c',
+    sources: ['[P] 6.3', '[D] 4.25–4.31'],
+    keywords: ['belirsizlik bütçesi', 'uncertainty budget', 'GUM', 'birleşik belirsizlik'],
+  }),
+  custom({
+    id: 'control-chart',
+    module: 'qa',
+    name: l('Kontrol grafiği (Shewhart)', 'Control chart (Shewhart)'),
+    purpose: l(
+      'Rutin kontrol numunesi sonuçlarını uyarı (±2s) ve eylem (±3s) sınırlarıyla çizer; ±3s dışına çıkan nokta, ardışık 3 noktadan 2\'sinin ±2s dışında olması ve merkezin aynı tarafında 7 ardışık nokta gibi kontrol dışı durumları işaretler.',
+      'Plots routine control-sample results with warning (±2s) and action (±3s) limits; flags out-of-control situations such as a point beyond ±3s, 2 of 3 consecutive points beyond ±2s, and 7 consecutive points on one side of the centre line.',
+    ),
+    formula: 'UWL/LWL = x̄ ± 2s;  UCL/LCL = x̄ ± 3s',
+    sources: ['[P] 6.2', '[H] 15.4', '[D] 4.5'],
+    keywords: ['kontrol grafiği', 'control chart', 'Shewhart', 'QC', 'kalite kontrol'],
+  }),
+  custom({
+    id: 'youden',
+    module: 'qa',
+    name: l('Youden sağlamlık testi', 'Youden ruggedness test'),
+    purpose: l(
+      'Yedi yöntem parametresinin sonuca etkisini sekiz deneyle (Plackett–Burman tasarımı) inceler; |Δ| > t·s/√2 olan etkileri önemli olarak işaretler.',
+      'Examines the effect of seven method parameters with eight experiments (Plackett–Burman design); flags effects with |Δ| > t·s/√2 as significant.',
+    ),
+    formula: 'Δ_A = (s+t+u+v)/4 − (w+x+y+z)/4;  |Δ| > t·s/√2',
+    sources: ['[P] 4.15–4.17', '[H] 14.2'],
+    keywords: ['Youden', 'sağlamlık', 'ruggedness', 'robustness', 'Plackett-Burman', 'doğrulama'],
+  }),
+  custom({
+    id: 'factorial-design',
+    module: 'qa',
+    name: l('2ᵏ faktöriyel tasarım', '2ᵏ factorial design'),
+    purpose: l('İki ya da üç faktörün iki düzeyde denendiği tam faktöriyel deneyden ana etkileri ve etkileşimleri hesaplar.', 'Main effects and interactions from a full factorial experiment with two or three factors at two levels.'),
+    formula: 'Etki = ȳ(+) − ȳ(−)',
+    sources: ['[H] 14.1', '[D] 5.1'],
+    keywords: ['faktöriyel', 'factorial', 'deney tasarımı', 'experimental design', 'etkileşim', 'optimizasyon'],
+  }),
+  custom({
+    id: 'screening-test',
+    module: 'qa',
+    name: l('Tarama testi performansı', 'Screening test performance'),
+    purpose: l('Nitel (var/yok) bir testin duyarlılık, özgüllük, pozitif/negatif öngörü değeri ve doğruluğunu 2×2 tablodan hesaplar.', 'Sensitivity, specificity, positive/negative predictive values and accuracy of a qualitative (yes/no) test from a 2×2 table.'),
+    formula: l('Duyarlılık = TP/(TP+FN);  Özgüllük = TN/(TN+FP)', 'Sensitivity = TP/(TP+FN);  Specificity = TN/(TN+FP)'),
+    sources: ['[D] 4.48–4.55'],
+    keywords: ['tarama', 'screening', 'duyarlılık', 'sensitivity', 'özgüllük', 'specificity', 'yanlış pozitif'],
+  }),
+  // v3: sampling
+  custom({
+    id: 'samples-number',
+    module: 'sampling',
+    name: l('Gerekli numune sayısı', 'Number of samples needed'),
+    purpose: l(
+      'Örnekleme bağıl standart sapması bilindiğinde, istenen bağıl örnekleme hatasına belirli güven düzeyinde ulaşmak için kaç numune toplanması gerektiğini t\'nin n\'ye bağlı olmasını hesaba katarak (iteratif) bulur.',
+      'Number of samples needed to reach a target relative sampling error at a given confidence, from the relative sampling standard deviation, iterating because t depends on n.',
+    ),
+    formula: 'n = t² · s_s² / e²',
+    sources: ['[H] 7.2', '[C] 3.33–3.35', '[P] 3.4'],
+    keywords: ['numune sayısı', 'number of samples', 'örnekleme', 'sampling plan'],
+  }),
+  // v3: mass spectrometry
+  custom({
+    id: 'isotope-pattern',
+    module: 'ms',
+    name: l('İzotop dağılımı ve DBE', 'Isotope pattern & DBE'),
+    purpose: l(
+      'Molekül formülünden monoizotopik kütleyi, M, M+1, M+2… piklerinin bağıl şiddetlerini ve halka + çift bağ sayısını (DBE) hesaplar; Cl ve Br içeren iyonları tanımakta kullanılır.',
+      'Monoisotopic mass, relative intensities of the M, M+1, M+2… peaks and rings plus double bonds (DBE) from a molecular formula; helps recognise ions containing Cl and Br.',
+    ),
+    formula: 'DBE = C + Si − (H + X + Na + K)/2 + (N + P + B)/2 + 1',
+    sources: ['[T] 11.2', '[K] 42', '[H] 4.4'],
+    keywords: ['izotop', 'isotope', 'M+1', 'M+2', 'DBE', 'doymamışlık', 'monoizotopik', 'klor', 'brom'],
+  }),
+  // v3: kinetics
+  custom({
+    id: 'kinetics-order',
+    module: 'kinetics',
+    name: l('Tepkime derecesi ve hız sabiti (veriden)', 'Reaction order & rate constant (from data)'),
+    purpose: l(
+      'Zaman–derişim verisine sıfırıncı, birinci ve ikinci derece integral hız yasalarını uydurur; en iyi doğrusallığa (R²) göre tepkime derecesini, k ve t½ değerini verir.',
+      'Fits zero-, first- and second-order integrated rate laws to time–concentration data and reports the order with the best linearity (R²), k and t½.',
+    ),
+    formula: '[A] – t;  ln[A] – t;  1/[A] – t',
+    sources: ['[C] 23.1–23.11', '[H] 13.2'],
+    keywords: ['tepkime derecesi', 'reaction order', 'hız sabiti', 'rate constant', 'kinetik'],
+  }),
+  custom({
+    id: 'lineweaver-burk',
+    module: 'kinetics',
+    name: l('Lineweaver–Burk grafiği', 'Lineweaver–Burk plot'),
+    purpose: l('Substrat derişimi–başlangıç hızı verisinin çift ters grafiğinden K_m ve V_max değerlerini bulur.', 'K_m and V_max from the double-reciprocal plot of substrate concentration versus initial rate.'),
+    formula: '1/v = (K_m / V_max)·(1/[S]) + 1/V_max',
+    sources: ['[C] 23.14', '[H] 13.2'],
+    keywords: ['Lineweaver', 'Burk', 'enzim', 'enzyme', 'Michaelis', 'Km', 'Vmax'],
+  }),
+  // v3: spectroscopy
+  custom({
+    id: 'multicomponent',
+    module: 'spectro',
+    name: l('Çok bileşenli analiz (en küçük kareler)', 'Multicomponent analysis (least squares)'),
+    purpose: l(
+      'Spektrumları örtüşen n bileşenin derişimlerini, en az n dalga boyunda ölçülen absorbanslardan klasik en küçük kareler (CLS) ile hesaplar.',
+      'Concentrations of n components with overlapping spectra from absorbances at n or more wavelengths, by classical least squares (CLS).',
+    ),
+    formula: 'A = E · c  →  c = (EᵀE)⁻¹ Eᵀ A',
+    sources: ['[C] 16.14–16.17', '[D] 6.4', '[K] 24.1–24.4'],
+    keywords: ['çok bileşenli', 'multicomponent', 'CLS', 'karışım', 'mixture', 'kemometri', 'chemometrics'],
+  }),
+  custom({
+    id: 'mole-ratio',
+    module: 'spectro',
+    name: l('Mol oranı yöntemi / fotometrik titrasyon', 'Mole-ratio method / photometric titration'),
+    purpose: l(
+      'Absorbansın ligand/metal oranına (ya da titrant hacmine) karşı grafiğindeki iki doğrusal bölgenin kesişiminden kompleks stokiyometrisini veya dönüm noktasını bulur.',
+      'Finds complex stoichiometry or the end point from the intersection of the two linear regions of absorbance versus ligand/metal ratio (or titrant volume).',
+    ),
+    formula: l('İki doğrunun kesişimi (en küçük hata kırılma noktası)', 'Intersection of two fitted lines (break point with the smallest residual error)'),
+    sources: ['[H] 10.3', '[K] 24'],
+    keywords: ['mol oranı', 'mole ratio', 'fotometrik titrasyon', 'photometric titration', 'stokiyometri'],
+  }),
 ];
 
 export const ALL_TOOLS: ToolDef[] = [
@@ -494,6 +680,12 @@ export const ALL_TOOLS: ToolDef[] = [
   ...ELECTRO_FORMULAS,
   ...EXTRACTION_FORMULAS,
   ...CHROMA_FORMULAS,
+  ...QA_FORMULAS,
+  ...SAMPLING_FORMULAS,
+  ...ATOMIC_FORMULAS,
+  ...MS_FORMULAS,
+  ...KINETICS_FORMULAS,
+  ...SPECTRO2_FORMULAS,
   ...CUSTOM_TOOLS,
 ];
 
@@ -511,7 +703,21 @@ const ORDER: Record<ModuleId, string[]> = {
   electro: ['table-potentials'],
   extraction: [],
   chroma: ['van-deemter', 'peak-resolution'],
+  qa: ['uncertainty-budget', 'control-chart', 'youden', 'factorial-design', 'screening-test'],
+  sampling: ['samples-number'],
+  atomic: [],
+  ms: ['isotope-pattern'],
+  kinetics: ['kinetics-order', 'lineweaver-burk'],
 };
+
+export const MODULE_GROUPS: { id: ModuleGroup; name: L }[] = [
+  { id: 'basics', name: l('Temel hesaplar', 'Fundamentals') },
+  { id: 'data', name: l('Veri, kalibrasyon ve kalite', 'Data, calibration & quality') },
+  { id: 'equilibria', name: l('Denge ve titrimetri', 'Equilibria & titrimetry') },
+  { id: 'instrumental', name: l('Enstrümantal analiz', 'Instrumental analysis') },
+  { id: 'separations', name: l('Ayırma yöntemleri', 'Separations') },
+  { id: 'other', name: l('Kinetik, radyokimya ve araçlar', 'Kinetics, radiochemistry & tools') },
+];
 
 /** Tools of a module; listed custom tools come first in the given order, then the rest. */
 export function toolsOf(module: ModuleId): ToolDef[] {
@@ -531,11 +737,13 @@ const fold = (s: string) =>
     .replace(/ı/g, 'i');
 
 /** Simple accent- and case-insensitive search over names, purposes, formulas and keywords. */
+const formulaTexts = (f: ToolDef['formula']): string[] => (f === undefined ? [] : typeof f === 'string' ? [f] : [f.tr, f.en]);
+
 export function searchTools(query: string): ToolDef[] {
   const terms = fold(query).split(/\s+/).filter(Boolean);
   if (!terms.length) return [];
   return ALL_TOOLS.filter((t) => {
-    const hay = fold([t.name.tr, t.name.en, t.purpose.tr, t.purpose.en, t.formula ?? '', ...(t.keywords ?? [])].join(' '));
+    const hay = fold([t.name.tr, t.name.en, t.purpose.tr, t.purpose.en, ...formulaTexts(t.formula), ...(t.keywords ?? [])].join(' '));
     return terms.every((term) => hay.includes(term));
   });
 }

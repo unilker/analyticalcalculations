@@ -16,6 +16,7 @@ import {
 } from './StatsTools';
 import { ConstantsTable, CriticalValuesTool, ElementsTable, KaTable, KspTable, MolarMassTool } from './TableTools';
 import { AcidBaseCurveTool, DerivativeTool, EdtaCurveTool, PrecipitationCurveTool, RedoxCurveTool } from './TitrationTools';
+import { V3_COMPONENTS } from './V3Tools';
 import { CraigTool, EdtaKfTable, IndicatorsTable, IonicStrengthTool, JobTool, PeakResolutionTool, PotentialsTable, VanDeemterTool } from './V2Tools';
 
 export const CUSTOM_COMPONENTS: Record<string, ComponentType<ToolProps>> = {
@@ -53,4 +54,5 @@ export const CUSTOM_COMPONENTS: Record<string, ComponentType<ToolProps>> = {
   'van-deemter': VanDeemterTool,
   'peak-resolution': PeakResolutionTool,
   'job-method': JobTool,
+  ...V3_COMPONENTS,
 };

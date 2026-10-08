@@ -116,8 +116,10 @@ export function edtaPM(p: EdtaParams, v: number): number {
   const vt = p.vm + v;
   const cM = (p.cm * p.vm) / vt;
   const cY = (p.cy * v) / vt;
-  const K = p.kEff / (p.alphaM ?? 1);
-  // m = [M'] solves K·m² + (K·d + 1)·m − c_M = 0 with d = c_Y − c_M; pick the cancellation-free form.
+  // Mass balances in [M′] (metal not bound to EDTA) and [Y′] use the conditional constant
+  // K″f = α_M·α_Y⁴⁻·K_f = [MY]/([M′][Y′]).
+  const K = p.kEff;
+  // m = [M′] solves K·m² + (K·d + 1)·m − c_M = 0 with d = c_Y − c_M; pick the cancellation-free form.
   const B = K * (cY - cM) + 1;
   const disc = Math.sqrt(B * B + 4 * K * cM);
   const m = B > 0 ? (2 * cM) / (B + disc) : (-B + disc) / (2 * K);
@@ -214,13 +216,19 @@ export function derivativeEndPoint(v: number[], y: number[]): DerivativeResult |
     const dv = first[i + 1][0] - first[i][0];
     if (dv > 0) second.push([(first[i][0] + first[i + 1][0]) / 2, (first[i + 1][1] - first[i][1]) / dv]);
   }
-  const iMax = first.reduce((best, p, i) => (Math.abs(p[1]) > Math.abs(first[best][1]) ? i : best), 0);
+  // Equal maxima (within round-off) keep the first one, so the result does not depend on float noise.
+  const iMax = first.reduce((best, p, i) => (Math.abs(p[1]) > Math.abs(first[best][1]) * (1 + 1e-9) ? i : best), 0);
   let vSecond: number | undefined;
   for (let i = 0; i < second.length - 1; i++) {
     const [x0, y0] = second[i];
     const [x1, y1] = second[i + 1];
     if (y0 !== 0 && Math.sign(y0) !== Math.sign(y1) && x0 <= first[iMax][0] + 1e-12 && x1 >= first[iMax][0] - 1e-12) {
       vSecond = x0 + (y0 * (x1 - x0)) / (y0 - y1);
+      break;
+    }
+    // Second derivative exactly zero between two equal first-derivative maxima.
+    if (y0 === 0 && i > 0 && Math.sign(second[i - 1][1]) !== Math.sign(y1) && Math.abs(x0 - first[iMax][0]) <= x1 - x0) {
+      vSecond = x0;
       break;
     }
   }

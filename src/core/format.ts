@@ -1,4 +1,6 @@
-import type { Lang } from './types';
+import type { LText, Lang } from './types';
+
+const SUP_TO_ASCII: Record<string, string> = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁻': '-', '⁺': '+' };
 
 const SUP: Record<string, string> = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
 
@@ -31,7 +33,12 @@ function trimZeros(s: string): string {
  * e.g. "1,8e-5", "1.8E-5", "1,8×10^-5", "1.8x10-5".
  */
 export function parseNumber(raw: string): number {
-  let s = raw.trim().replace(/\s+/g, '').replace(/−/g, '-');
+  let s = raw
+    .trim()
+    .replace(/\s+/g, '')
+    .replace(/−/g, '-')
+    // Accept our own display format "1,23 × 10⁻⁵" (superscript exponent).
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]/g, (c) => SUP_TO_ASCII[c]);
   if (!s) return NaN;
   s = s.replace(/[×xX*]10\^?/, 'e');
   // A comma is a decimal separator unless a point is also present (then it is a thousands separator).
@@ -50,6 +57,14 @@ export function parseList(raw: string): number[] {
     .filter((n) => Number.isFinite(n));
 }
 
+/** Tokens of a list or table that are not numbers (they are skipped by parseList/parseTable). */
+export function unreadTokens(raw: string): string[] {
+  return raw
+    .split(/[\s;\t]+/)
+    .map((t) => t.trim().replace(/,$/, ''))
+    .filter((t) => t && !Number.isFinite(parseNumber(t)));
+}
+
 /** Parses rows of 2 or 3 columns (x y [s]) separated by spaces, tabs or semicolons. */
 export function parseTable(raw: string): number[][] {
   return raw
@@ -63,4 +78,13 @@ export function parseTable(raw: string): number[][] {
         .filter((n) => Number.isFinite(n)),
     )
     .filter((row) => row.length >= 2);
+}
+
+/**
+ * Formula/symbol text in the given language. Formula strings are written with Turkish decimal
+ * commas ("0,05916"); in English they are shown with decimal points ("0.05916").
+ */
+export function localizeFormula(text: LText, lang: Lang): string {
+  const s = typeof text === 'string' ? text : text[lang];
+  return lang === 'en' ? s.replace(/(\d),(\d)/g, '$1.$2') : s;
 }
