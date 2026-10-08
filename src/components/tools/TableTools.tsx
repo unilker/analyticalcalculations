@@ -87,7 +87,7 @@ export function KaTable({ color }: ToolProps) {
           </View>
         ))}
       </Card>
-      <Notice text={lang === 'tr' ? '25 °C. Bazlar eşlenik asitleri (BH⁺) olarak listelenmiştir; pKb = 14,00 − pKa.' : '25 °C. Bases are listed as their conjugate acids (BH⁺); pKb = 14.00 − pKa.'} />
+      <Notice text={lang === 'tr' ? '25 °C. Bazlar eşlenik asitleri (BH⁺) olarak listelenmiştir; pKb = 14,00 − pKa. H₂S için Ka₂ ≈ 10⁻¹⁹ (pKa₂ ≈ 19) güncel değerdir: S²⁻ suda önemli miktarda bulunmaz. Eski kitaplarda 10⁻¹³–10⁻¹⁵ arası değerler geçer; kitap problemi çözerken kitabın değerini kullanın.' : '25 °C. Bases are listed as their conjugate acids (BH⁺); pKb = 14.00 − pKa. For H₂S, Ka₂ ≈ 10⁻¹⁹ (pKa₂ ≈ 19) is the current value: S²⁻ is not a significant species in water. Older textbooks give 10⁻¹³–10⁻¹⁵; use the book’s value when solving its problems.'} />
     </View>
   );
 }
@@ -110,7 +110,7 @@ export function KspTable({ color }: ToolProps) {
           />
         ))}
       </Card>
-      <Notice text={lang === 'tr' ? '25 °C. s: saf sudaki molar çözünürlük. Hidroksitlerde suyun kendi OH⁻ iyonu hesaba katılır (çok az çözünen Fe(OH)₃ gibi hidroksitlerde basit formül çok yüksek sonuç verir). Diğer tuzlarda hidroliz ve kompleksleşme ihmal edilmiştir; örneğin sülfür, karbonat ve fosfatların gerçek çözünürlüğü daha yüksektir.' : '25 °C. s: molar solubility in pure water. For hydroxides the OH⁻ from water itself is included (for very insoluble hydroxides such as Fe(OH)₃ the simple formula gives far too high a value). For other salts hydrolysis and complexation are neglected; e.g. sulfides, carbonates and phosphates are actually more soluble.'} />
+      <Notice text={lang === 'tr' ? '25 °C. s: saf sudaki molar çözünürlük. Hidroksitlerde suyun kendi OH⁻ iyonu hesaba katılır (çok az çözünen Fe(OH)₃ gibi hidroksitlerde basit formül çok yüksek sonuç verir). Diğer tuzlarda hidroliz ve kompleksleşme ihmal edilmiştir; örneğin sülfür, karbonat ve fosfatların gerçek çözünürlüğü daha yüksektir. Metal sülfür Ksp değerleri S²⁻ için eski verilere dayanır; bunları kitaptaki H₂S Ka₂ değeriyle birlikte kullanın.' : '25 °C. s: molar solubility in pure water. For hydroxides the OH⁻ from water itself is included (for very insoluble hydroxides such as Fe(OH)₃ the simple formula gives far too high a value). For other salts hydrolysis and complexation are neglected; e.g. sulfides, carbonates and phosphates are actually more soluble. Metal-sulfide Ksp values rest on older S²⁻ data; combine them with the textbook’s H₂S Ka₂.'} />
     </View>
   );
 }

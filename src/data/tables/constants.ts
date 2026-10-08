@@ -1,7 +1,10 @@
 import type { L } from '../../core/types';
 
 // Equilibrium constants at 25 °C from Christian, Dasgupta & Schug, Analytical Chemistry 7e,
-// Appendix C (Tables C.1, C.2b, C.3, C.4).
+// Appendix C (Tables C.1, C.2b, C.3, C.4). Values that differ markedly from critically evaluated
+// data were replaced: HOCl (pKa 7.53, Morris 1966), maleic acid (pKa 1.92, 6.23, CRC),
+// H₂SO₃ Ka₂ (pKa 7.17, CRC), H₂S Ka₂ (pKa ≈ 19, May et al. 2018) and Ag₃PO₄ (pKsp 17.55,
+// Smith & Martell; Harvey App. 10).
 
 export interface AcidEntry {
   name: L;
@@ -26,11 +29,11 @@ export const ACIDS: AcidEntry[] = [
   a('Glisin', 'Glycine', 'H₂NCH₂COOH', 4.5e-3, 1.7e-10),
   a('Hidrosiyanik asit', 'Hydrocyanic acid', 'HCN', 7.2e-10),
   a('Hidroflorik asit', 'Hydrofluoric acid', 'HF', 6.7e-4),
-  a('Hidrojen sülfür', 'Hydrogen sulfide', 'H₂S', 9.1e-8, 1.2e-15),
-  a('Hipokloröz asit', 'Hypochlorous acid', 'HOCl', 1.1e-8),
+  a('Hidrojen sülfür', 'Hydrogen sulfide', 'H₂S', 9.1e-8, 1e-19),
+  a('Hipokloröz asit', 'Hypochlorous acid', 'HOCl', 3.0e-8),
   a('İyodik asit', 'Iodic acid', 'HIO₃', 2e-1),
   a('Laktik asit', 'Lactic acid', 'CH₃CHOHCOOH', 1.4e-4),
-  a('Maleik asit', 'Maleic acid', 'cis-HOOCCH=CHCOOH', 1.5e-2, 2.6e-7),
+  a('Maleik asit', 'Maleic acid', 'cis-HOOCCH=CHCOOH', 1.2e-2, 5.9e-7),
   a('Malik asit', 'Malic acid', 'HOOCCHOHCH₂COOH', 4.0e-4, 8.9e-6),
   a('Nitröz asit', 'Nitrous acid', 'HNO₂', 5.1e-4),
   a('Oksalik asit', 'Oxalic acid', 'HOOCCOOH', 6.5e-2, 6.1e-5),
@@ -43,7 +46,7 @@ export const ACIDS: AcidEntry[] = [
   a('Salisilik asit', 'Salicylic acid', 'C₆H₄(OH)COOH', 1.07e-3, 1.82e-14),
   a('Sülfamik asit', 'Sulfamic acid', 'NH₂SO₃H', 1.0e-1),
   a('Sülfürik asit (2. proton)', 'Sulfuric acid (2nd proton)', 'HSO₄⁻', 1.2e-2),
-  a('Sülfüröz asit', 'Sulfurous acid', 'H₂SO₃', 1.3e-2, 1.23e-7),
+  a('Sülfüröz asit', 'Sulfurous acid', 'H₂SO₃', 1.4e-2, 6.7e-8),
   a('Trikloroasetik asit', 'Trichloroacetic acid', 'Cl₃CCOOH', 1.29e-1),
   // Conjugate acids of bases (Table C.2b)
   a('Amonyum', 'Ammonium', 'NH₄⁺', 5.71e-10),
@@ -121,7 +124,7 @@ export const KSP: KspEntry[] = [
   s('Gümüş kromat', 'Silver chromate', 'Ag₂CrO₄', 1.1e-12, 2, 1),
   s('Gümüş iyodat', 'Silver iodate', 'AgIO₃', 3.1e-8, 1, 1),
   s('Gümüş iyodür', 'Silver iodide', 'AgI', 1e-16, 1, 1),
-  s('Gümüş fosfat', 'Silver phosphate', 'Ag₃PO₄', 1.3e-20, 3, 1),
+  s('Gümüş fosfat', 'Silver phosphate', 'Ag₃PO₄', 2.8e-18, 3, 1),
   s('Gümüş sülfür', 'Silver sulfide', 'Ag₂S', 2e-49, 2, 1),
   s('Gümüş tiyosiyanat', 'Silver thiocyanate', 'AgSCN', 1.0e-12, 1, 1),
   s('Stronsiyum okzalat', 'Strontium oxalate', 'SrC₂O₄', 1.6e-7, 1, 1),

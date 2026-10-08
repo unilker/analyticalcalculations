@@ -112,8 +112,8 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
 
   'combine-k': {
     concept: {
-      tr: 'Analitik kimyada ilgilendiğimiz tepkime çoğu zaman tablolarda doğrudan bulunmaz; ama tabloda yer alan basamak tepkimelerin toplamı olarak yazılabilir. Örneğin H₂S’nin iki protonunu da vermesi, birinci ve ikinci iyonlaşma basamaklarının toplamıdır.\n\nTepkimeler toplandığında denge sabitleri çarpılır; bir tepkime ters çevrildiğinde K’sı 1/K, bir katsayıyla çarpıldığında Kⁿ olur. Bu kurallar, Hess yasasının denge sabitlerine uygulanmış biçimidir.',
-      en: 'The reaction we care about in analytical chemistry is often not tabulated directly, but it can be written as the sum of tabulated step reactions. For example, H₂S losing both protons is the sum of its first and second ionisation steps.\n\nWhen reactions are added their equilibrium constants multiply; reversing a reaction turns K into 1/K, and multiplying it by a coefficient n turns K into Kⁿ. These rules are Hess’s law applied to equilibrium constants.',
+      tr: 'Analitik kimyada ilgilendiğimiz tepkime çoğu zaman tablolarda doğrudan bulunmaz; ama tabloda yer alan basamak tepkimelerin toplamı olarak yazılabilir. Örneğin karbonik asidin (H₂CO₃) iki protonunu da vermesi, birinci ve ikinci iyonlaşma basamaklarının toplamıdır.\n\nTepkimeler toplandığında denge sabitleri çarpılır; bir tepkime ters çevrildiğinde K’sı 1/K, bir katsayıyla çarpıldığında Kⁿ olur. Bu kurallar, Hess yasasının denge sabitlerine uygulanmış biçimidir.',
+      en: 'The reaction we care about in analytical chemistry is often not tabulated directly, but it can be written as the sum of tabulated step reactions. For example, carbonic acid (H₂CO₃) losing both protons is the sum of its first and second ionisation steps.\n\nWhen reactions are added their equilibrium constants multiply; reversing a reaction turns K into 1/K, and multiplying it by a coefficient n turns K into Kⁿ. These rules are Hess’s law applied to equilibrium constants.',
     },
     meaning: {
       tr: 'ΔG° değerleri toplanabilir bir büyüklüktür. ΔG° = −R·T·ln K olduğundan ΔG°’lerin toplanması, ln K’ların toplanması yani K’ların çarpılması demektir.\n\nAraç genel biçimi kullanır: K = K₁ⁿ¹ · K₂ⁿ², ya da logaritmik olarak log K = n₁·log K₁ + n₂·log K₂.\n\n• n = 1: tepkime olduğu gibi eklenir.\n• n = −1: tepkime ters çevrilir (K → 1/K).\n• n = 2: tepkime 2 ile çarpılır (K → K²); n = ½ ise karekök alınır.',
@@ -135,28 +135,28 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
     },
     solution: {
       tr: [
-        'Verilen: H₂S ⇌ H⁺ + HS⁻, Ka₁ = 9,1 × 10⁻⁸ (n₁ = 1); HS⁻ ⇌ H⁺ + S²⁻, Ka₂ = 1,2 × 10⁻¹⁵ (n₂ = 1).',
-        'İki tepkime toplanınca HS⁻ sadeleşir: H₂S ⇌ 2H⁺ + S²⁻.',
-        'K = Ka₁ · Ka₂ = (9,1 × 10⁻⁸) × (1,2 × 10⁻¹⁵); log K = −7,04 + (−14,92) = −21,96.',
-        'Sonuç: K = 1,092 × 10⁻²².',
+        'Verilen: H₂CO₃ ⇌ H⁺ + HCO₃⁻, Ka₁ = 4,3 × 10⁻⁷ (n₁ = 1); HCO₃⁻ ⇌ H⁺ + CO₃²⁻, Ka₂ = 4,8 × 10⁻¹¹ (n₂ = 1).',
+        'İki tepkime toplanınca HCO₃⁻ sadeleşir: H₂CO₃ ⇌ 2H⁺ + CO₃²⁻.',
+        'K = Ka₁ · Ka₂ = (4,3 × 10⁻⁷) × (4,8 × 10⁻¹¹); log K = −6,367 + (−10,319) = −16,685.',
+        'Sonuç: K = 2,064 × 10⁻¹⁷.',
       ],
       en: [
-        'Given: H₂S ⇌ H⁺ + HS⁻, Ka₁ = 9.1 × 10⁻⁸ (n₁ = 1); HS⁻ ⇌ H⁺ + S²⁻, Ka₂ = 1.2 × 10⁻¹⁵ (n₂ = 1).',
-        'Adding the two reactions cancels HS⁻: H₂S ⇌ 2H⁺ + S²⁻.',
-        'K = Ka₁ · Ka₂ = (9.1 × 10⁻⁸) × (1.2 × 10⁻¹⁵); log K = −7.04 + (−14.92) = −21.96.',
-        'Result: K = 1.092 × 10⁻²².',
+        'Given: H₂CO₃ ⇌ H⁺ + HCO₃⁻, Ka₁ = 4.3 × 10⁻⁷ (n₁ = 1); HCO₃⁻ ⇌ H⁺ + CO₃²⁻, Ka₂ = 4.8 × 10⁻¹¹ (n₂ = 1).',
+        'Adding the two reactions cancels HCO₃⁻: H₂CO₃ ⇌ 2H⁺ + CO₃²⁻.',
+        'K = Ka₁ · Ka₂ = (4.3 × 10⁻⁷) × (4.8 × 10⁻¹¹); log K = −6.367 + (−10.319) = −16.685.',
+        'Result: K = 2.064 × 10⁻¹⁷.',
       ],
     },
     mistakes: {
       tr: [
         'Tepkimeler toplandığında K’ları toplamak (doğrusu çarpmaktır).',
         'Ters çevrilen tepkimede K yerine −K kullanmak (doğrusu 1/K’dir).',
-        'Toplam tepkimeden [H⁺] = 2[S²⁻] sonucunu çıkarmak: toplam sabit, tepkimenin gerçekten bu stokiyometriyle yürüdüğünü göstermez.',
+        'Toplam tepkimeden [H⁺] = 2[CO₃²⁻] sonucunu çıkarmak: toplam sabit, tepkimenin gerçekten bu stokiyometriyle yürüdüğünü göstermez.',
       ],
       en: [
         'Adding the K values when reactions are added (they must be multiplied).',
         'Using −K for a reversed reaction (it is 1/K).',
-        'Concluding [H⁺] = 2[S²⁻] from the overall reaction: the combined constant does not mean the reaction actually proceeds with that stoichiometry.',
+        'Concluding [H⁺] = 2[CO₃²⁻] from the overall reaction: the combined constant does not mean the reaction actually proceeds with that stoichiometry.',
       ],
     },
     related: ['gibbs-k', 'pka-pkb', 'alpha-fractions'],

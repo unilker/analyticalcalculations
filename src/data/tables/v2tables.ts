@@ -1,6 +1,7 @@
 import type { L } from '../../core/types';
 
 // Christian, Dasgupta & Schug, Analytical Chemistry 7e, Appendix C, Tables C.4 and C.5.
+// Bi³⁺–EDTA uses the critically evaluated log Kf = 27.8 (Smith & Martell; Harvey App. 12).
 
 export interface EdtaKfEntry {
   name: L;
@@ -13,7 +14,7 @@ const k = (tr: string, en: string, ion: string, kf: number): EdtaKfEntry => ({ n
 export const EDTA_KF: EdtaKfEntry[] = [
   k('Alüminyum', 'Aluminum', 'Al³⁺', 1.35e16),
   k('Baryum', 'Barium', 'Ba²⁺', 5.75e7),
-  k('Bizmut', 'Bismuth', 'Bi³⁺', 1e23),
+  k('Bizmut', 'Bismuth', 'Bi³⁺', 6.3e27),
   k('Kadmiyum', 'Cadmium', 'Cd²⁺', 2.88e16),
   k('Kalsiyum', 'Calcium', 'Ca²⁺', 5.01e10),
   k('Kobalt(II)', 'Cobalt(II)', 'Co²⁺', 2.04e16),

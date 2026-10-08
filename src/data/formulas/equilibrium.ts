@@ -83,7 +83,7 @@ export const EQUILIBRIUM_FORMULAS: FormulaDef[] = [
     },
     defaultUnknown: 'K',
     sources: ['[C] 6.13–6.16', '[H] 6.3'],
-    examples: [{ values: { K1: 9.1e-8, n1: 1, K2: 1.2e-15, n2: 1 }, unknown: 'K', expected: 1.092e-22, description: l('H₂S ⇌ 2H⁺ + S²⁻ (Ka₁·Ka₂)', 'H₂S ⇌ 2H⁺ + S²⁻ (Ka₁·Ka₂)') }],
+    examples: [{ values: { K1: 4.3e-7, n1: 1, K2: 4.8e-11, n2: 1 }, unknown: 'K', expected: 2.064e-17, description: l('H₂CO₃ ⇌ 2H⁺ + CO₃²⁻ (Ka₁·Ka₂)', 'H₂CO₃ ⇌ 2H⁺ + CO₃²⁻ (Ka₁·Ka₂)') }],
     keywords: ['denge sabiti', 'equilibrium constant', 'Hess'],
   }),
   formula({
