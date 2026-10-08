@@ -117,7 +117,7 @@ export const SPECTRO_DETAILS: Record<string, ToolDetail> = {
       en: 'Radiation is absorbed and emitted in packets (photons) whose energy is proportional to the frequency. A molecule can absorb a photon only if its energy matches the gap between two energy levels; this is the basic principle of spectroscopy.\n\nUV-visible photons correspond to electronic transitions, IR photons to vibrational transitions, and microwave and radio-frequency photons to rotational and spin transitions. Expressing photon energy in kJ/mol makes it easy to compare with bond energies.',
     },
     meaning: {
-      tr: 'E = h · ν = h · c / λ (Planck–Einstein bağıntısı); h = 6,626 × 10⁻³⁴ J·s Planck sabitidir. Sonuç tek bir fotonun enerjisidir (J).\n\nBirim dönüşümleri:\n• Bir mol foton için J değeri Avogadro sayısıyla çarpılır: E (kJ/mol) ≈ 1,196 × 10⁵ / λ (nm).\n• eV cinsinden: E (eV) ≈ 1240 / λ (nm).\n\nEnerji dalga boyuyla ters, dalga sayısıyla doğru orantılıdır.',
+      tr: 'E = h · ν = h · c / λ (Planck–Einstein bağıntısı); h = 6,626 × 10⁻³⁴ J·s Planck sabitidir. Sonuç tek bir fotonun enerjisidir (J).\n\nBirim dönüşümleri:\n• Bir mol foton için J değeri Avogadro sabitiyle (N_A) çarpılır: E (kJ/mol) ≈ 1,196 × 10⁵ / λ (nm).\n• eV cinsinden: E (eV) ≈ 1240 / λ (nm).\n\nEnerji dalga boyuyla ters, dalga sayısıyla doğru orantılıdır.',
       en: 'E = h · ν = h · c / λ (Planck–Einstein relation); h = 6.626 × 10⁻³⁴ J·s is Planck’s constant. The result is the energy of a single photon (J).\n\nUnit conversions:\n• For one mole of photons, multiply by Avogadro’s number: E (kJ/mol) ≈ 1.196 × 10⁵ / λ (nm).\n• In eV: E (eV) ≈ 1240 / λ (nm).\n\nThe energy is inversely proportional to wavelength and directly proportional to wavenumber.',
     },
     usage: {
@@ -150,7 +150,7 @@ export const SPECTRO_DETAILS: Record<string, ToolDetail> = {
     },
     mistakes: {
       tr: [
-        'Tek fotonun enerjisini (J) molar enerjiyle (kJ/mol) karıştırmak; aradaki çarpan Avogadro sayısıdır.',
+        'Tek fotonun enerjisini (J) molar enerjiyle (kJ/mol) karıştırmak; aradaki çarpan Avogadro sabitidir (N_A).',
         'Dalga boyunu nm olarak doğrudan formüle koymak.',
         'Dalga boyu arttıkça enerjinin arttığını sanmak; IR fotonları UV fotonlarından daha az enerjilidir.',
       ],

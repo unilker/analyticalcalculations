@@ -364,7 +364,7 @@ export const CHROMA_FORMULAS: FormulaDef[] = [
     module: 'chroma',
     name: l('Rf değeri (TLC, kâğıt kromatografisi)', 'Rf value (TLC, paper chromatography)'),
     purpose: l('Lekenin aldığı yolun çözücü cephesinin aldığı yola oranıdır; aynı koşullarda maddeyi tanımlamaya yarar.', 'Distance travelled by the spot divided by the distance travelled by the solvent front; identifies compounds under fixed conditions.'),
-    formula: 'Rf = d(analit) / d(çözücü cephesi)',
+    formula: l('Rf = d(analit) / d(çözücü cephesi)', 'Rf = d(analyte) / d(solvent front)'),
     variables: [
       v('Rf', 'Rf', 'Rf değeri', 'Rf value', 'none', { max: 1 }),
       v('da', 'dₐ', 'Lekenin aldığı yol', 'Distance travelled by spot', 'pathLength'),
@@ -385,10 +385,10 @@ export const CHROMA_FORMULAS: FormulaDef[] = [
       'Gazın kolon boyunca sıkıştırılabilirliğini James–Martin faktörüyle (j) düzelterek net alıkonma hacmini hesaplar. P_g/P_ç kolon giriş/çıkış basınç oranıdır.',
       'Net retention volume corrected for gas compressibility with the James–Martin factor j. P_in/P_out is the inlet-to-outlet pressure ratio.',
     ),
-    formula: 'V_N = j · F · (t_R − t_M);  j = 3/2 · [(P_g/P_ç)² − 1] / [(P_g/P_ç)³ − 1]',
+    formula: l('V_N = j · F · (t_R − t_M);  j = 3/2 · [(P_g/P_ç)² − 1] / [(P_g/P_ç)³ − 1]', 'V_N = j · F · (t_R − t_M);  j = 3/2 · [(P_i/P_o)² − 1] / [(P_i/P_o)³ − 1]'),
     variables: [
       v('VN', 'V_N', 'Net alıkonma hacmi', 'Net retention volume', 'volume', { unit: 'mL' }),
-      v('P', 'P_g/P_ç', 'Basınç oranı', 'Pressure ratio', 'none', { min: 1.000001, max: 100, defaultValue: 2 }),
+      v('P', l('P_g/P_ç', 'P_i/P_o'), 'Basınç oranı', 'Pressure ratio', 'none', { min: 1.000001, max: 100, defaultValue: 2 }),
       v('F', 'F', 'Çıkış akış hızı', 'Outlet flow rate', 'flow', { unit: 'mL/min' }),
       TIME('tR', 't_R', 'Alıkonma süresi', 'Retention time'),
       TIME('tM', 't_M', 'Ölü süre', 'Void time'),

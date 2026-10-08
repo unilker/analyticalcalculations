@@ -529,12 +529,12 @@ export const CONC_DETAILS: Record<string, ToolDetail> = {
       tr: [
         'Verilen: [X] = 2,5 × 10⁻⁴ M.',
         'pX = −log(2,5 × 10⁻⁴) = −(log 2,5 + log 10⁻⁴) = −(0,398 − 4).',
-        'Sonuç: pX = 3,602 (iki anlamlı rakamla 3,60).',
+        'Sonuç: pX = 3,602; derişimde iki anlamlı rakam olduğundan iki ondalık basamakla pX = 3,60.',
       ],
       en: [
         'Given: [X] = 2.5 × 10⁻⁴ M.',
         'pX = −log(2.5 × 10⁻⁴) = −(log 2.5 + log 10⁻⁴) = −(0.398 − 4).',
-        'Result: pX = 3.602 (3.60 to two significant figures).',
+        'Result: pX = 3.602; the concentration has two significant figures, so pX is given to two decimal places: 3.60.',
       ],
     },
     mistakes: {

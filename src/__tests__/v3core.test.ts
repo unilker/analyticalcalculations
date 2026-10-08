@@ -1,5 +1,5 @@
 import { kineticOrders, leastSquares, lineweaverBurk, twoLineFit } from '../core/fitting';
-import { complexFormula } from '../core/equilibria';
+import { complexFormula, pureWaterSolubility } from '../core/equilibria';
 import { dbe, isotopePattern } from '../core/massSpec';
 import { controlChart, factorialEffects, samplesNeeded, screening, uncertaintyBudget, youdenEffects } from '../core/quality';
 
@@ -151,5 +151,19 @@ describe('audit regressions (spectroscopy and MS)', () => {
     const r = isotopePattern('C6H7BO2');
     if (!r.ok) throw new Error(r.error);
     near(r.monoisotopic, 122.054, 2e-3);
+  });
+});
+
+describe('audit regressions (solubility)', () => {
+  it('includes water OH⁻ for very insoluble hydroxides', () => {
+    // Fe(OH)₃, Ksp 4e-38: [OH⁻] ≈ 1e-7 → s ≈ 4e-38 / 1e-21 = 4e-17 M (not (Ksp/27)^¼ ≈ 2e-10 M)
+    const fe = pureWaterSolubility(4e-38, 1, 3, true);
+    expect(fe / 4e-17).toBeGreaterThan(0.99);
+    expect(fe / 4e-17).toBeLessThan(1.01);
+    // Mg(OH)₂ and Ca(OH)₂ are soluble enough for the simple formula
+    expect(pureWaterSolubility(1.2e-11, 1, 2, true) / (1.2e-11 / 4) ** (1 / 3)).toBeCloseTo(1, 4);
+    expect(pureWaterSolubility(5.5e-6, 1, 2, true) / (5.5e-6 / 4) ** (1 / 3)).toBeCloseTo(1, 6);
+    // non-hydroxide: simple formula
+    expect(pureWaterSolubility(1.8e-10, 1, 1, false)).toBeCloseTo(Math.sqrt(1.8e-10), 12);
   });
 });

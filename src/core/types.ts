@@ -3,6 +3,9 @@ export type Lang = 'tr' | 'en';
 /** Localized text. */
 export type L = { tr: string; en: string };
 
+/** Formula or symbol text: one string for both languages, or a TR/EN pair when it contains words. */
+export type LText = string | L;
+
 export type DimensionId =
   | 'none'
   | 'conc'
@@ -81,7 +84,7 @@ export type ModuleGroup = 'basics' | 'data' | 'equilibria' | 'instrumental' | 's
 export interface VariableDef {
   key: string;
   /** Display symbol, e.g. "ε" or "C₁". */
-  symbol: string;
+  symbol: LText;
   name: L;
   dim: DimensionId;
   /** Default unit id within the dimension (falls back to the base unit). */
@@ -115,8 +118,8 @@ export interface FormulaDef {
   module: ModuleId;
   name: L;
   purpose: L;
-  /** Human-readable formula. */
-  formula: string;
+  /** Human-readable formula (Turkish decimal commas; shown with points in English). */
+  formula: LText;
   variables: VariableDef[];
   /** Residual (left side − right side) evaluated in base units; zero when the equation holds. */
   equation: (v: Values) => number;
@@ -137,7 +140,7 @@ export interface CustomToolDef {
   name: L;
   purpose: L;
   /** Short formula or method summary shown on the card. */
-  formula?: string;
+  formula?: LText;
   sources: string[];
   keywords?: string[];
 }

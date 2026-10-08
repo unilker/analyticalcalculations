@@ -139,7 +139,7 @@ export interface PhysicalConstant {
 }
 
 export const PHYSICAL_CONSTANTS: PhysicalConstant[] = [
-  { symbol: 'N_A', name: { tr: 'Avogadro sayısı', en: 'Avogadro constant' }, value: 6.02214076e23, unit: 'mol⁻¹' },
+  { symbol: 'N_A', name: { tr: 'Avogadro sabiti', en: 'Avogadro constant' }, value: 6.02214076e23, unit: 'mol⁻¹' },
   { symbol: 'R', name: { tr: 'Gaz sabiti', en: 'Gas constant' }, value: 8.314462618, unit: 'J mol⁻¹ K⁻¹' },
   { symbol: 'F', name: { tr: 'Faraday sabiti', en: 'Faraday constant' }, value: 96485.33212, unit: 'C mol⁻¹' },
   { symbol: 'h', name: { tr: 'Planck sabiti', en: 'Planck constant' }, value: 6.62607015e-34, unit: 'J s' },

@@ -1,9 +1,9 @@
-import type { FormulaDef } from '../../core/types';
+import type { FormulaDef, LText } from '../../core/types';
 import { formula, l, linear, v } from './helpers';
 
 const BIG = 1e15;
 const val = (key: string, symbol: string, tr: string, en: string) => v(key, symbol, tr, en, 'none', linear(-BIG, BIG));
-const pos = (key: string, symbol: string, tr: string, en: string, extra = {}) => v(key, symbol, tr, en, 'none', extra);
+const pos = (key: string, symbol: LText, tr: string, en: string, extra = {}) => v(key, symbol, tr, en, 'none', extra);
 
 export const QA_FORMULAS: FormulaDef[] = [
   formula({
@@ -14,12 +14,12 @@ export const QA_FORMULAS: FormulaDef[] = [
       'Numuneye bilinen miktarda analit eklenerek yöntemin bu eklemeyi ne kadar ölçebildiğini verir; matriks etkisi ve doğruluk kontrolüdür.',
       'Fraction of a known amount of analyte added to a sample that the method measures; checks accuracy and matrix effects.',
     ),
-    formula: '%R = (C_eklemeli − C_eklemesiz) / C_eklenen × 100',
+    formula: l('%R = (C_spk − C_b) / C_ekl × 100', '%R = (C_spk − C_b) / C_add × 100'),
     variables: [
       v('R', '%R', 'Geri kazanım', 'Recovery', 'percent', linear(-1e6, 1e6)),
       pos('Cspk', 'C_spk', 'Eklemeli numunede bulunan', 'Found in spiked sample'),
       v('Cb', 'C_b', 'Eklemesiz numunede bulunan', 'Found in unspiked sample', 'none', { ...linear(-BIG, BIG), defaultValue: 0 }),
-      pos('Cadd', 'C_ekl', 'Eklenen miktar', 'Amount added'),
+      pos('Cadd', l('C_ekl', 'C_add'), 'Eklenen miktar', 'Amount added'),
     ],
     equation: (x) => x.R - (100 * (x.Cspk - x.Cb)) / x.Cadd,
     solve: { R: (x) => (100 * (x.Cspk - x.Cb)) / x.Cadd, Cspk: (x) => x.Cb + (x.R * x.Cadd) / 100, Cadd: (x) => (100 * (x.Cspk - x.Cb)) / x.R },
@@ -50,8 +50,8 @@ export const QA_FORMULAS: FormulaDef[] = [
     module: 'qa',
     name: l('Geri kazanım düzeltmesi', 'Recovery correction'),
     purpose: l('Gözlenen sonucu, ölçülen geri kazanım yüzdesiyle düzeltir.', 'Corrects an observed result for the measured percentage recovery.'),
-    formula: 'C_düz = C_göz / %R × 100',
-    variables: [pos('Ccor', 'C_düz', 'Düzeltilmiş sonuç', 'Corrected result'), pos('Cobs', 'C_göz', 'Gözlenen sonuç', 'Observed result'), v('R', '%R', 'Geri kazanım', 'Recovery', 'percent')],
+    formula: l('C_düz = C_göz / %R × 100', 'C_corr = C_obs / %R × 100'),
+    variables: [pos('Ccor', l('C_düz', 'C_corr'), 'Düzeltilmiş sonuç', 'Corrected result'), pos('Cobs', l('C_göz', 'C_obs'), 'Gözlenen sonuç', 'Observed result'), v('R', '%R', 'Geri kazanım', 'Recovery', 'percent')],
     equation: (x) => x.Ccor - (100 * x.Cobs) / x.R,
     solve: { Ccor: (x) => (100 * x.Cobs) / x.R, Cobs: (x) => (x.Ccor * x.R) / 100, R: (x) => (100 * x.Cobs) / x.Ccor },
     defaultUnknown: 'Ccor',
@@ -84,8 +84,8 @@ export const QA_FORMULAS: FormulaDef[] = [
       'Ölçülen laboratuvarlar arası RSD\'nin Horwitz öngörüsüne oranıdır; 0,5–2 arası kabul edilebilir kesinlik sayılır.',
       'Ratio of the observed between-laboratory RSD to the Horwitz prediction; 0.5–2 is considered acceptable precision.',
     ),
-    formula: 'HorRat = RSD_gözlenen / RSD_Horwitz',
-    variables: [pos('H', 'HorRat', 'HorRat', 'HorRat'), v('obs', 'RSD_göz', 'Gözlenen RSD', 'Observed RSD', 'percent'), v('pred', 'RSD_pred', 'Horwitz RSD', 'Horwitz RSD', 'percent')],
+    formula: l('HorRat = RSD_göz / RSD_Horwitz', 'HorRat = RSD_obs / RSD_Horwitz'),
+    variables: [pos('H', 'HorRat', 'HorRat', 'HorRat'), v('obs', l('RSD_göz', 'RSD_obs'), 'Gözlenen RSD', 'Observed RSD', 'percent'), v('pred', 'RSD_pred', 'Horwitz RSD', 'Horwitz RSD', 'percent')],
     equation: (x) => x.H - x.obs / x.pred,
     solve: { H: (x) => x.obs / x.pred, obs: (x) => x.H * x.pred, pred: (x) => x.obs / x.H },
     defaultUnknown: 'H',
@@ -101,7 +101,7 @@ export const QA_FORMULAS: FormulaDef[] = [
       'Sertifika ya da tolerans olarak ±a verilen bir değeri standart belirsizliğe çevirir: dikdörtgen dağılımda k = √3, üçgen dağılımda k = √6 (ör. cam malzeme toleransı).',
       'Converts a value quoted as ±a (certificate or tolerance) into a standard uncertainty: k = √3 for a rectangular and √6 for a triangular distribution (e.g. glassware tolerance).',
     ),
-    formula: 'u = a / √k   (dikdörtgen: k = 3, üçgen: k = 6)',
+    formula: l('u = a / √k   (dikdörtgen: k = 3, üçgen: k = 6)', 'u = a / √k   (rectangular: k = 3, triangular: k = 6)'),
     variables: [pos('u', 'u', 'Standart belirsizlik', 'Standard uncertainty'), pos('a', 'a', 'Yarı genişlik (±a)', 'Half-width (±a)'), pos('k', 'k', 'Dağılım çarpanı (3 veya 6)', 'Distribution factor (3 or 6)', { defaultValue: 3 })],
     equation: (x) => x.u - x.a / Math.sqrt(x.k),
     solve: { u: (x) => x.a / Math.sqrt(x.k), a: (x) => x.u * Math.sqrt(x.k), k: (x) => (x.a / x.u) ** 2 },

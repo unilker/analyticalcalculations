@@ -161,6 +161,10 @@ describe('molar mass', () => {
     ['(NH4)2SO4', 132.13],
     ['KHC8H4O4', 204.22],
     ['Co', 58.933],
+    ['CuSO4.5H2O', 249.68],
+    ['CaSO4·0.5H2O', 145.15],
+    ['CaSO4·0,5H2O', 145.15],
+    ['2CaSO4·H2O', 290.29],
   ])('%s = %f', (f, m) => {
     const r = molarMass(f);
     expect(r.ok).toBe(true);
@@ -171,6 +175,8 @@ describe('molar mass', () => {
     expect(molarMass('Xx2').ok).toBe(false);
     expect(molarMass('Ca(OH').ok).toBe(false);
     expect(molarMass('').ok).toBe(false);
+    expect(molarMass('CuSO4·5').ok).toBe(false);
+    expect(molarMass('CaSO4.0.5H2O').ok).toBe(false);
   });
 });
 

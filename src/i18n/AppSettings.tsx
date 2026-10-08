@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getLocales } from 'expo-localization';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
-import { formatNumber } from '../core/format';
-import type { L, Lang } from '../core/types';
+import { formatNumber, localizeFormula } from '../core/format';
+import type { L, LText, Lang } from '../core/types';
 import { STRINGS, type StringKey } from './strings';
 
 const STORAGE_KEY = 'akh.settings.v1';
@@ -27,6 +27,8 @@ interface AppSettings extends Persisted {
   t: (key: StringKey) => string;
   /** Localized content text. */
   tx: (text: L) => string;
+  /** Formula or symbol text (decimal separator follows the language). */
+  tf: (text: LText) => string;
   fmt: (x: number) => string;
 }
 
@@ -67,6 +69,7 @@ export function AppSettingsProvider({ children }: { children: ReactNode }) {
         update({ favorites: state.favorites.includes(id) ? state.favorites.filter((f) => f !== id) : [...state.favorites, id] }),
       t: (key) => STRINGS[key][state.lang],
       tx: (text) => text[state.lang],
+      tf: (text) => localizeFormula(text, state.lang),
       fmt: (x) => formatNumber(x, state.lang, state.sigFigs),
     }),
     [state, update],

@@ -204,8 +204,8 @@ export const TOOLS_DETAILS: Record<string, ToolDetail> = {
 
   'table-elements': {
     concept: {
-      tr: 'Tablo, elementlerin atom numarasını, sembolünü ve standart atom kütlesini verir. Atom kütlesi, elementin doğal izotoplarının kütlelerinin bolluklarına göre ağırlıklı ortalamasıdır.\n\nKararlı izotopu olmayan elementlerde köşeli parantez içindeki sayı, en uzun ömürlü izotopun kütle numarasıdır; bu elementlerin standart atom kütlesi tanımlı değildir.',
-      en: 'The table gives each element’s atomic number, symbol and standard atomic mass. The atomic mass is the abundance-weighted mean of the masses of the element’s natural isotopes.\n\nFor elements without stable isotopes, the number in square brackets is the mass number of the longest-lived isotope; no standard atomic mass is defined for them.',
+      tr: 'Tablo, elementlerin atom numarasını, sembolünü ve standart atom kütlesini verir. Atom kütlesi, elementin doğal izotoplarının kütlelerinin bolluklarına göre ağırlıklı ortalamasıdır.\n\nDoğada belirli bir izotop bileşimi bulunmayan radyoaktif elementlerde (ör. Tc, Pm, Po ve uranyumdan sonrakiler) köşeli parantez içindeki sayı, en uzun ömürlü izotopun kütle numarasıdır; bu elementlerin standart atom kütlesi tanımlı değildir. Bi, Th, Pa ve U ise kararlı izotopları olmadığı hâlde doğal izotop bileşimleri belirli olduğundan standart atom kütlesine sahiptir.',
+      en: 'The table gives each element’s atomic number, symbol and standard atomic mass. The atomic mass is the abundance-weighted mean of the masses of the element’s natural isotopes.\n\nFor radioactive elements without a characteristic natural isotopic composition (e.g. Tc, Pm, Po and the elements beyond uranium), the number in square brackets is the mass number of the longest-lived isotope; no standard atomic mass is defined for them. Bi, Th, Pa and U have no stable isotopes but do have a characteristic terrestrial isotopic composition, so they have standard atomic weights.',
     },
     meaning: {
       tr: 'A = Σ (izotop kütlesi × doğal bolluk).\n\nÖrneğin klor ³⁵Cl (yaklaşık %75,8) ve ³⁷Cl (yaklaşık %24,2) izotoplarından oluşur; ortalama 35,45 elde edilir. Kütle spektrometrisinde ise ortalama değil, tek tek izotop kütleleri görülür.\n\nAnlamlı rakam sayısı elemente göre değişir: doğal izotop oranı değişken olan elementlerde atom kütlesi daha az basamakla verilir.',
@@ -252,7 +252,7 @@ export const TOOLS_DETAILS: Record<string, ToolDetail> = {
 
   'table-constants': {
     concept: {
-      tr: 'Tablo, analitik kimya hesaplarında sık geçen fiziksel sabitleri SI birimleriyle verir: Avogadro sayısı, gaz sabiti, Faraday sabiti, Planck sabiti, ışık hızı, Boltzmann sabiti ve diğerleri.\n\n2019’dan beri SI sistemi bu sabitlerin bazılarına (N_A, h, c, e, k_B) tam değer atanarak tanımlanmaktadır. Bu nedenle bu sabitlerin belirsizliği yoktur.',
+      tr: 'Tablo, analitik kimya hesaplarında sık geçen fiziksel sabitleri SI birimleriyle verir: Avogadro sabiti, gaz sabiti, Faraday sabiti, Planck sabiti, ışık hızı, Boltzmann sabiti ve diğerleri.\n\n2019’dan beri SI sistemi bu sabitlerin bazılarına (N_A, h, c, e, k_B) tam değer atanarak tanımlanmaktadır. Bu nedenle bu sabitlerin belirsizliği yoktur.',
       en: 'The table gives physical constants that appear often in analytical chemistry, in SI units: the Avogadro constant, gas constant, Faraday constant, Planck constant, speed of light, Boltzmann constant and others.\n\nSince 2019 the SI has been defined by fixing exact values for several of these constants (N_A, h, c, e, k_B), so they carry no uncertainty.',
     },
     meaning: {

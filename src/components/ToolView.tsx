@@ -16,7 +16,7 @@ import { Banner, Card, Columns, FormulaText, SectionTitle } from './ui';
  * `width` is the width available to this view when it does not span the whole window.
  */
 export function ToolView({ tool, width }: { tool: ToolDef; width?: number }) {
-  const { t, tx, lang } = useApp();
+  const { t, tx, tf, lang } = useApp();
   const layout = useLayout();
   const twoColumn = (width ?? layout.width) >= BREAKPOINTS.twoColumn;
   const module = MODULE_BY_ID[tool.module];
@@ -26,7 +26,7 @@ export function ToolView({ tool, width }: { tool: ToolDef; width?: number }) {
   const body = Custom ? <Custom color={module.color} /> : null;
   const about = (
     <Card accent={module.color}>
-      {tool.formula ? <FormulaText color={module.color}>{tool.formula}</FormulaText> : null}
+      {tool.formula ? <FormulaText color={module.color}>{tf(tool.formula)}</FormulaText> : null}
       <SectionTitle color={module.color}>{t('whatFor')}</SectionTitle>
       <Text style={{ fontSize: 15, lineHeight: 22, color: colors.text }}>{tx(tool.purpose)}</Text>
       <MoreInfoButton toolId={tool.id} color={module.color} />

@@ -86,7 +86,7 @@ export const CONC_FORMULAS: FormulaDef[] = [
       'Kilogram çözücü başına çözünen mol sayısıdır; sıcaklıkla değişmediği için koligatif özelliklerde kullanılır.',
       'Moles of solute per kilogram of solvent; temperature independent, used for colligative properties.',
     ),
-    formula: 'b = n / m(çözücü, kg)',
+    formula: l('b = n / m(çözücü, kg)', 'b = n / m(solvent, kg)'),
     variables: [
       v('b', 'b', 'Molalite', 'Molality', 'molality'),
       v('n', 'n', 'Çözünen miktarı', 'Amount of solute', 'amount'),
@@ -125,7 +125,7 @@ export const CONC_FORMULAS: FormulaDef[] = [
     module: 'conc',
     name: l('Kütlece yüzde % (w/w)', 'Weight percent % (w/w)'),
     purpose: l('100 g numunedeki çözünen gramıdır; katı numunelerde analit içeriği böyle verilir.', 'Grams of solute per 100 g of sample; how analyte content of solids is reported.'),
-    formula: '% (w/w) = m(çözünen) / m(numune) × 100',
+    formula: l('% (w/w) = m(çözünen) / m(numune) × 100', '% (w/w) = m(solute) / m(sample) × 100'),
     variables: [
       v('P', '%', 'Kütlece yüzde', 'Weight percent', 'percent'),
       v('ma', 'mₐ', 'Çözünen (analit) kütlesi', 'Mass of solute', 'mass'),
@@ -161,7 +161,7 @@ export const CONC_FORMULAS: FormulaDef[] = [
     module: 'conc',
     name: l('Hacimce yüzde % (v/v)', 'Volume percent % (v/v)'),
     purpose: l('100 mL çözeltideki çözünen sıvı hacmidir; sıvı karışımlarda (ör. etanol) kullanılır.', 'Millilitres of liquid solute per 100 mL of solution; used for liquid mixtures (e.g. ethanol).'),
-    formula: '% (v/v) = V(çözünen) / V(çözelti) × 100',
+    formula: l('% (v/v) = V(çözünen) / V(çözelti) × 100', '% (v/v) = V(solute) / V(solution) × 100'),
     variables: [
       v('P', '%', 'Hacimce yüzde', 'Volume percent', 'percent'),
       v('Va', 'Vₐ', 'Çözünen hacmi', 'Volume of solute', 'volume', { unit: 'mL' }),
@@ -179,7 +179,7 @@ export const CONC_FORMULAS: FormulaDef[] = [
     module: 'conc',
     name: l('Milyonda kısım (ppm, w/w)', 'Parts per million (ppm, w/w)'),
     purpose: l('Eser analizde kullanılır: 1 ppm = 1 µg analit / 1 g numune = 1 mg/kg.', 'Used in trace analysis: 1 ppm = 1 µg analyte per g sample = 1 mg/kg.'),
-    formula: 'ppm = m(analit) / m(numune) × 10⁶',
+    formula: l('ppm = m(analit) / m(numune) × 10⁶', 'ppm = m(analyte) / m(sample) × 10⁶'),
     variables: [
       v('ppm', 'ppm', 'Derişim', 'Concentration', 'ppm'),
       v('ma', 'mₐ', 'Analit kütlesi', 'Mass of analyte', 'mass', { unit: 'µg' }),
@@ -198,7 +198,7 @@ export const CONC_FORMULAS: FormulaDef[] = [
     module: 'conc',
     name: l('Milyarda kısım (ppb, w/w)', 'Parts per billion (ppb, w/w)'),
     purpose: l('Çok düşük derişimler için: 1 ppb = 1 ng analit / 1 g numune = 1 µg/kg.', 'For ultra-trace levels: 1 ppb = 1 ng analyte per g sample = 1 µg/kg.'),
-    formula: 'ppb = m(analit) / m(numune) × 10⁹',
+    formula: l('ppb = m(analit) / m(numune) × 10⁹', 'ppb = m(analyte) / m(sample) × 10⁹'),
     variables: [
       v('ppb', 'ppb', 'Derişim', 'Concentration', 'ppb'),
       v('ma', 'mₐ', 'Analit kütlesi', 'Mass of analyte', 'mass', { unit: 'µg' }),
@@ -336,7 +336,7 @@ export const CONC_FORMULAS: FormulaDef[] = [
       '1 mL titrantın karşılık geldiği analit kütlesidir; rutin analizlerde sonucu doğrudan mg olarak hesaplamayı sağlar.',
       'Mass of analyte equivalent to 1 mL of titrant; lets routine results be computed directly in mg.',
     ),
-    formula: 'T = C(titrant) × r × M(analit)',
+    formula: l('T = C(titrant) × r × M(analit)', 'T = C(titrant) × r × M(analyte)'),
     variables: [
       v('T', 'T', 'Titre', 'Titer', 'massConc', { unit: 'mg/mL' }),
       v('C', 'C', 'Titrant molaritesi', 'Titrant molarity', 'conc'),

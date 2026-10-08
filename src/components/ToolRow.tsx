@@ -11,7 +11,7 @@ import { colors, onColor, textColor, tint } from '../theme/colors';
  * `selected` marks the tool shown next to the list).
  */
 export function ToolRow({ tool, showModule, onPress, selected }: { tool: ToolDef; showModule?: boolean; onPress?: () => void; selected?: boolean }) {
-  const { tx, lang, favorites, toggleFavorite } = useApp();
+  const { tx, tf, lang, favorites, toggleFavorite } = useApp();
   const module = MODULE_BY_ID[tool.module];
   const fav = favorites.includes(tool.id);
   return (
@@ -43,7 +43,7 @@ export function ToolRow({ tool, showModule, onPress, selected }: { tool: ToolDef
         <Text style={{ fontSize: 16, fontWeight: '700', color: colors.text }}>{tx(tool.name)}</Text>
         {tool.formula ? (
           <Text numberOfLines={1} style={{ fontSize: 13, color: textColor(module.color), fontWeight: '600' }}>
-            {tool.formula}
+            {tf(tool.formula)}
           </Text>
         ) : null}
         <Text numberOfLines={2} style={{ fontSize: 13, lineHeight: 18, color: colors.textMuted }}>

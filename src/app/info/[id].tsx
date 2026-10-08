@@ -14,7 +14,7 @@ import { colors, onColor, palette, textColor, tint } from '../../theme/colors';
 /** Detailed explanation of a tool: concept, equation, variables, worked example, pitfalls. */
 export default function InfoScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { t, tx, lang } = useApp();
+  const { t, tx, tf, lang } = useApp();
   const layout = useLayout();
   const tool = TOOL_BY_ID[id];
   const detail = TOOL_DETAILS[id];
@@ -34,7 +34,7 @@ export default function InfoScreen() {
       </Card>
       <Card>
         <SectionTitle color={color}>{t('detailMeaning')}</SectionTitle>
-        {tool.formula ? <FormulaText color={color}>{tool.formula}</FormulaText> : null}
+        {tool.formula ? <FormulaText color={color}>{tf(tool.formula)}</FormulaText> : null}
         <Paragraphs text={tx(detail.meaning)} />
       </Card>
       <Card>
@@ -51,7 +51,7 @@ export default function InfoScreen() {
           <SectionTitle color={color}>{t('detailVariables')}</SectionTitle>
           {tool.variables.map((v) => (
             <View key={v.key} style={{ flexDirection: 'row', gap: 10, alignItems: 'baseline', paddingVertical: 4, borderBottomWidth: 1, borderBottomColor: colors.border }}>
-              <Text style={{ width: 48, fontSize: 16, fontWeight: '800', color: textColor(color) }}>{v.symbol}</Text>
+              <Text style={{ width: 48, fontSize: 16, fontWeight: '800', color: textColor(color) }}>{tf(v.symbol)}</Text>
               <View style={{ flex: 1, gap: 2 }}>
                 <Text style={{ fontSize: 14, color: colors.text }}>{tx(v.name)}</Text>
                 {unitsOf(v.dim).some((u) => u.label) ? (

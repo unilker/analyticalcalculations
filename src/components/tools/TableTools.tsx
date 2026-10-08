@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
+import { pureWaterSolubility } from '../../core/equilibria';
 import { parseNumber } from '../../core/format';
 import { molarMass } from '../../core/molarMass';
 import { DIXON_Q, fCritical, grubbsCritical, tCritical } from '../../core/stats';
@@ -105,11 +106,11 @@ export function KspTable({ color }: ToolProps) {
             key={a.formula}
             zebra={i % 2 === 1}
             color={color}
-            cells={[`${tx(a.name)}\n${a.formula}`, fmt(a.ksp), fmt((a.ksp / (a.x ** a.x * a.y ** a.y)) ** (1 / (a.x + a.y)))]}
+            cells={[`${tx(a.name)}\n${a.formula}`, fmt(a.ksp), fmt(pureWaterSolubility(a.ksp, a.x, a.y, a.formula.includes('(OH)')))]}
           />
         ))}
       </Card>
-      <Notice text={lang === 'tr' ? '25 °C. s: saf sudaki molar çözünürlük (yan tepkimeler ihmal).' : '25 °C. s: molar solubility in pure water (side reactions neglected).'} />
+      <Notice text={lang === 'tr' ? '25 °C. s: saf sudaki molar çözünürlük. Hidroksitlerde suyun kendi OH⁻ iyonu hesaba katılır (çok az çözünen Fe(OH)₃ gibi hidroksitlerde basit formül çok yüksek sonuç verir). Diğer tuzlarda hidroliz ve kompleksleşme ihmal edilmiştir; örneğin sülfür, karbonat ve fosfatların gerçek çözünürlüğü daha yüksektir.' : '25 °C. s: molar solubility in pure water. For hydroxides the OH⁻ from water itself is included (for very insoluble hydroxides such as Fe(OH)₃ the simple formula gives far too high a value). For other salts hydrolysis and complexation are neglected; e.g. sulfides, carbonates and phosphates are actually more soluble.'} />
     </View>
   );
 }
@@ -198,8 +199,8 @@ export function MolarMassTool({ color }: ToolProps) {
         <TextInput value={f} onChangeText={setF} autoCapitalize="none" autoCorrect={false} style={[ui.input, { fontSize: 20 }]} />
         <Text style={{ fontSize: 12, color: colors.textMuted }}>
           {lang === 'tr'
-            ? 'Büyük/küçük harfe dikkat edin (Co ≠ CO). Parantez ( ), [ ] ve hidrat noktası (· veya .) kullanılabilir.'
-            : 'Mind the case (Co ≠ CO). Parentheses ( ), [ ] and hydrate dots (· or .) are supported.'}
+            ? 'Büyük/küçük harfe dikkat edin (Co ≠ CO). Parantez ( ), [ ] ve hidrat noktası (· veya .) kullanılabilir. Kesirli hidrat için · kullanın: CaSO4·0.5H2O.'
+            : 'Mind the case (Co ≠ CO). Parentheses ( ), [ ] and hydrate dots (· or .) are supported. For fractional hydrates use ·: CaSO4·0.5H2O.'}
         </Text>
       </Card>
       {r.ok ? (
@@ -210,7 +211,7 @@ export function MolarMassTool({ color }: ToolProps) {
           <Card style={{ padding: 8, gap: 0 }}>
             <Row cells={[t('composition'), 'n', '%']} header color={color} />
             {r.composition.map((c, i) => (
-              <Row key={c.symbol} zebra={i % 2 === 1} color={color} cells={[c.symbol, String(c.count), fmt(c.percent)]} />
+              <Row key={c.symbol} zebra={i % 2 === 1} color={color} cells={[c.symbol, String(Math.round(c.count * 1e6) / 1e6).replace('.', lang === 'tr' ? ',' : '.'), fmt(c.percent)]} />
             ))}
           </Card>
         </>

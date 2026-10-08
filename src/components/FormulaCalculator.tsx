@@ -28,8 +28,8 @@ function initialValues(def: FormulaDef, lang: 'tr' | 'en'): Record<string, strin
 }
 
 export function FormulaCalculator({ def, module, twoColumn, aside }: Props) {
-  const { t, tx, fmt, lang } = useApp();
-  const label = (v: FormulaDef['variables'][number]) => (tx(v.name) === v.symbol ? v.symbol : `${v.symbol} — ${tx(v.name)}`);
+  const { t, tx, tf, fmt, lang } = useApp();
+  const label = (v: FormulaDef['variables'][number]) => (tx(v.name) === tf(v.symbol) ? tf(v.symbol) : `${tf(v.symbol)} — ${tx(v.name)}`);
   const color = module.color;
   const solvable = def.variables.filter((v) => !v.inputOnly);
   const [unknown, setUnknown] = useState(def.defaultUnknown);
@@ -82,7 +82,7 @@ export function FormulaCalculator({ def, module, twoColumn, aside }: Props) {
   const about = (
     <>
       <Card accent={color}>
-        <FormulaText color={color}>{def.formula}</FormulaText>
+        <FormulaText color={color}>{tf(def.formula)}</FormulaText>
         <SectionTitle color={color}>{t('whatFor')}</SectionTitle>
         <Text style={{ fontSize: 15, lineHeight: 22, color: colors.text }}>{tx(def.purpose)}</Text>
         {def.assumptions && (
@@ -102,7 +102,7 @@ export function FormulaCalculator({ def, module, twoColumn, aside }: Props) {
           <SectionTitle color={color}>{t('solveFor')}</SectionTitle>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
             {solvable.map((v) => (
-              <Chip key={v.key} label={v.symbol} selected={v.key === unknown} onPress={() => setUnknown(v.key)} color={color} />
+              <Chip key={v.key} label={tf(v.symbol)} selected={v.key === unknown} onPress={() => setUnknown(v.key)} color={color} />
             ))}
           </View>
           <Text style={{ fontSize: 13, color: colors.textMuted }}>{tx(unknownVar.name)}</Text>

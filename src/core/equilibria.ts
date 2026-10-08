@@ -101,3 +101,23 @@ export function complexFormula(ratio: number): string {
   const sub = (n: number) => (n > 1 ? SUBSCRIPT[n] : '');
   return `M${sub(best.q / d)}L${sub(best.p / d)}`;
 }
+
+/**
+ * Molar solubility of a salt MₓAᵧ in pure water at 25 °C.
+ * For hydroxides M(OH)ᵧ the OH⁻ from water is included (charge balance y·s + [H⁺] = [OH⁻], Kw = 1.0e-14),
+ * which matters when the hydroxide is so insoluble that the simple formula would give [OH⁻] < 10⁻⁷ M
+ * (e.g. Fe(OH)₃). Other salts use s = (Ksp / xˣyʸ)^(1/(x+y)); hydrolysis is neglected.
+ */
+export function pureWaterSolubility(ksp: number, x: number, y: number, hydroxide: boolean, kw = 1.0e-14): number {
+  if (!hydroxide || x !== 1) return (ksp / (x ** x * y ** y)) ** (1 / (x + y));
+  // f(OH) = y·Ksp/OH^y + Kw/OH − OH decreases monotonically; bisect on log[OH⁻].
+  const f = (oh: number) => (y * ksp) / oh ** y + kw / oh - oh;
+  let lo = -14;
+  let hi = 1;
+  for (let i = 0; i < 200; i++) {
+    const mid = (lo + hi) / 2;
+    if (f(10 ** mid) > 0) lo = mid;
+    else hi = mid;
+  }
+  return ksp / (10 ** ((lo + hi) / 2)) ** y;
+}

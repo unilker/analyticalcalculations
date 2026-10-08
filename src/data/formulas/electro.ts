@@ -1,4 +1,4 @@
-import type { FormulaDef } from '../../core/types';
+import type { FormulaDef, LText } from '../../core/types';
 import { F_FARADAY, R_GAS } from '../../core/units';
 import { formula, l, linear, log10, v } from './helpers';
 
@@ -7,7 +7,7 @@ const slope = (T: number) => (R_GAS * T * Math.LN10) / F_FARADAY;
 const S25 = slope(298.15);
 
 const T = () => v('T', 'T', 'Sıcaklık', 'Temperature', 'temperature', { unit: '°C', defaultValue: 298.15, min: 1, max: 2000, scale: 'linear' });
-const E = (key: string, symbol: string, tr: string, en: string, unit = 'V') => v(key, symbol, tr, en, 'potential', { unit, ...linear(-10, 10) });
+const E = (key: string, symbol: LText, tr: string, en: string, unit = 'V') => v(key, symbol, tr, en, 'potential', { unit, ...linear(-10, 10) });
 const N = (key = 'n', tr = 'Aktarılan elektron sayısı', en = 'Electrons transferred') => v(key, 'n', tr, en, 'none', { defaultValue: 1 });
 
 export const ELECTRO_FORMULAS: FormulaDef[] = [
@@ -106,8 +106,8 @@ export const ELECTRO_FORMULAS: FormulaDef[] = [
     module: 'electro',
     name: l('Hücre potansiyeli', 'Cell potential'),
     purpose: l('Katot (sağ) ve anot (sol) elektrot potansiyellerinden hücre potansiyelini verir.', 'Cell potential from the cathode (right) and anode (left) electrode potentials.'),
-    formula: 'E_hücre = E_katot − E_anot',
-    variables: [E('Ecell', 'E_hücre', 'Hücre potansiyeli', 'Cell potential'), E('Ec', 'E_katot', 'Katot potansiyeli', 'Cathode potential'), E('Ea', 'E_anot', 'Anot potansiyeli', 'Anode potential')],
+    formula: l('E_hücre = E_katot − E_anot', 'E_cell = E_cathode − E_anode'),
+    variables: [E('Ecell', l('E_hücre', 'E_cell'), 'Hücre potansiyeli', 'Cell potential'), E('Ec', l('E_katot', 'E_cathode'), 'Katot potansiyeli', 'Cathode potential'), E('Ea', l('E_anot', 'E_anode'), 'Anot potansiyeli', 'Anode potential')],
     equation: (x) => x.Ecell - x.Ec + x.Ea,
     solve: { Ecell: (x) => x.Ec - x.Ea, Ec: (x) => x.Ecell + x.Ea, Ea: (x) => x.Ec - x.Ecell },
     defaultUnknown: 'Ecell',
@@ -123,7 +123,7 @@ export const ELECTRO_FORMULAS: FormulaDef[] = [
       'SHE\'ye göre verilen potansiyeli başka bir referansa (doymuş kalomel elektrot, DKE 0,242 V; doymuş KCl\'de Ag/AgCl 0,197 V) göre ifade eder. DKE için kaynaklar 25 °C\'de 0,241–0,244 V arasında değer verir (Christian 0,242 V).',
       'Expresses a potential given vs. SHE against another reference (saturated calomel electrode, SCE 0.242 V; Ag/AgCl in saturated KCl 0.197 V). Texts give 0.241–0.244 V for the SCE at 25 °C (Christian: 0.242 V).',
     ),
-    formula: 'E(ref\'e göre) = E(SHE\'ye göre) − E_ref',
+    formula: l('E(ref\'e göre) = E(SHE\'ye göre) − E_ref', 'E(vs ref) = E(vs SHE) − E_ref'),
     variables: [
       E('Eref', 'E_vs.ref', 'Referansa göre potansiyel', 'Potential vs. reference'),
       E('Eshe', 'E_vs.SHE', 'SHE\'ye göre potansiyel', 'Potential vs. SHE'),
@@ -224,7 +224,7 @@ export const ELECTRO_FORMULAS: FormulaDef[] = [
       'Potansiyel ölçümündeki küçük bir hatanın (ΔE) derişimde yarattığı bağıl hatayı verir: 25 °C\'de 1 mV hata, tek yüklü iyonda yaklaşık %4 hataya yol açar.',
       'Relative concentration error caused by a small error ΔE in the measured potential: at 25 °C a 1 mV error gives about 4% for a singly charged ion.',
     ),
-    formula: 'Bağıl hata (%) = [exp(n·F·ΔE / R·T) − 1] × 100',
+    formula: l('Bağıl hata (%) = [exp(n·F·ΔE / (R·T)) − 1] × 100', 'Relative error (%) = [exp(n·F·ΔE / (R·T)) − 1] × 100'),
     variables: [
       v('Er', 'Hata', 'Derişimdeki bağıl hata', 'Relative concentration error', 'percent', linear(-100, 1e6)),
       v('n', 'n', 'İyon yükü', 'Ion charge', 'none', { defaultValue: 1 }),

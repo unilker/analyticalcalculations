@@ -281,7 +281,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
     module: 'stats',
     name: l('Dixon Q-testi', 'Dixon Q-test'),
     purpose: l('Küçük veri setlerinde (n = 3–10) şüpheli uç değerin atılıp atılamayacağına karar verir.', 'Decides whether a suspected outlier can be rejected in small data sets (n = 3–10).'),
-    formula: 'Q = |x_şüpheli − x_en yakın| / (x_max − x_min)',
+    formula: l('Q = |x_şüpheli − x_en yakın| / (x_max − x_min)', 'Q = |x_suspect − x_nearest| / (x_max − x_min)'),
     sources: ['[K] 2.9', '[T] 1.13', '[H] 4.6, 16.6'],
     keywords: ['Q-testi', 'Q-test', 'aykırı', 'outlier', 'Dixon'],
   }),
@@ -290,7 +290,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
     module: 'stats',
     name: l('Grubbs testi', 'Grubbs test'),
     purpose: l('ISO\'nun önerdiği aykırı değer testi; ortalamadan en uzak değeri standart sapma cinsinden değerlendirir.', 'Outlier test recommended by ISO; evaluates the value farthest from the mean in units of standard deviation.'),
-    formula: 'G = |x_şüpheli − x̄| / s',
+    formula: l('G = |x_şüpheli − x̄| / s', 'G = |x_suspect − x̄| / s'),
     sources: ['[H] 4.6, 16.7', '[D] 4.36'],
     keywords: ['Grubbs', 'aykırı', 'outlier'],
   }),
@@ -302,7 +302,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
       'Üç veya daha fazla grubun (laboratuvar, analist, yöntem) ortalamaları arasında anlamlı fark olup olmadığını test eder.',
       'Tests whether the means of three or more groups (laboratories, analysts, methods) differ significantly.',
     ),
-    formula: 'F = MS_gruplar arası / MS_grup içi',
+    formula: l('F = MS_gruplar arası / MS_grup içi', 'F = MS_between / MS_within'),
     sources: ['[H] 14.4', '[D] 5.1', '[C] 3'],
     keywords: ['ANOVA', 'varyans analizi', 'analysis of variance'],
   }),
@@ -348,7 +348,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
       'Eklenen standart derişimine karşı sinyal doğrusunun x-kesişiminden numunedeki analit derişimini ve belirsizliğini bulur.',
       'Analyte concentration and its uncertainty from the x-intercept of signal versus added standard concentration.',
     ),
-    formula: 'Cₓ = b₀ / b₁  (|x-kesişimi|)',
+    formula: l('Cₓ = b₀ / b₁  (|x-kesişimi|)', 'Cₓ = b₀ / b₁  (|x-intercept|)'),
     sources: ['[H] 5.3', '[C] 17.5'],
     keywords: ['standart ekleme', 'standard addition'],
   }),
@@ -587,7 +587,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
     module: 'qa',
     name: l('Tarama testi performansı', 'Screening test performance'),
     purpose: l('Nitel (var/yok) bir testin duyarlılık, özgüllük, pozitif/negatif öngörü değeri ve doğruluğunu 2×2 tablodan hesaplar.', 'Sensitivity, specificity, positive/negative predictive values and accuracy of a qualitative (yes/no) test from a 2×2 table.'),
-    formula: 'Duyarlılık = TP/(TP+FN);  Özgüllük = TN/(TN+FP)',
+    formula: l('Duyarlılık = TP/(TP+FN);  Özgüllük = TN/(TN+FP)', 'Sensitivity = TP/(TP+FN);  Specificity = TN/(TN+FP)'),
     sources: ['[D] 4.48–4.55'],
     keywords: ['tarama', 'screening', 'duyarlılık', 'sensitivity', 'özgüllük', 'specificity', 'yanlış pozitif'],
   }),
@@ -660,7 +660,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
       'Absorbansın ligand/metal oranına (ya da titrant hacmine) karşı grafiğindeki iki doğrusal bölgenin kesişiminden kompleks stokiyometrisini veya dönüm noktasını bulur.',
       'Finds complex stoichiometry or the end point from the intersection of the two linear regions of absorbance versus ligand/metal ratio (or titrant volume).',
     ),
-    formula: 'İki doğrunun kesişimi (en küçük hata kırılma noktası)',
+    formula: l('İki doğrunun kesişimi (en küçük hata kırılma noktası)', 'Intersection of two fitted lines (break point with the smallest residual error)'),
     sources: ['[H] 10.3', '[K] 24'],
     keywords: ['mol oranı', 'mole ratio', 'fotometrik titrasyon', 'photometric titration', 'stokiyometri'],
   }),
@@ -737,11 +737,13 @@ const fold = (s: string) =>
     .replace(/ı/g, 'i');
 
 /** Simple accent- and case-insensitive search over names, purposes, formulas and keywords. */
+const formulaTexts = (f: ToolDef['formula']): string[] => (f === undefined ? [] : typeof f === 'string' ? [f] : [f.tr, f.en]);
+
 export function searchTools(query: string): ToolDef[] {
   const terms = fold(query).split(/\s+/).filter(Boolean);
   if (!terms.length) return [];
   return ALL_TOOLS.filter((t) => {
-    const hay = fold([t.name.tr, t.name.en, t.purpose.tr, t.purpose.en, t.formula ?? '', ...(t.keywords ?? [])].join(' '));
+    const hay = fold([t.name.tr, t.name.en, t.purpose.tr, t.purpose.en, ...formulaTexts(t.formula), ...(t.keywords ?? [])].join(' '));
     return terms.every((term) => hay.includes(term));
   });
 }

@@ -1,4 +1,4 @@
-import type { Lang } from './types';
+import type { LText, Lang } from './types';
 
 const SUP_TO_ASCII: Record<string, string> = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁻': '-', '⁺': '+' };
 
@@ -70,4 +70,13 @@ export function parseTable(raw: string): number[][] {
         .filter((n) => Number.isFinite(n)),
     )
     .filter((row) => row.length >= 2);
+}
+
+/**
+ * Formula/symbol text in the given language. Formula strings are written with Turkish decimal
+ * commas ("0,05916"); in English they are shown with decimal points ("0.05916").
+ */
+export function localizeFormula(text: LText, lang: Lang): string {
+  const s = typeof text === 'string' ? text : text[lang];
+  return lang === 'en' ? s.replace(/(\d),(\d)/g, '$1.$2') : s;
 }

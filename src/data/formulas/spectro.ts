@@ -151,9 +151,9 @@ export const SPECTRO_FORMULAS: FormulaDef[] = [
       'Floresans şiddeti F = kΦP₀(1 − 10⁻ᴬ) ile verilir ve yalnızca düşük absorbansta derişimle doğrusaldır. Bu araç verilen absorbansta doğrusal yaklaşımın ne kadar saptığını gösterir.',
       'Fluorescence intensity F = kΦP₀(1 − 10⁻ᴬ) is linear in concentration only at low absorbance. This shows how far the linear approximation deviates at a given absorbance.',
     ),
-    formula: 'Sapma = 1 − (1 − 10⁻ᴬ) / (2,303·A)',
+    formula: 'D (%) = [1 − (1 − 10⁻ᴬ) / (2,303·A)] × 100',
     variables: [
-      v('D', 'Sapma', 'Doğrusallıktan sapma', 'Deviation from linearity', 'percent', { max: 100 }),
+      v('D', 'D', 'Doğrusallıktan sapma', 'Deviation from linearity', 'percent', { max: 100 }),
       v('A', 'A', 'Absorbans (εbc)', 'Absorbance (εbc)', 'none', { min: 1e-8, max: 20 }),
     ],
     equation: (x) => x.D - 100 * (1 - (1 - pow10(-x.A)) / (Math.LN10 * x.A)),

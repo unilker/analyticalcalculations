@@ -41,7 +41,7 @@ export const VOLUMETRIC_FORMULAS: FormulaDef[] = [
       'Tartılan numunedeki analitin kütlece yüzdesini titrasyon verisinden doğrudan hesaplar.',
       'Weight percent of analyte in a weighed sample directly from titration data.',
     ),
-    formula: '%A = C(T) · V(T) · r · M(A) / m(numune) × 100',
+    formula: l('%A = C(T) · V(T) · r · M(A) / m(numune) × 100', '%A = C(T) · V(T) · r · M(A) / m(sample) × 100'),
     variables: [
       v('P', '%A', 'Analit yüzdesi', 'Percent analyte', 'percent'),
       v('C', 'C_T', 'Titrant molaritesi', 'Titrant molarity', 'conc'),
@@ -64,7 +64,7 @@ export const VOLUMETRIC_FORMULAS: FormulaDef[] = [
         values: { C: 0.1, V: 0.03, r: 1, M: 60.05, ms: 0.25 },
         unknown: 'P',
         expected: 72.06,
-        description: l('Sirkede asetik asit', 'Acetic acid in vinegar'),
+        description: l('Derişik asetik asit numunesi', 'Concentrated acetic acid sample'),
       },
     ],
     keywords: ['yüzde', 'percent', 'titrasyon', 'titration'],
@@ -72,10 +72,10 @@ export const VOLUMETRIC_FORMULAS: FormulaDef[] = [
   formula({
     id: 'standardization',
     module: 'volumetric',
-    name: l('Titrant ayarlama (primer standart)', 'Standardization with a primary standard'),
+    name: l('Titrant ayarlama (birincil/primer standart)', 'Standardization with a primary standard'),
     purpose: l(
-      'Primer standart (ör. KHP, Na₂CO₃) tartımı ve harcanan hacimden titrantın gerçek molaritesini bulur. r = mol titrant / mol standart.',
-      'Exact titrant molarity from the mass of a primary standard (e.g. KHP, Na₂CO₃) and the volume used. r = mol titrant / mol standard.',
+      'Birincil (primer) standart (ör. KHP, Na₂CO₃) tartımı ve harcanan hacimden titrantın gerçek molaritesini bulur. Dikkat: burada r = mol titrant / mol standart (diğer titrasyon araçlarındaki oranın tersi). Örnek: KHP + NaOH → r = 1; Na₂CO₃ + 2HCl → r = 2.',
+      'Exact titrant molarity from the mass of a primary standard (e.g. KHP, Na₂CO₃) and the volume used. Note: here r = mol titrant / mol standard (the inverse of the ratio in the other titration tools). Example: KHP + NaOH → r = 1; Na₂CO₃ + 2HCl → r = 2.',
     ),
     formula: 'C(T) = m(std) · r / (M(std) · V(T))',
     variables: [
@@ -101,7 +101,7 @@ export const VOLUMETRIC_FORMULAS: FormulaDef[] = [
         description: l('0,5104 g KHP, 25,00 mL NaOH', '0.5104 g KHP, 25.00 mL NaOH'),
       },
     ],
-    keywords: ['ayarlama', 'standardization', 'KHP', 'primer standart'],
+    keywords: ['ayarlama', 'standardization', 'KHP', 'primer standart', 'birincil standart'],
   }),
   formula({
     id: 'back-titration',
@@ -147,7 +147,7 @@ export const VOLUMETRIC_FORMULAS: FormulaDef[] = [
       'Dönüm noktası (indikatör) ile eşdeğerlik noktası arasındaki farkın bağıl büyüklüğüdür; indikatör seçimini değerlendirir.',
       'Relative difference between the end point (indicator) and the equivalence point; used to judge an indicator.',
     ),
-    formula: 'E (%) = (V_dönüm − V_eş) / V_eş × 100',
+    formula: 'E (%) = (V_ep − V_eq) / V_eq × 100',
     variables: [
       v('E', 'E', 'Bağıl titrasyon hatası', 'Relative titration error', 'percent', linear(-100, 1000)),
       v('Vep', 'V_ep', 'Dönüm noktası hacmi', 'End-point volume', 'volume', { unit: 'mL' }),
@@ -168,7 +168,7 @@ export const VOLUMETRIC_FORMULAS: FormulaDef[] = [
       'Kjeldahl yönteminde damıtılan NH₃ bilinen aşırı HCl\'de tutulur, artan HCl NaOH ile geri titre edilir; numunedeki % N hesaplanır.',
       'In the Kjeldahl method distilled NH₃ is trapped in excess HCl and the excess is back-titrated with NaOH; gives % N in the sample.',
     ),
-    formula: '%N = (C_HCl·V_HCl − C_NaOH·V_NaOH) × 14,007 / m × 100',
+    formula: '%N = (C_HCl·V_HCl − C_NaOH·V_NaOH) · M_N / m × 100   (M_N = 14,007 g/mol)',
     variables: [
       v('P', '%N', 'Azot yüzdesi', 'Percent nitrogen', 'percent'),
       v('Ca', 'C_HCl', 'HCl molaritesi', 'HCl molarity', 'conc'),
@@ -184,6 +184,10 @@ export const VOLUMETRIC_FORMULAS: FormulaDef[] = [
       Vb: (x) => (x.Ca * x.Va - (x.P * x.m) / (100 * N_ATOMIC_MASS)) / x.Cb,
     },
     defaultUnknown: 'P',
+    assumptions: l(
+      'Tutucu asit tek protonlu (HCl) ve NH₃ ile 1:1 tepkimeye girer. H₂SO₄ kullanılıyorsa C_HCl yerine 2·C(H₂SO₄) yazın. Borik asit tutucuda ise NH₃ doğrudan standart HCl ile titre edilir (geri titrasyon yok: V_NaOH = 0). Kör deney düzeltmesi ayrıca yapılmalıdır.',
+      'The receiving acid is monoprotic (HCl) and reacts 1:1 with NH₃. If H₂SO₄ is used, enter 2·C(H₂SO₄) as C_HCl. With a boric-acid receiver the NH₃ is titrated directly with standard HCl (no back-titration: V_NaOH = 0). A blank correction must be applied separately.',
+    ),
     sources: ['[C] 8.13', '[H] 9.2'],
     examples: [{ values: { Ca: 0.1, Va: 0.05, Cb: 0.1, Vb: 0.02, m: 0.5 }, unknown: 'P', expected: 8.4042 }],
     keywords: ['Kjeldahl', 'azot', 'nitrogen', 'protein'],

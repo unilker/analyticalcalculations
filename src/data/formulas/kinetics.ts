@@ -253,7 +253,7 @@ export const KINETICS_FORMULAS: FormulaDef[] = [
       'Belirli sürede ışınlanan numunede oluşan radyoizotopun ışınlama sonundaki aktivitesini verir; doygunluğa (yaklaşık 5 yarılanma süresi) ulaşınca artış durur.',
       'Activity of the radioisotope formed at the end of irradiation; growth stops once saturation (about 5 half-lives) is reached.',
     ),
-    formula: 'A₀ = (m·θ·N_A / M) · σ · φ · (1 − e^(−ln2·t_ı / t½))',
+    formula: l('A₀ = (m·θ·N_A / M) · σ · φ · (1 − e^(−ln2·t_ı / t½))', 'A₀ = (m·θ·N_A / M) · σ · φ · (1 − e^(−ln2·t_irr / t½))'),
     variables: [
       v('A', 'A₀', 'Işınlama sonu aktivite', 'Activity at end of irradiation', 'activity', { unit: 'MBq' }),
       v('m', 'm', 'Element kütlesi', 'Mass of element', 'mass', { unit: 'mg' }),
@@ -261,7 +261,7 @@ export const KINETICS_FORMULAS: FormulaDef[] = [
       v('M', 'M', 'Atom kütlesi', 'Atomic weight', 'molarMass'),
       v('sigma', 'σ', 'Tesir kesiti', 'Cross-section', 'crossSection'),
       v('phi', 'φ', 'Nötron akısı', 'Neutron flux', 'flux'),
-      v('ti', 't_ı', 'Işınlama süresi', 'Irradiation time', 'time', { unit: 'min' }),
+      v('ti', l('t_ı', 't_irr'), 'Işınlama süresi', 'Irradiation time', 'time', { unit: 'min' }),
       v('th', 't½', 'Ürünün yarılanma süresi', 'Half-life of product', 'time', { unit: 'min' }),
     ],
     equation: (x) => x.A - ((x.m * x.theta * NA) / x.M) * (x.sigma * 1e-24) * x.phi * (1 - Math.exp((-Math.LN2 * x.ti) / x.th)),
@@ -282,7 +282,7 @@ export const KINETICS_FORMULAS: FormulaDef[] = [
       'Bir bileşiğin ısıtılınca kaybettiği gruptan (ör. kristal suyu, CO, CO₂) beklenen yüzde kütle kaybını hesaplar; TGA basamaklarını yorumlamakta kullanılır.',
       'Expected percentage mass loss when a compound loses a group on heating (e.g. water of crystallisation, CO, CO₂); used to interpret TGA steps.',
     ),
-    formula: '% kayıp = n · M(kaybolan) / M(bileşik) × 100',
+    formula: l('% kayıp = n · M(kaybolan) / M(bileşik) × 100', '% loss = n · M(lost) / M(compound) × 100'),
     variables: [
       v('P', '%', 'Kütle kaybı', 'Mass loss', 'percent', { max: 100 }),
       v('n', 'n', 'Kaybolan grup sayısı', 'Number of groups lost', 'none', { inputOnly: true, defaultValue: 1 }),
