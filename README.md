@@ -60,8 +60,7 @@ sık yapılan hatalar, ilgili araçlar ve kaynaklar. İçerik `src/data/details/
 
 | Modül | Durum |
 |---|---|
-| Derişim ve Çözeltiler (16 araç) | Tamamlandı (pilot) |
-| Diğer modüller | Planlandı |
+| 18 modülün tamamı (214 araç) | Tamamlandı |
 
 ## Telefon, katlanabilir ve tablet
 

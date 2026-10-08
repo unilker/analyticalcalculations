@@ -895,13 +895,13 @@ export const SPECTRO_DETAILS: Record<string, ToolDetail> = {
         'Verilen: n = 1; λ = 500 nm; d = 833,3 nm (1200 çizgi/mm); i = 30°.',
         'sin r = nλ/d − sin i = 500 / 833,3 − sin 30° = 0,600 − 0,500 = 0,100.',
         'r = sin⁻¹(0,100).',
-        'Sonuç: r = 5,739° (normalin gelen ışınla aynı tarafında).',
+        'Sonuç: r = 5,739° (normale göre ölçülür; işaret kuralı kaynağa göre değişebilir).',
       ],
       en: [
         'Given: n = 1; λ = 500 nm; d = 833.3 nm (1200 grooves/mm); i = 30°.',
         'sin r = nλ/d − sin i = 500 / 833.3 − sin 30° = 0.600 − 0.500 = 0.100.',
         'r = sin⁻¹(0.100).',
-        'Result: r = 5.739° (on the same side of the normal as the incident beam).',
+        'Result: r = 5.739° (measured from the normal; the sign convention varies between texts).',
       ],
     },
     mistakes: {
