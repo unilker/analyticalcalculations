@@ -78,7 +78,7 @@ export const POTENTIALS: PotentialEntry[] = [
   p('O₂ + 4H⁺ + 4e⁻ ⇌ 2H₂O', 1.229),
   p('2IO₃⁻ + 12H⁺ + 10e⁻ ⇌ I₂ + 6H₂O', 1.2),
   p('Br₂(aq) + 2e⁻ ⇌ 2Br⁻', 1.087),
-  p('Br₂(s) + 2e⁻ ⇌ 2Br⁻', 1.065),
+  p('Br₂(l) + 2e⁻ ⇌ 2Br⁻', 1.065),
   p('VO₂⁺ + 2H⁺ + e⁻ ⇌ VO²⁺ + H₂O', 1.0),
   p('HNO₂ + H⁺ + e⁻ ⇌ NO + H₂O', 1.0),
   p('NO₃⁻ + 3H⁺ + 2e⁻ ⇌ HNO₂ + H₂O', 0.94),
@@ -90,7 +90,7 @@ export const POTENTIALS: PotentialEntry[] = [
     [0.792, '1 M HClO₄'],
   ]),
   p('Hg₂²⁺ + 2e⁻ ⇌ 2Hg', 0.789, [[0.274, '1 M HCl']]),
-  p('Fe³⁺ + e⁻ ⇌ Fe²⁺', 0.771),
+  p('Fe³⁺ + e⁻ ⇌ Fe²⁺', 0.771, [[0.68, '1 M H₂SO₄'], [0.70, '1 M HCl'], [0.732, '1 M HClO₄']]),
   p('O₂ + 2H⁺ + 2e⁻ ⇌ H₂O₂', 0.682),
   p('I₂(aq) + 2e⁻ ⇌ 2I⁻', 0.6197),
   p('H₃AsO₄ + 2H⁺ + 2e⁻ ⇌ H₃AsO₃ + H₂O', 0.559, [[0.577, '1 M HCl, HClO₄']]),
@@ -100,7 +100,7 @@ export const POTENTIALS: PotentialEntry[] = [
   p('Fe(CN)₆³⁻ + e⁻ ⇌ Fe(CN)₆⁴⁻', 0.36, [[0.72, '1 M HClO₄, H₂SO₄']]),
   p('Cu²⁺ + 2e⁻ ⇌ Cu', 0.337),
   p('Hg₂Cl₂(s) + 2e⁻ ⇌ 2Hg + 2Cl⁻', 0.268, [
-    [0.242, 'doygun KCl / sat’d KCl (SCE)'],
+    [0.242, 'doymuş KCl / sat’d KCl (SCE)'],
     [0.282, '1 M KCl'],
   ]),
   p('AgCl + e⁻ ⇌ Ag + Cl⁻', 0.222, [[0.228, '1 M KCl']]),
@@ -149,7 +149,7 @@ const ind = (tr: string, en: string, low: number, high: number, ctr: string, cen
 /** Acid–base indicators: Harvey, Analytical Chemistry 2.1, Table 9.2.3. */
 export const ACID_BASE_INDICATORS: IndicatorEntry[] = [
   ind('Timol mavisi (asidik)', 'Thymol blue (acid range)', 1.2, 2.8, 'kırmızı → sarı', 'red → yellow'),
-  ind('Metil oranj', 'Methyl orange', 3.4, 4.4, 'kırmızı → sarı', 'red → yellow'),
+  ind('Metil oranj', 'Methyl orange', 3.1, 4.4, 'kırmızı → sarı', 'red → yellow'),
   ind('Bromkrezol yeşili', 'Bromocresol green', 3.8, 5.4, 'sarı → mavi', 'yellow → blue'),
   ind('Metil kırmızısı', 'Methyl red', 4.2, 6.3, 'kırmızı → sarı', 'red → yellow'),
   ind('Bromkrezol moru', 'Bromocresol purple', 5.2, 6.8, 'sarı → mor', 'yellow → purple'),

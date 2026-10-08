@@ -252,7 +252,7 @@ export const TITRATION_FORMULAS: FormulaDef[] = [
       E2: (x) => (x.Eeq * (x.n1 + x.n2) - x.n1 * x.E1) / x.n2,
     },
     defaultUnknown: 'Eeq',
-    assumptions: l('Proton katılmayan yarı tepkimeler; formal potansiyeller kullanılmalı.', 'Half-reactions without protons; use formal potentials.'),
+    assumptions: l('Proton katılmayan ve Ox:Red oranı 1:1 olan yarı tepkimeler (Cr₂O₇²⁻/2Cr³⁺ gibi tepkimelerde geçerli değildir); formal potansiyeller kullanılmalı.', 'Half-reactions without protons and with a 1:1 Ox:Red ratio (not valid for e.g. Cr₂O₇²⁻/2Cr³⁺); use formal potentials.'),
     sources: ['[C] 14.2', '[K] 6.1', '[H] 9.4'],
     examples: [{ values: { n1: 1, E1: 0.68, n2: 1, E2: 1.44 }, unknown: 'Eeq', expected: 1.06, description: l('Fe²⁺ + Ce⁴⁺ (1 M H₂SO₄)', 'Fe²⁺ + Ce⁴⁺ (1 M H₂SO₄)') }],
     keywords: ['redoks', 'redox', 'eşdeğerlik', 'equivalence', 'potansiyel'],

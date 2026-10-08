@@ -244,6 +244,7 @@ export function PrecipitationCurveTool({ color }: ToolProps) {
   const ksp = KSP.find((k) => k.formula === halide)!.ksp;
   const params = n ? { cx: n.cx, vx: n.vx / 1000, cAg: n.cAg, ksp } : undefined;
   const curve = useComputed(params, precipitationCurve);
+  const mohrChromate = curve ? KSP_AG2CRO4 / 10 ** (-2 * curve.equivalence[0].y) : NaN;
   const pKsp = -Math.log10(ksp);
 
   return (
@@ -280,10 +281,11 @@ export function PrecipitationCurveTool({ color }: ToolProps) {
               label={L('%0,2 önce / sonra pAg', 'pAg 0.2% before / after')}
               value={`${fmt(precipitationPAg(params, curve.equivalence[0].v * 0.998))} / ${fmt(precipitationPAg(params, curve.equivalence[0].v * 1.002))}`}
             />
-            <StatRow
-              label={L('Mohr: gereken [CrO₄²⁻]', 'Mohr: required [CrO₄²⁻]')}
-              value={`${fmt(KSP_AG2CRO4 / 10 ** (-2 * curve.equivalence[0].y))} M`}
-            />
+            {mohrChromate <= 0.05 ? (
+              <StatRow label={L('Mohr: gereken [CrO₄²⁻]', 'Mohr: required [CrO₄²⁻]')} value={`${fmt(mohrChromate)} M`} />
+            ) : (
+              <StatRow label={L('Mohr: gereken [CrO₄²⁻]', 'Mohr: required [CrO₄²⁻]')} value={L(`${fmt(mohrChromate)} M: gerçekçi değil (> 0,05 M); kromat tam eşdeğerlikte çökemez`, `${fmt(mohrChromate)} M: unrealistic (> 0.05 M); chromate cannot precipitate exactly at equivalence`)} />
+            )}
           </ResultBox>
         </>
       ) : (
@@ -294,7 +296,7 @@ export function PrecipitationCurveTool({ color }: ToolProps) {
 }
 
 const REDOX_PRESETS = [
-  { label: 'Fe²⁺ + Ce⁴⁺ (1 M H₂SO₄)', n1: '1', e1: '0.771', n2: '1', e2: '1.44' },
+  { label: 'Fe²⁺ + Ce⁴⁺ (1 M H₂SO₄, E°′)', n1: '1', e1: '0.68', n2: '1', e2: '1.44' },
   { label: 'Fe²⁺ + MnO₄⁻', n1: '1', e1: '0.771', n2: '5', e2: '1.51' },
   { label: 'Sn²⁺ + Fe³⁺', n1: '2', e1: '0.154', n2: '1', e2: '0.771' },
 ];
@@ -302,7 +304,7 @@ const REDOX_PRESETS = [
 export function RedoxCurveTool({ color }: ToolProps) {
   const { fmt, lang } = useApp();
   const L = (tr: string, en: string) => (lang === 'tr' ? tr : en);
-  const [raw, setRaw] = useState({ c1: '0.100', v1: '50.00', n1: '1', e1: '0.771', c2: '0.100', n2: '1', e2: '1.44' });
+  const [raw, setRaw] = useState({ c1: '0.100', v1: '50.00', n1: '1', e1: '0.68', c2: '0.100', n2: '1', e2: '1.44' });
   const n = nums(raw, ['e1', 'e2']);
   const params = n ? { c1: n.c1, v1: n.v1 / 1000, n1: n.n1, e1: n.e1, c2: n.c2, n2: n.n2, e2: n.e2 } : undefined;
   const curve = useComputed(params, redoxCurveWide);
@@ -401,9 +403,9 @@ export function DerivativeTool({ color }: ToolProps) {
           </Card>
           <Card>
             <LineChart
-              series={[{ label: 'ΔpH/ΔV', color: palette.vermilion, points: r.first }]}
+              series={[{ label: 'Δy/ΔV (ΔpH/ΔV, ΔE/ΔV)', color: palette.vermilion, points: r.first }]}
               xLabel="V (mL)"
-              yLabel="ΔpH/ΔV"
+              yLabel="Δy/ΔV"
               markerX={r.vFirst}
             />
           </Card>

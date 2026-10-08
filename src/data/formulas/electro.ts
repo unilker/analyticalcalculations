@@ -33,7 +33,7 @@ export const ELECTRO_FORMULAS: FormulaDef[] = [
       'Redoks tepkimesinin standart hücre potansiyelinden denge sabitini bulur; titrasyon tepkimesinin tamlığını değerlendirir. 25 °C\'de log K = n·ΔE°/0,05916.',
       'Equilibrium constant of a redox reaction from its standard cell potential; judges how complete a titration reaction is. At 25 °C, log K = n·ΔE°/0.05916.',
     ),
-    formula: 'E° = (R·T / n·F) · ln K',
+    formula: 'ΔE° = (R·T / n·F) · ln K',
     variables: [E('E0', 'ΔE°', 'Standart hücre potansiyeli', 'Standard cell potential'), N(), v('K', 'K', 'Denge sabiti', 'Equilibrium constant', 'none', { min: 1e-300, max: 1e300 }), T()],
     equation: (x) => x.E0 - ((R_GAS * x.T) / (x.n * F_FARADAY)) * Math.log(x.K),
     solve: {
@@ -120,8 +120,8 @@ export const ELECTRO_FORMULAS: FormulaDef[] = [
     module: 'electro',
     name: l('Referans elektrot dönüşümü', 'Reference electrode conversion'),
     purpose: l(
-      'SHE\'ye göre verilen potansiyeli başka bir referansa (doygun kalomel 0,242 V; doygun KCl\'de Ag/AgCl 0,197 V) göre ifade eder.',
-      'Expresses a potential given vs. SHE against another reference (saturated calomel 0.242 V; Ag/AgCl in saturated KCl 0.197 V).',
+      'SHE\'ye göre verilen potansiyeli başka bir referansa (doymuş kalomel elektrot, DKE 0,242 V; doymuş KCl\'de Ag/AgCl 0,197 V) göre ifade eder. DKE için kaynaklar 25 °C\'de 0,241–0,244 V arasında değer verir (Christian 0,242 V).',
+      'Expresses a potential given vs. SHE against another reference (saturated calomel electrode, SCE 0.242 V; Ag/AgCl in saturated KCl 0.197 V). Texts give 0.241–0.244 V for the SCE at 25 °C (Christian: 0.242 V).',
     ),
     formula: 'E(ref\'e göre) = E(SHE\'ye göre) − E_ref',
     variables: [

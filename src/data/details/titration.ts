@@ -13,8 +13,8 @@ export const TITRATION_DETAILS: Record<string, ToolDetail> = {
       en: 'EDTA (ethylenediaminetetraacetic acid) is a multidentate ligand that forms stable 1:1 chelates with most metal ions. The form that actually binds the metal, however, is the fully deprotonated Y⁴⁻ anion. Depending on pH, the rest of the uncomplexed EDTA is present as H₄Y, H₃Y⁻, H₂Y²⁻ and HY³⁻.\n\nα_Y⁴⁻ is the fraction of the total uncomplexed EDTA present as Y⁴⁻. As the pH falls, protons compete with the metal ion for Y⁴⁻ and α_Y⁴⁻ drops steeply. This fraction explains why complexometric titrations are buffered and usually carried out in alkaline solution.',
     },
     meaning: {
-      tr: 'α_Y⁴⁻ = [Y⁴⁻] / C_EDTA. Burada C_EDTA = [H₄Y] + [H₃Y⁻] + [H₂Y²⁻] + [HY³⁻] + [Y⁴⁻], metale bağlanmamış EDTA’nın toplam derişimidir. Her tür ardışık Ka ifadeleriyle [Y⁴⁻] cinsinden yazılıp pay ve payda [H⁺]⁴ ile çarpılınca formüldeki ifade elde edilir. Paydadaki her terim bir türe karşılık gelir: [H⁺]⁴ → H₄Y, Ka₁[H⁺]³ → H₃Y⁻, …, Ka₁Ka₂Ka₃Ka₄ → Y⁴⁻.\n\n• α yalnızca pH’a (ve Ka değerlerine) bağlıdır; EDTA derişiminden bağımsızdır.\n• pH, pKa₄’ün (≈ 10,26) çok üzerindeyse α → 1; pH = pKa₄ iken α ≈ 0,5.\n• pKa₃’ün (≈ 6,16) birkaç birim üzerinde yalnızca HY³⁻ ve Y⁴⁻ önemlidir ve α ≈ Ka₄ / ([H⁺] + Ka₄) olur.\n\nAraç, Christian’ın H₄Y için verdiği dört Ka değerini kullanır. Çok asidik ortamda (pH ≲ 3) oluşan H₅Y⁺ ve H₆Y²⁺ ihmal edildiği için orada α biraz büyük hesaplanır; tipik titrasyon pH’larında bu fark önemsizdir.',
-      en: 'α_Y⁴⁻ = [Y⁴⁻] / C_EDTA, where C_EDTA = [H₄Y] + [H₃Y⁻] + [H₂Y²⁻] + [HY³⁻] + [Y⁴⁻] is the total concentration of EDTA not bound to metal. Writing each species in terms of [Y⁴⁻] through the successive Ka expressions and multiplying top and bottom by [H⁺]⁴ gives the expression in the formula. Each term of the denominator belongs to one species: [H⁺]⁴ → H₄Y, Ka₁[H⁺]³ → H₃Y⁻, …, Ka₁Ka₂Ka₃Ka₄ → Y⁴⁻.\n\n• α depends only on pH (and the Ka values); it does not depend on the EDTA concentration.\n• Well above pKa₄ (≈ 10.26) α → 1; at pH = pKa₄, α ≈ 0.5.\n• A few units above pKa₃ (≈ 6.16) only HY³⁻ and Y⁴⁻ matter, and α ≈ Ka₄ / ([H⁺] + Ka₄).\n\nThe tool uses the four Ka values Christian gives for H₄Y. H₅Y⁺ and H₆Y²⁺, which form in very acidic solution (pH ≲ 3), are neglected, so α is slightly overestimated there; at normal titration pH values the difference is negligible.',
+      tr: 'α_Y⁴⁻ = [Y⁴⁻] / C_EDTA. Burada C_EDTA = [H₄Y] + [H₃Y⁻] + [H₂Y²⁻] + [HY³⁻] + [Y⁴⁻], metale bağlanmamış EDTA’nın toplam derişimidir. Her tür ardışık Ka ifadeleriyle [Y⁴⁻] cinsinden yazılıp pay ve payda [H⁺]⁴ ile çarpılınca formüldeki ifade elde edilir. Paydadaki her terim bir türe karşılık gelir: [H⁺]⁴ → H₄Y, Ka₁[H⁺]³ → H₃Y⁻, …, Ka₁Ka₂Ka₃Ka₄ → Y⁴⁻.\n\n• α yalnızca pH’a (ve Ka değerlerine) bağlıdır; EDTA derişiminden bağımsızdır.\n• pH, pKa₄’ün (≈ 10,26) çok üzerindeyse α → 1; pH = pKa₄ iken α ≈ 0,5.\n• pKa₃’ün (≈ 6,16) birkaç birim üzerinde yalnızca HY³⁻ ve Y⁴⁻ önemlidir ve α ≈ Ka₄ / ([H⁺] + Ka₄) olur.\n\nAraç, Christian’ın H₄Y için verdiği dört Ka değerini kullanır. Çok asidik ortamda oluşan H₅Y⁺ ve H₆Y²⁺ ihmal edildiği için pH ≈ 2’nin altında α olduğundan büyük hesaplanır (pH 2’de yaklaşık %15, pH 1’de birkaç kat); pH ≥ 3 olan olağan titrasyon koşullarında fark önemsizdir.',
+      en: 'α_Y⁴⁻ = [Y⁴⁻] / C_EDTA, where C_EDTA = [H₄Y] + [H₃Y⁻] + [H₂Y²⁻] + [HY³⁻] + [Y⁴⁻] is the total concentration of EDTA not bound to metal. Writing each species in terms of [Y⁴⁻] through the successive Ka expressions and multiplying top and bottom by [H⁺]⁴ gives the expression in the formula. Each term of the denominator belongs to one species: [H⁺]⁴ → H₄Y, Ka₁[H⁺]³ → H₃Y⁻, …, Ka₁Ka₂Ka₃Ka₄ → Y⁴⁻.\n\n• α depends only on pH (and the Ka values); it does not depend on the EDTA concentration.\n• Well above pKa₄ (≈ 10.26) α → 1; at pH = pKa₄, α ≈ 0.5.\n• A few units above pKa₃ (≈ 6.16) only HY³⁻ and Y⁴⁻ matter, and α ≈ Ka₄ / ([H⁺] + Ka₄).\n\nThe tool uses the four Ka values Christian gives for H₄Y. H₅Y⁺ and H₆Y²⁺, which form in very acidic solution, are neglected, so α is overestimated below about pH 2 (by about 15 % at pH 2 and several-fold at pH 1); at the usual titration pH (≥ 3) the difference is negligible.',
     },
     usage: {
       tr: [
@@ -444,16 +444,16 @@ export const TITRATION_DETAILS: Record<string, ToolDetail> = {
     },
     solution: {
       tr: [
-        'Varsayılan veriler: 50,00 mL 0,100 M Fe²⁺ (E₁° = 0,771 V, n₁ = 1) ve 0,100 M Ce⁴⁺ (E₂° = 1,44 V, n₂ = 1). V_eş = 50,00 mL.',
-        '10,00 mL’de [Fe³⁺]/[Fe²⁺] = 1,000/4,000 → E = 0,771 + 0,05916 × log(0,250) = 0,735 V. Yarı eşdeğerlikte (25,00 mL) E = E₁° = 0,771 V.',
-        'Eşdeğerlikte E_eş = (1 × 0,771 + 1 × 1,44)/2 = 1,1055 V. %0,2 önce (49,90 mL) E = 0,931 V, %0,2 sonra (50,10 mL) E = 1,280 V.',
-        'Sonuç: potansiyel eşdeğerlik çevresinde yaklaşık 0,35 V sıçrar; dönüşüm aralığı 1,00–1,12 V olan ferroin bu sıçramanın içinde kalır ve önerilen indikatördür.',
+        'Varsayılan veriler (1 M H₂SO₄): 50,00 mL 0,100 M Fe²⁺ (E₁°′ = 0,68 V, n₁ = 1) ve 0,100 M Ce⁴⁺ (E₂°′ = 1,44 V, n₂ = 1); ikisi de aynı ortamdaki formal potansiyellerdir. V_eş = 50,00 mL.',
+        '10,00 mL’de [Fe³⁺]/[Fe²⁺] = 1,000/4,000 → E = 0,68 + 0,05916 × log(0,250) = 0,644 V. Yarı eşdeğerlikte (25,00 mL) E = E₁°′ = 0,680 V.',
+        'Eşdeğerlikte E_eş = (1 × 0,68 + 1 × 1,44)/2 = 1,06 V. %0,2 önce (49,90 mL) E = 0,840 V, %0,2 sonra (50,10 mL) E = 1,280 V.',
+        'Sonuç: potansiyel eşdeğerlik çevresinde yaklaşık 0,44 V sıçrar; dönüşüm aralığı 1,00–1,12 V olan ferroin bu sıçramanın içinde kalır ve önerilen indikatördür.',
       ],
       en: [
-        'Default data: 50.00 mL of 0.100 M Fe²⁺ (E₁° = 0.771 V, n₁ = 1) and 0.100 M Ce⁴⁺ (E₂° = 1.44 V, n₂ = 1). V_eq = 50.00 mL.',
-        'At 10.00 mL, [Fe³⁺]/[Fe²⁺] = 1.000/4.000 → E = 0.771 + 0.05916 × log(0.250) = 0.735 V. At half-equivalence (25.00 mL) E = E₁° = 0.771 V.',
-        'At equivalence E_eq = (1 × 0.771 + 1 × 1.44)/2 = 1.1055 V. At 0.2% before (49.90 mL) E = 0.931 V, at 0.2% after (50.10 mL) E = 1.280 V.',
-        'Result: the potential jumps by about 0.35 V around equivalence; ferroin, with a transition range of 1.00–1.12 V, lies inside this jump and is the suggested indicator.',
+        'Default data (1 M H₂SO₄): 50.00 mL of 0.100 M Fe²⁺ (E₁°′ = 0.68 V, n₁ = 1) and 0.100 M Ce⁴⁺ (E₂°′ = 1.44 V, n₂ = 1); both are formal potentials in the same medium. V_eq = 50.00 mL.',
+        'At 10.00 mL, [Fe³⁺]/[Fe²⁺] = 1.000/4.000 → E = 0.68 + 0.05916 × log(0.250) = 0.644 V. At half-equivalence (25.00 mL) E = E₁°′ = 0.680 V.',
+        'At equivalence E_eq = (1 × 0.68 + 1 × 1.44)/2 = 1.06 V. At 0.2% before (49.90 mL) E = 0.840 V, at 0.2% after (50.10 mL) E = 1.280 V.',
+        'Result: the potential jumps by about 0.44 V around equivalence; ferroin, with a transition range of 1.00–1.12 V, lies inside this jump and is the suggested indicator.',
       ],
     },
     mistakes: {
