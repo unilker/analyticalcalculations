@@ -394,7 +394,7 @@ Tip sütunu: F = formül çözücü, V = veri seti aracı, S = simülatör, R = 
 | Gereken plaka sayısı | N_req = 16 R_s² [α/(α − 1)]² [(1 + k)/k]² | Kolon boyu seçimi | [C] 19.34–19.35 |
 | van Deemter, Golay, Huber, Knox | H = A + B/u + C u (ve türevleri) | Optimum akış hızı | [C] 19.13–19.28, [T] 12.9, [K] 11.9 |
 | Lineer hız ve alıkonma hacmi | u = L / t_M; V_R = F t_R | Akış hesapları | [T] 12.4, 12.8 |
-| GC: sıkıştırılabilirlik düzeltmesi, net alıkonma hacmi | j = 3/2 [(P_i/P_o)² − 1] / [(P_i/P_o)³ − 1]; V_N = j V_R′ | GC'de gerçek tutunma | [K] 16.3–16.6 |
+| GC: sıkıştırılabilirlik düzeltmesi, net alıkonma hacmi | j = 3/2 [(P_i/P_o)² − 1] / [(P_i/P_o)³ − 1]; V_N = j V_R′ | GC'de gerçek alıkonma | [K] 16.3–16.6 |
 | Kovats alıkonma indeksi | I = 100 [n + (log t′_x − log t′_n) / (log t′_n+1 − log t′_n)] | GC'de pik tanımlama | [C] 20.1, [H] 12.4 |
 | TLC Rf | R_f = analitin aldığı yol / çözücü cephesinin aldığı yol | İnce tabaka kromatografisi | [T] 12.1, [P] 4.6, [K] 15.7 |
 | Poiseuille basınç düşüşü | ΔP = 8 F η L / (π r⁴) | Kapiler/HPLC basıncı | [C] 21.10 |
