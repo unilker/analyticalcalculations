@@ -5,7 +5,7 @@ import { ToolRow } from '../../components/ToolRow';
 import { Sources } from '../../components/ToolView';
 import { useLayout } from '../../components/layout';
 import { Banner, Button, Card, Columns, FormulaText, Notice, Screen, SectionTitle } from '../../components/ui';
-import { unitsOf } from '../../core/units';
+import { unitLabel, unitsOf } from '../../core/units';
 import { TOOL_DETAILS } from '../../data/details';
 import { MODULE_BY_ID, TOOL_BY_ID } from '../../data/registry';
 import { useApp } from '../../i18n/AppSettings';
@@ -55,7 +55,7 @@ export default function InfoScreen() {
               <View style={{ flex: 1, gap: 2 }}>
                 <Text style={{ fontSize: 14, color: colors.text }}>{tx(v.name)}</Text>
                 {unitsOf(v.dim).some((u) => u.label) ? (
-                  <Text style={{ fontSize: 12, color: colors.textMuted }}>{unitsOf(v.dim).map((u) => u.label).join(' · ')}</Text>
+                  <Text style={{ fontSize: 12, color: colors.textMuted }}>{unitsOf(v.dim).map((u) => unitLabel(u, lang)).join(' · ')}</Text>
                 ) : null}
               </View>
             </View>

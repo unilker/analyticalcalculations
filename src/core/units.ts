@@ -1,4 +1,4 @@
-import type { DimensionId } from './types';
+import type { DimensionId, Lang } from './types';
 
 export const NA = 6.02214076e23;
 export const H_PLANCK = 6.62607015e-34;
@@ -73,6 +73,11 @@ export const DIMENSIONS: Record<DimensionId, UnitDef[]> = {
   molarVolume: [u('cm³/mol')],
   massAtten: [u('cm²/g')],
 };
+
+/** Label shown to the user: minutes are “dk” in Turkish and “min” in English. */
+export function unitLabel(unit: UnitDef, lang: Lang): string {
+  return lang === 'tr' ? unit.label.replace(/\bmin\b/g, 'dk') : unit.label;
+}
 
 export function unitsOf(dim: DimensionId): UnitDef[] {
   return DIMENSIONS[dim];

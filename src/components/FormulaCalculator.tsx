@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 import { formatNumber, parseNumber } from '../core/format';
 import { solveFormula } from '../core/solver';
 import type { FormulaDef, ModuleDef, Values } from '../core/types';
-import { findUnit, fromBase, toBase, unitsOf } from '../core/units';
+import { findUnit, fromBase, toBase, unitLabel, unitsOf } from '../core/units';
 import { useApp } from '../i18n/AppSettings';
 import { colors, palette } from '../theme/colors';
 import { MoreInfoButton } from './MoreInfoButton';
@@ -120,7 +120,7 @@ export function FormulaCalculator({ def, module, twoColumn, aside }: Props) {
                 label={label(v)}
                 value={values[v.key] ?? ''}
                 onChangeText={(s) => setValues({ ...values, [v.key]: s })}
-                unit={unit.label}
+                unit={unitLabel(unit, lang)}
                 onUnitPress={unitsOf(v.dim).length > 1 ? () => cycleUnit(v.key) : undefined}
                 invalid={invalid.includes(v.key)}
                 color={color}
@@ -147,7 +147,7 @@ export function FormulaCalculator({ def, module, twoColumn, aside }: Props) {
             </Text>
             {unknownUnit.label ? (
               <UnitButton
-                unit={unknownUnit.label}
+                unit={unitLabel(unknownUnit, lang)}
                 onPress={unitsOf(unknownVar.dim).length > 1 ? () => cycleUnit(unknown) : undefined}
                 color={color}
               />

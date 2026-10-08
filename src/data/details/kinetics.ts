@@ -13,7 +13,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
       en: 'Kinetic methods of analysis measure the rate of a reaction rather than a signal at equilibrium. Because the rate is proportional to the analyte concentration, the measurement can be made before the reaction is complete; slow reactions, enzyme-catalysed assays and automated analysers rely on this approach.\n\nIn a first-order reaction the rate is proportional to the first power of the reactant concentration: −d[A]/dt = k[A]. A reaction that really involves two species also behaves as pseudo-first-order when the reagent (R) is added in large excess over the analyte (typically at least tenfold): [R] stays practically constant and k′ = k[R].',
     },
     meaning: {
-      tr: '−d[A]/dt = k[A] diferansiyel denklemi değişkenlerine ayrılıp 0’dan t’ye integre edilince ln([A]/[A]₀) = −kt, yani [A] = [A]₀ · e^(−kt) bulunur.\n\nDoğrusal biçim: ln[A] = ln[A]₀ − kt. ln[A]’nın zamana karşı grafiği eğimi −k olan bir doğrudur; bu doğrusallık tepkimenin birinci derece olduğunun kanıtıdır.\n\n• k’nin birimi zaman⁻¹’dir (s⁻¹, min⁻¹); derişim biriminden bağımsızdır.\n• k·t boyutsuzdur; k ve t aynı zaman birimiyle girilmelidir.\n• Sabit süre yöntemi: belirli bir t anında ölçülen derişimden ln([A]₀/[A]) = kt ilişkisiyle [A]₀ (analit) ya da k bulunur.',
+      tr: '−d[A]/dt = k[A] diferansiyel denklemi değişkenlerine ayrılıp 0’dan t’ye integre edilince ln([A]/[A]₀) = −kt, yani [A] = [A]₀ · e^(−kt) bulunur.\n\nDoğrusal biçim: ln[A] = ln[A]₀ − kt. ln[A]’nın zamana karşı grafiği eğimi −k olan bir doğrudur; bu doğrusallık tepkimenin birinci derece olduğunun kanıtıdır.\n\n• k’nin birimi zaman⁻¹’dir (s⁻¹, dk⁻¹); derişim biriminden bağımsızdır.\n• k·t boyutsuzdur; k ve t aynı zaman birimiyle girilmelidir.\n• Sabit süre yöntemi: belirli bir t anında ölçülen derişimden ln([A]₀/[A]) = kt ilişkisiyle [A]₀ (analit) ya da k bulunur.',
       en: 'Separating the variables in −d[A]/dt = k[A] and integrating from 0 to t gives ln([A]/[A]₀) = −kt, i.e. [A] = [A]₀ · e^(−kt).\n\nLinear form: ln[A] = ln[A]₀ − kt. A plot of ln[A] against time is a straight line of slope −k; this linearity is the evidence that the reaction is first order.\n\n• k has units of time⁻¹ (s⁻¹, min⁻¹), independent of the concentration unit.\n• k·t is dimensionless; k and t must be entered in the same time unit.\n• Fixed-time method: from the concentration measured at a chosen time t, ln([A]₀/[A]) = kt gives [A]₀ (the analyte) or k.',
     },
     usage: {
@@ -47,7 +47,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     mistakes: {
       tr: [
         'ln yerine log kullanmak: log[A]–t grafiğinin eğimi −k değil −k/2,303’tür.',
-        'k’yi min⁻¹, t’yi saniye cinsinden girmek (60 kat hata).',
+        'k’yi dk⁻¹, t’yi saniye cinsinden girmek (60 kat hata).',
         'Reaktif fazlalığı yeterli değilken tepkimeyi yalancı birinci derece kabul etmek.',
       ],
       en: [
@@ -86,8 +86,8 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
       tr: [
         'Verilen: k = 0,004 s⁻¹.',
         't½ = ln 2 / k = 0,6931 / 0,004 s⁻¹ = 173,3 s.',
-        'Saniyeden dakikaya: 173,3 s / 60 s/min.',
-        'Sonuç: t½ = 2,888 min.',
+        'Saniyeden dakikaya: 173,3 s / 60 s/dk.',
+        'Sonuç: t½ = 2,888 dk.',
       ],
       en: [
         'Given: k = 0.004 s⁻¹.',
@@ -188,10 +188,10 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     },
     solution: {
       tr: [
-        'Verilen: V_max = 10 µM/min, [S] = 0,5 mM, K_m = 0,8 mM.',
+        'Verilen: V_max = 10 µM/dk, [S] = 0,5 mM, K_m = 0,8 mM.',
         '[S] ve K_m aynı birimde olduğundan oran doğrudan alınır: [S]/(K_m + [S]) = 0,5/(0,8 + 0,5) = 0,3846.',
         'Yani hız V_max’ın yaklaşık %38’idir; [S] < K_m olduğundan enzim henüz doygun değildir.',
-        'Sonuç: v = 10 µM/min × 0,3846 = 3,846 µM/min.',
+        'Sonuç: v = 10 µM/dk × 0,3846 = 3,846 µM/dk.',
       ],
       en: [
         'Given: V_max = 10 µM/min, [S] = 0.5 mM, K_m = 0.8 mM.',
@@ -450,7 +450,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
       tr: [
         'Verilen: istenen bağıl standart sapma RSD = %1.',
         'RSD = 100/√N → √N = 100/RSD = 100/1 = 100.',
-        'Örneğin sayım hızı 500 sayım/min olsaydı bu sayıma 20 min’de ulaşılırdı.',
+        'Örneğin sayım hızı 500 sayım/dk olsaydı bu sayıma 20 dk’de ulaşılırdı.',
         'Sonuç: N = 100² = 10000 sayım.',
       ],
       en: [
@@ -500,7 +500,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     },
     solution: {
       tr: [
-        'Verilen: A_T = 549 sayım/min (eklenen işaretli insülin), w_T = 1 mg; ayrılan saf insülin w_A = 18,3 mg, A_A = 148 sayım/min.',
+        'Verilen: A_T = 549 sayım/dk (eklenen işaretli insülin), w_T = 1 mg; ayrılan saf insülin w_A = 18,3 mg, A_A = 148 sayım/dk.',
         'A_T/A_A = 549/148 = 3,709.',
         '(A_T/A_A) · w_A = 3,709 × 18,3 mg = 67,88 mg (analit + izleyici).',
         'Sonuç: wₓ = 67,88 mg − 1 mg = 66,88 mg insülin.',
@@ -602,7 +602,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     },
     solution: {
       tr: [
-        'Verilen: m = 1000 mg (1 g) Al, θ = 1, M = 26,98 g/mol, σ = 0,231 barn, φ = 1 × 10¹² cm⁻² s⁻¹, t_ı = 10 min, t½(²⁸Al) = 2,24 min.',
+        'Verilen: m = 1000 mg (1 g) Al, θ = 1, M = 26,98 g/mol, σ = 0,231 barn, φ = 1 × 10¹² cm⁻² s⁻¹, t_ı = 10 dk, t½(²⁸Al) = 2,24 dk.',
         'N = 1 g × 6,022 × 10²³ mol⁻¹ / 26,98 g/mol = 2,232 × 10²² atom; N·σ·φ = 2,232 × 10²² × 0,231 × 10⁻²⁴ cm² × 10¹² cm⁻² s⁻¹ = 5,156 × 10⁹ Bq (doygunluk aktifliği).',
         'Doygunluk çarpanı: t_ı/t½ = 4,461 → 1 − (½)^4,461 = 0,9546.',
         'Sonuç: A₀ = 5,156 × 10⁹ Bq × 0,9546 = 4,922 × 10⁹ Bq = 4922 MBq.',
@@ -707,7 +707,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
         'Örnek veri: t = 0–360 s (60 s aralıklarla), [A] = 0,0500 → 0,0118 M (yedi nokta).',
         'R² değerleri: [A]–t için 0,9593; ln[A]–t için 0,99999 (ekranda 1 olarak yuvarlanır); 1/[A]–t için 0,9589 → tepkime birinci derecedir.',
         'ln[A]–t doğrusunun eğimi −0,004004 s⁻¹; kesişimden [A]₀ = e^(−2,996) = 0,04998 M.',
-        'Sonuç: k = 0,004004 s⁻¹ ve t½ = ln 2/k = 173,1 s (≈ 2,9 min).',
+        'Sonuç: k = 0,004004 s⁻¹ ve t½ = ln 2/k = 173,1 s (≈ 2,9 dk).',
       ],
       en: [
         'Sample data: t = 0–360 s (every 60 s), [A] = 0.0500 → 0.0118 M (seven points).',
@@ -756,10 +756,10 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     },
     solution: {
       tr: [
-        'Örnek veri: [S] = 0,10; 0,20; 0,50; 1,00; 2,00; 5,00 mM ve v = 1,11; 2,00; 3,85; 5,56; 7,14; 8,62 µM/min.',
-        'Ters değerler: 1/[S] = 10 … 0,2 mM⁻¹, 1/v = 0,9009 … 0,1160 min/µM; bu noktalara doğru uydurulur.',
-        'Eğim = 0,08009 mM·min/µM, kesişim = 0,09981 min/µM, R² = 0,999999 (ekranda 1).',
-        'Sonuç: V_max = 1/0,09981 = 10,02 µM/min ve K_m = 0,08009 × 10,02 = 0,8025 mM (veri K_m = 0,8 mM, V_max = 10 µM/min ile üretilmiştir; küçük fark hızların yuvarlanmasından gelir).',
+        'Örnek veri: [S] = 0,10; 0,20; 0,50; 1,00; 2,00; 5,00 mM ve v = 1,11; 2,00; 3,85; 5,56; 7,14; 8,62 µM/dk.',
+        'Ters değerler: 1/[S] = 10 … 0,2 mM⁻¹, 1/v = 0,9009 … 0,1160 dk/µM; bu noktalara doğru uydurulur.',
+        'Eğim = 0,08009 mM·dk/µM, kesişim = 0,09981 dk/µM, R² = 0,999999 (ekranda 1).',
+        'Sonuç: V_max = 1/0,09981 = 10,02 µM/dk ve K_m = 0,08009 × 10,02 = 0,8025 mM (veri K_m = 0,8 mM, V_max = 10 µM/dk ile üretilmiştir; küçük fark hızların yuvarlanmasından gelir).',
       ],
       en: [
         'Sample data: [S] = 0.10, 0.20, 0.50, 1.00, 2.00, 5.00 mM and v = 1.11, 2.00, 3.85, 5.56, 7.14, 8.62 µM/min.',

@@ -1,6 +1,7 @@
 import { alphaFractions, speciesLabels } from '../core/acidBase';
 import { formatNumber, parseList, parseNumber, parseTable } from '../core/format';
 import { molarMass } from '../core/molarMass';
+import { findUnit, unitLabel } from '../core/units';
 import {
   fCritical,
   grubbsCritical,
@@ -193,5 +194,16 @@ describe('display ↔ input round trip', () => {
       const shown = formatNumber(x, lang, 6);
       expect(Math.abs(parseNumber(shown) - x)).toBeLessThanOrEqual(Math.abs(x) * 1e-5);
     }
+  });
+});
+
+describe('unit labels', () => {
+  it('shows minutes as dk in Turkish and min in English', () => {
+    const minute = findUnit('time', 'min');
+    expect(unitLabel(minute, 'tr')).toBe('dk');
+    expect(unitLabel(minute, 'en')).toBe('min');
+    expect(unitLabel(findUnit('rateConst1', 'min⁻¹'), 'tr')).toBe('dk⁻¹');
+    expect(unitLabel(findUnit('flow', 'mL/min'), 'tr')).toBe('mL/dk');
+    expect(unitLabel(findUnit('massConc', 'mg/mL'), 'tr')).toBe('mg/mL');
   });
 });
