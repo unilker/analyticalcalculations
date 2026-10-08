@@ -346,7 +346,7 @@ export function SamplesNumberTool({ color }: ToolProps) {
           <StatRow label={L('Gereken numune sayısı', 'Samples needed')} value={String(r.n)} strong />
           <StatRow label={L('İterasyonlar', 'Iterations')} value={r.iterations.join(' → ')} />
           <Text style={{ fontSize: 13, color: colors.textMuted }}>
-            {L(`İlk tahmin z ile, sonrakiler t(${pct(conf)}, n−1) ile yapıldı.`, `First estimate with z, then t(${pct(conf)}, n−1).`)}
+            {L(`İlk tahmin z ile, sonrakiler t(${pct(conf)}, n−1) ile yapıldı.`, `First estimate with z, then t(${pct(conf, 'en')}, n−1).`)}
           </Text>
           {r.n > 100 && <Text style={{ fontSize: 13, color: palette.orange }}>{L('Çok sayıda numune gerekiyor; daha büyük numune kütlesi (Ingamells) kullanmayı düşünün.', 'Many samples are needed; consider larger sample masses (Ingamells).')}</Text>}
           <Text style={{ fontSize: 12, color: colors.textMuted }}>{fmt(sN)} % / {fmt(eN)} %</Text>

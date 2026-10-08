@@ -212,8 +212,8 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
     module: 'tools',
     name: l('Kritik değerler (t, F, Q, G)', 'Critical values (t, F, Q, G)'),
     purpose: l(
-      'Serbestlik derecesi ve güven düzeyine göre t, F, Dixon Q ve Grubbs G kritik değerleri. t, F ve G hesapla üretilir.',
-      'Critical values of t, F, Dixon Q and Grubbs G for any degrees of freedom and confidence level. t, F and G are computed.',
+      '%90, %95 ve %99 güven düzeylerinde t, F, Dixon Q ve Grubbs G kritik değerleri. t, F ve G hesapla üretilir; Q, n = 3–10 için Rorabacher (1991) tablosundandır.',
+      'Critical values of t, F, Dixon Q and Grubbs G at 90%, 95% and 99% confidence. t, F and G are computed; Q is tabulated for n = 3–10 (Rorabacher 1991).',
     ),
     sources: ['[H] 16.4–16.7', '[P] Ek'],
     keywords: ['kritik', 'critical', 't tablosu', 'F tablosu', 'Q', 'Grubbs'],

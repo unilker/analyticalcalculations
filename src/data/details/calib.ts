@@ -22,12 +22,14 @@ export const CALIB_DETAILS: Record<string, ToolDetail> = {
         'Eklenen miktar, sinyali belirgin biçimde (yaklaşık 1,5–3 kat) artıracak kadar olmalı ama doğrusal aralığı aşmamalıdır.',
         'Tek noktalı ekleme doğrusallığı denetlemez; daha güvenilir sonuç için çok noktalı standart ekleme tercih edilir.',
         'Matriksin duyarlılığa etkisini düzeltir; ancak sabit bir girişim sinyalini (spektral girişim, kirli kör) düzeltmez.',
+        'Bu eşitlik standardın doğrudan numune hacmine eklendiği yöntem içindir. Eklemesiz ve eklemeli kısımlar aynı son hacme (ör. balon jojede) tamamlanıyorsa Cₓ = Sₓ·C_std·V_std / [(S_spk − Sₓ)·Vₓ] kullanılmalıdır.',
       ],
       en: [
         'Samples with a complex matrix that cannot be matched by standards (blood, seawater, soil extracts) in AAS, ICP, potentiometry and voltammetry.',
         'The spike should raise the signal clearly (roughly 1.5–3 times) without leaving the linear range.',
         'A single addition does not check linearity; multiple standard additions give a more reliable result.',
         'It corrects for the effect of the matrix on sensitivity, but not for a constant interfering signal (spectral interference, contaminated blank).',
+        'This equation is for adding the standard directly to the sample aliquot. If the unspiked and spiked aliquots are both made up to the same final volume (e.g. in volumetric flasks), use Cₓ = Sₓ·C_std·V_std / [(S_spk − Sₓ)·Vₓ].',
       ],
     },
     solution: {
@@ -49,11 +51,13 @@ export const CALIB_DETAILS: Record<string, ToolDetail> = {
         'Eklenen standardın numuneyi seyrelttiğini ihmal etmek; bu yalnızca V_std, Vₓ’e göre çok küçükse kabul edilebilir bir yaklaşımdır.',
         'Kör düzeltmesi yapılmamış sinyal kullanmak; kör sinyali analit gibi davranır ve sonuç yüksek çıkar.',
         'Sonucun ölçülen çözeltiye ait olduğunu unutmak: numune ölçümden önce seyreltildiyse seyreltme faktörü uygulanmalıdır.',
+        'Balon jojede aynı son hacme tamamlanan kısımlarla çalışıp bu aracın (doğrudan ekleme) eşitliğini kullanmak; iki yöntemin eşitlikleri farklıdır.',
       ],
       en: [
         'Ignoring the dilution of the sample by the spike; this is an acceptable approximation only when V_std is much smaller than Vₓ.',
         'Using signals that are not blank-corrected; the blank behaves like analyte and the result is too high.',
         'Forgetting that the result refers to the measured solution: if the sample was diluted before measurement, apply the dilution factor.',
+        'Making both aliquots up to the same final volume and still using this tool’s (direct-addition) equation; the two procedures need different equations.',
       ],
     },
     related: ['std-addition-multi', 'internal-standard', 'linear-regression', 'recovery'],

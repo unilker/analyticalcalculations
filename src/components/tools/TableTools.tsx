@@ -182,7 +182,7 @@ export function CriticalValuesTool({ color }: ToolProps) {
         {nn >= 3 && nn <= 10 && DIXON_Q[qKey] && <StatRow label={`Q (n = ${nn})`} value={fmt(DIXON_Q[qKey][nn - 3])} />}
         {nn >= 3 && <StatRow label={`G Grubbs (n = ${nn})`} value={fmt(grubbsCritical(nn, alpha))} />}
       </ResultBox>
-      <Notice text={L(`Güven düzeyi ${pct(conf)} (α = ${alpha}). Q değerleri n = 3–10 için Rorabacher (1991) tablosundandır.`, `Confidence ${pct(conf)} (α = ${alpha}). Q values for n = 3–10 are from Rorabacher (1991).`)} />
+      <Notice text={L(`Güven düzeyi ${pct(conf)} (α = ${alpha}). Q değerleri n = 3–10 için Rorabacher (1991) tablosundandır.`, `Confidence ${pct(conf, 'en')} (α = ${alpha}). Q values for n = 3–10 are from Rorabacher (1991).`)} />
     </View>
   );
 }

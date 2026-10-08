@@ -106,21 +106,23 @@ export const fCritical = (alpha: number, d1: number, d2: number) => invert((f) =
 export const tPValue = (t: number, df: number) => 2 * (1 - tCdf(Math.abs(t), df));
 
 export function erf(x: number): number {
-  // Abramowitz & Stegun 7.1.26 refined by a series for small x.
+  // Maclaurin series for |x| < 3 (converges to double precision with ≤ 100 terms there),
+  // continued fraction for erfc beyond, where it converges quickly.
   const sign = Math.sign(x);
   x = Math.abs(x);
-  if (x < 0.5) {
+  if (x < 3) {
     let term = x;
     let s = x;
-    for (let n = 1; n < 30; n++) {
+    for (let n = 1; n < 120; n++) {
       term *= (-x * x) / n;
-      s += term / (2 * n + 1);
+      const add = term / (2 * n + 1);
+      s += add;
+      if (Math.abs(add) < 1e-17 * Math.abs(s)) break;
     }
     return (sign * 2 * s) / Math.sqrt(Math.PI);
   }
-  // Continued fraction for erfc.
   let f = 0;
-  for (let n = 60; n >= 1; n--) f = (n / 2) / (x + f);
+  for (let n = 80; n >= 1; n--) f = n / 2 / (x + f);
   const erfc = Math.exp(-x * x) / Math.sqrt(Math.PI) / (x + f);
   return sign * (1 - erfc);
 }
@@ -181,7 +183,17 @@ export interface TestResult {
 }
 
 /** Compares a mean with a known (reference) value. */
-export function tTestKnown(xs: number[], mu: number, conf: number): TestResult {
+/**
+ * True when the values have no usable spread (all equal, within floating-point noise relative to `scale`).
+ * Tests that divide by s or by the range are undefined then and must not report a verdict.
+ */
+export function noSpread(xs: number[], scale = Math.max(...xs.map(Math.abs))): boolean {
+  const w = Math.max(...xs) - Math.min(...xs);
+  return w <= 1e-9 * scale;
+}
+
+export function tTestKnown(xs: number[], mu: number, conf: number): TestResult | undefined {
+  if (noSpread(xs)) return undefined;
   const n = xs.length;
   const t = (Math.abs(mean(xs) - mu) * Math.sqrt(n)) / stdev(xs);
   const crit = tCritical(conf, n - 1);
@@ -189,7 +201,8 @@ export function tTestKnown(xs: number[], mu: number, conf: number): TestResult {
 }
 
 /** Two-tailed F-test for equal variances (larger variance in the numerator). */
-export function fTest(a: number[], b: number[], conf: number): TestResult {
+export function fTest(a: number[], b: number[], conf: number): TestResult | undefined {
+  if (noSpread(a) || noSpread(b)) return undefined;
   const va = variance(a);
   const vb = variance(b);
   const [big, small, d1, d2] = va >= vb ? [va, vb, a.length - 1, b.length - 1] : [vb, va, b.length - 1, a.length - 1];
@@ -205,8 +218,9 @@ export interface TwoMeansResult extends TestResult {
 }
 
 /** Unpaired t-test. Uses the pooled standard deviation unless the F-test shows unequal variances (then Welch). */
-export function tTestTwoMeans(a: number[], b: number[], conf: number): TwoMeansResult {
+export function tTestTwoMeans(a: number[], b: number[], conf: number): TwoMeansResult | undefined {
   const f = fTest(a, b, conf);
+  if (!f) return undefined;
   const na = a.length;
   const nb = b.length;
   const diff = Math.abs(mean(a) - mean(b));
@@ -226,8 +240,9 @@ export function tTestTwoMeans(a: number[], b: number[], conf: number): TwoMeansR
 }
 
 /** Paired t-test on the differences a[i] − b[i]. */
-export function tTestPaired(a: number[], b: number[], conf: number): TestResult & { meanDiff: number; sd: number } {
+export function tTestPaired(a: number[], b: number[], conf: number): (TestResult & { meanDiff: number; sd: number }) | undefined {
   const d = a.map((x, i) => x - b[i]);
+  if (noSpread(d, Math.max(...a.map(Math.abs), ...b.map(Math.abs)))) return undefined;
   const n = d.length;
   const md = mean(d);
   const sd = stdev(d);
@@ -250,7 +265,7 @@ export interface OutlierResult extends TestResult {
 /** Dixon's Q-test for the most extreme value; n must be 3…10. */
 export function qTest(xs: number[], alpha: '0.1' | '0.05' | '0.01'): OutlierResult | undefined {
   const n = xs.length;
-  if (n < 3 || n > 10) return undefined;
+  if (n < 3 || n > 10 || noSpread(xs)) return undefined;
   const s = [...xs].sort((a, b) => a - b);
   const w = s[n - 1] - s[0];
   const qLow = (s[1] - s[0]) / w;
@@ -268,7 +283,7 @@ export function grubbsCritical(n: number, alpha: number): number {
 
 export function grubbsTest(xs: number[], alpha: number): OutlierResult | undefined {
   const n = xs.length;
-  if (n < 3) return undefined;
+  if (n < 3 || noSpread(xs)) return undefined;
   const m = mean(xs);
   const s = stdev(xs);
   const suspect = xs.reduce((a, b) => (Math.abs(b - m) > Math.abs(a - m) ? b : a));
@@ -292,6 +307,9 @@ export interface Regression {
   yMean: number;
   sxx: number;
   weighted: boolean;
+  /** Weighted fits only: the calibration x values and the standard deviation of each y. */
+  x?: number[];
+  sy?: number[];
 }
 
 /**
@@ -316,7 +334,21 @@ export function linearRegression(x: number[], y: number[], sy?: number[]): Regre
   const sSlope = Math.sqrt((n * sr * sr) / (n * sxx2 - sum(x.map((xi, i) => w[i] * xi)) ** 2));
   const sIntercept = Math.sqrt((sr * sr * sxx2) / (n * sxx2 - sum(x.map((xi, i) => w[i] * xi)) ** 2));
   const r = sxy / Math.sqrt(sxx * syy);
-  return { n, slope, intercept, sr, sSlope, sIntercept, r, r2: r * r, xMean, yMean, sxx, weighted };
+  return { n, slope, intercept, sr, sSlope, sIntercept, r, r2: r * r, xMean, yMean, sxx, weighted, ...(weighted ? { x, sy } : {}) };
+}
+
+/** Linear interpolation of y(x) over the table (x need not be sorted); constant beyond the ends. */
+function interpolate(xs: number[], ys: number[], x: number): number {
+  const pts = xs.map((xi, i) => [xi, ys[i]] as const).sort((a, b) => a[0] - b[0]);
+  if (x <= pts[0][0]) return pts[0][1];
+  for (let i = 1; i < pts.length; i++) {
+    if (x <= pts[i][0]) {
+      const [x0, y0] = pts[i - 1];
+      const [x1, y1] = pts[i];
+      return x1 === x0 ? y1 : y0 + ((y1 - y0) * (x - x0)) / (x1 - x0);
+    }
+  }
+  return pts[pts.length - 1][1];
 }
 
 function normalizeWeights(sy: number[]): number[] {
@@ -325,10 +357,19 @@ function normalizeWeights(sy: number[]): number[] {
   return inv.map((v) => (sy.length * v) / t);
 }
 
-/** Concentration of an unknown from the mean of k replicate signals, with its standard deviation. */
+/**
+ * Concentration of an unknown from the mean of k replicate signals, with its standard deviation.
+ * For a weighted fit the sample term is 1/(k·w₀), where w₀ is the normalised weight at the
+ * unknown's level (Miller & Miller, Eq. 5.17); its s is interpolated from the standards' sᵢ.
+ */
 export function inversePrediction(reg: Regression, ySample: number, k: number, conf = 0.95) {
   const x = (ySample - reg.intercept) / reg.slope;
-  const sx = (reg.sr / Math.abs(reg.slope)) * Math.sqrt(1 / k + 1 / reg.n + (ySample - reg.yMean) ** 2 / (reg.slope ** 2 * reg.sxx));
+  let w0 = 1;
+  if (reg.weighted && reg.x && reg.sy) {
+    const s0 = interpolate(reg.x, reg.sy, x);
+    w0 = (reg.n / (s0 * s0)) / sum(reg.sy.map((si) => 1 / (si * si)));
+  }
+  const sx = (reg.sr / Math.abs(reg.slope)) * Math.sqrt(1 / (k * w0) + 1 / reg.n + (ySample - reg.yMean) ** 2 / (reg.slope ** 2 * reg.sxx));
   const t = tCritical(conf, reg.n - 2);
   return { x, sx, t, half: t * sx };
 }
@@ -407,12 +448,12 @@ export function propagate(
       return [r, Math.abs(r * k * (a.u / a.value))];
     }
     case 'log10':
-      return [Math.log10(a.value), (0.4343 * a.u) / a.value];
+      return [Math.log10(a.value), (Math.LOG10E * a.u) / a.value];
     case 'ln':
       return [Math.log(a.value), a.u / a.value];
     case 'exp10': {
       const r = 10 ** a.value;
-      return [r, r * 2.303 * a.u];
+      return [r, r * Math.LN10 * a.u];
     }
     case 'exp': {
       const r = Math.exp(a.value);

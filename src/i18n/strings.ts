@@ -56,6 +56,10 @@ export const STRINGS = {
   reject: { tr: 'Aykırı değer — atılabilir', en: 'Outlier — may be rejected' },
   retain: { tr: 'Aykırı değil — tutulmalı', en: 'Not an outlier — retain' },
   needMoreData: { tr: 'Yeterli veri yok.', en: 'Not enough data.' },
+  noSpread: {
+    tr: 'Değerler arasında dağılım yok (s = 0). Test yapılamaz; ölçümlerin okunabilirliğini (anlamlı basamak sayısını) artırın ya da verileri kontrol edin.',
+    en: 'The values show no spread (s = 0). The test cannot be done; record more digits (better readability) or check the data.',
+  },
   groups: { tr: 'Gruplar', en: 'Groups' },
   groupsHint: { tr: 'Her satır bir grup; değerleri boşlukla ayırın.', en: 'One group per line; separate values with spaces.' },
   dataSetA: { tr: 'Veri seti 1', en: 'Data set 1' },

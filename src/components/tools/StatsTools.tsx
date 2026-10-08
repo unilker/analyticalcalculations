@@ -8,6 +8,7 @@ import {
   normalProbability,
   oneWayAnova,
   propagate,
+  noSpread,
   qTest,
   summarize,
   tTestKnown,
@@ -61,7 +62,7 @@ export function DescriptiveTool({ color }: ToolProps) {
           <StatRow label="%RSD (%CV)" value={fmt(100 * s.rsd)} />
           <StatRow label={L('Ortalamanın std. sapması s/√n', 'Std. deviation of mean s/√n')} value={fmt(s.sMean)} />
           {s.ci.map((c) => (
-            <StatRow key={c.conf} label={`${pct(c.conf)} ${L('güven aralığı', 'confidence interval')} (t = ${fmt(c.t)})`} value={`${fmt(s.mean)} ± ${fmt(c.half)}`} />
+            <StatRow key={c.conf} label={`${pct(c.conf, lang)} ${L('güven aralığı', 'confidence interval')} (t = ${fmt(c.t)})`} value={`${fmt(s.mean)} ± ${fmt(c.half)}`} />
           ))}
         </ResultBox>
       ) : (
@@ -95,7 +96,7 @@ export function TTestKnownTool({ color }: ToolProps) {
           <TestOutcome r={r} label="t_exp" />
         </>
       ) : (
-        <Notice text={t('needMoreData')} />
+        <Notice text={xs.length >= 2 && noSpread(xs) ? t('noSpread') : t('needMoreData')} />
       )}
     </View>
   );
@@ -135,14 +136,14 @@ export function TTestTwoTool({ color }: ToolProps) {
           <TestOutcome r={r} label="t_exp" />
         </>
       ) : (
-        <Notice text={t('needMoreData')} />
+        <Notice text={ok ? t('noSpread') : t('needMoreData')} />
       )}
     </View>
   );
 }
 
 export function TTestPairedTool({ color }: ToolProps) {
-  const { fmt, lang } = useApp();
+  const { t, fmt, lang } = useApp();
   const [a, setA] = useState('10.2 12.7 8.6 17.5 11.2 11.5');
   const [b, setB] = useState('10.6 13.0 8.4 17.8 11.5 11.4');
   const [conf, setConf] = useState(0.95);
@@ -165,7 +166,7 @@ export function TTestPairedTool({ color }: ToolProps) {
           <TestOutcome r={r} label="t_exp" />
         </>
       ) : (
-        <Notice text={lang === 'tr' ? 'İki listede aynı sayıda (en az 2) değer olmalı.' : 'Both lists need the same number (≥ 2) of values.'} />
+        <Notice text={ok ? t('noSpread') : lang === 'tr' ? 'İki listede aynı sayıda (en az 2) değer olmalı.' : 'Both lists need the same number (≥ 2) of values.'} />
       )}
     </View>
   );
@@ -178,14 +179,15 @@ export function FTestTool({ color }: ToolProps) {
   const [conf, setConf] = useState(0.95);
   const xa = parseList(a);
   const xb = parseList(b);
-  const r = xa.length >= 2 && xb.length >= 2 ? fTest(xa, xb, conf) : undefined;
+  const ok = xa.length >= 2 && xb.length >= 2;
+  const r = ok ? fTest(xa, xb, conf) : undefined;
   return (
     <View style={{ gap: 14 }}>
       <DataCard title={t('dataSetA')} value={a} onChange={setA} color={color} rows={2} />
       <DataCard title={t('dataSetB')} value={b} onChange={setB} color={color} rows={2}>
         <ConfidencePicker value={conf} onChange={setConf} color={color} />
       </DataCard>
-      {r ? <TestOutcome r={r} label="F_exp" /> : <Notice text={t('needMoreData')} />}
+      {r ? <TestOutcome r={r} label="F_exp" /> : <Notice text={ok ? t('noSpread') : t('needMoreData')} />}
     </View>
   );
 }
@@ -213,7 +215,11 @@ export function QTestTool({ color }: ToolProps) {
       <DataCard title={t('data')} value={raw} onChange={setRaw} color={color}>
         <ConfidencePicker value={1 - Number(alpha)} onChange={(c) => setAlpha(String(Math.round((1 - c) * 100) / 100) as '0.1')} color={color} />
       </DataCard>
-      {r ? <OutlierOutcome r={r} label="Q_exp" /> : <Notice text={lang === 'tr' ? 'Q-testi için 3–10 değer girin.' : 'Enter 3–10 values for the Q-test.'} />}
+      {r ? (
+        <OutlierOutcome r={r} label="Q_exp" />
+      ) : (
+        <Notice text={xs.length >= 3 && xs.length <= 10 ? t('noSpread') : lang === 'tr' ? 'Q-testi için 3–10 değer girin.' : 'Enter 3–10 values for the Q-test.'} />
+      )}
     </View>
   );
 }
@@ -229,7 +235,7 @@ export function GrubbsTool({ color }: ToolProps) {
       <DataCard title={t('data')} value={raw} onChange={setRaw} color={color}>
         <ConfidencePicker value={conf} onChange={setConf} color={color} levels={[0.95, 0.99]} />
       </DataCard>
-      {r ? <OutlierOutcome r={r} label="G_exp" /> : <Notice text={t('needMoreData')} />}
+      {r ? <OutlierOutcome r={r} label="G_exp" /> : <Notice text={xs.length >= 3 ? t('noSpread') : t('needMoreData')} />}
     </View>
   );
 }
