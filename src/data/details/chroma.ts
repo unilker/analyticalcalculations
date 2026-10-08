@@ -8,7 +8,7 @@ import type { ToolDetail } from '../../core/types';
 export const CHROMA_DETAILS: Record<string, ToolDetail> = {
   'retention-factor': {
     concept: {
-      tr: 'Kromatografide her analit molekülü, hareketli faz ile durağan faz arasında sürekli dağılır. Hareketli fazdayken kolon boyunca ilerler, durağan fazdayken bekler. Alıkonma faktörü (tutunma faktörü, k; eski adıyla kapasite faktörü k′), bir maddenin durağan fazda hareketli faza göre kaç kat daha uzun süre geçirdiğini gösterir.\n\nHiç tutunmayan bir madde kolonu ölü sürede (ölü zaman, t_M) geçer. Analitin bunun üzerine fazladan harcadığı süre, yani düzeltilmiş alıkonma süresi t′_R = t_R − t_M, tamamen durağan fazla etkileşimden kaynaklanır.',
+      tr: 'Kromatografide her analit molekülü, hareketli faz ile durağan faz arasında sürekli dağılır. Hareketli fazdayken kolon boyunca ilerler, durağan fazdayken bekler. Alıkonma faktörü (k; eski adıyla kapasite faktörü k′), bir maddenin durağan fazda hareketli faza göre kaç kat daha uzun süre geçirdiğini gösterir.\n\nHiç alıkonmayan bir madde kolonu ölü sürede (ölü zaman, t_M) geçer. Analitin bunun üzerine fazladan harcadığı süre, yani düzeltilmiş alıkonma süresi t′_R = t_R − t_M, tamamen durağan fazla etkileşimden kaynaklanır.',
       en: 'In chromatography every analyte molecule is continuously partitioned between the mobile and the stationary phase. It moves along the column only while it is in the mobile phase and waits while it is in the stationary phase. The retention factor (k; formerly the capacity factor k′) tells how many times longer a substance spends in the stationary phase than in the mobile phase.\n\nAn unretained substance passes through the column in the void (dead) time t_M. The extra time the analyte needs, the adjusted retention time t′_R = t_R − t_M, comes entirely from its interaction with the stationary phase.',
     },
     meaning: {
@@ -17,9 +17,9 @@ export const CHROMA_DETAILS: Record<string, ToolDetail> = {
     },
     usage: {
       tr: [
-        'Yöntem geliştirmede tutunmayı ayarlamak: ters fazda organik çözücü oranı artırılınca k azalır.',
+        'Yöntem geliştirmede alıkonmayı ayarlamak: ters fazda organik çözücü oranı artırılınca k azalır.',
         'Farklı uzunluk ya da akış hızındaki kolonlarda alıkonmayı karşılaştırmak.',
-        't_M, tutunmayan bir işaretleyiciyle (ör. ters fazda urasil, GC’de metan) ya da ilk taban çizgisi bozulmasından ölçülür.',
+        't_M, alıkonmayan bir işaretleyiciyle (ör. ters fazda urasil, GC’de metan) ya da ilk taban çizgisi bozulmasından ölçülür.',
         'Gradyan elüsyonda k sürekli değiştiğinden bu tanım izokratik koşullar için geçerlidir.',
       ],
       en: [
@@ -368,7 +368,7 @@ export const CHROMA_DETAILS: Record<string, ToolDetail> = {
       en: 'The linear velocity (u) is the average speed at which the mobile phase moves along the column (length/time). The flow rate (F, mL/min) is the volume passing per unit time. Band-broadening processes such as diffusion and mass transfer depend on speed, not volume, so the van Deemter equation and comparisons between columns use the linear velocity.',
     },
     meaning: {
-      tr: 'u = L / t_M. Tutunmayan bir madde kolonu hareketli fazla aynı hızda geçtiğinden kolon uzunluğu ölü süreye bölünerek ortalama hız bulunur.\n\nAkış hızıyla ilişkisi: u = F / (ε · π r²). Burada r kolon iç yarıçapı, ε ise kolon hacminin hareketli fazla dolu kesridir (gözeneklilik; açık borulu kolonda ε = 1). Aynı F’de dar kolonda u daha büyüktür.\n\nGC’de gaz sıkıştırılabilir olduğundan hız kolon boyunca artar; L / t_M ortalama bir değerdir.',
+      tr: 'u = L / t_M. Alıkonmayan bir madde kolonu hareketli fazla aynı hızda geçtiğinden kolon uzunluğu ölü süreye bölünerek ortalama hız bulunur.\n\nAkış hızıyla ilişkisi: u = F / (ε · π r²). Burada r kolon iç yarıçapı, ε ise kolon hacminin hareketli fazla dolu kesridir (gözeneklilik; açık borulu kolonda ε = 1). Aynı F’de dar kolonda u daha büyüktür.\n\nGC’de gaz sıkıştırılabilir olduğundan hız kolon boyunca artar; L / t_M ortalama bir değerdir.',
       en: 'u = L / t_M. An unretained substance moves at the speed of the mobile phase, so the column length divided by the void time gives the average velocity.\n\nRelation to flow rate: u = F / (ε · π r²), where r is the column internal radius and ε the fraction of the column volume filled with mobile phase (porosity; ε = 1 for an open tube). At the same F, a narrower column gives a higher u.\n\nIn GC the gas is compressible and speeds up along the column; L / t_M is an average.',
     },
     usage: {
@@ -418,7 +418,7 @@ export const CHROMA_DETAILS: Record<string, ToolDetail> = {
       en: 'The retention volume (V_R) is the volume of mobile phase that passes through the column until the analyte peak maximum elutes. Retention time depends on the flow rate (double the flow, half the time), whereas the retention volume removes this effect and relates directly to the phase system.',
     },
     meaning: {
-      tr: 'V_R = F · t_R. Aynı şekilde ölü hacim V_M = F · t_M’dir (kolondaki hareketli faz hacmi ve bağlantı hacimleri).\n\nKromatografinin temel ilişkisi: V_R = V_M + K · V_S. Analit hiç tutunmazsa (K = 0) ölü hacimde çıkar; K büyüdükçe daha fazla hacim gerekir.\n\nDüzeltilmiş (net) alıkonma hacmi V′_R = V_R − V_M = K · V_S’dir ve k = V′_R / V_M ilişkisi süreler için olduğu gibi hacimler için de geçerlidir.',
+      tr: 'V_R = F · t_R. Aynı şekilde ölü hacim V_M = F · t_M’dir (kolondaki hareketli faz hacmi ve bağlantı hacimleri).\n\nKromatografinin temel ilişkisi: V_R = V_M + K · V_S. Analit hiç alıkonmazsa (K = 0) ölü hacimde çıkar; K büyüdükçe daha fazla hacim gerekir.\n\nDüzeltilmiş (net) alıkonma hacmi V′_R = V_R − V_M = K · V_S’dir ve k = V′_R / V_M ilişkisi süreler için olduğu gibi hacimler için de geçerlidir.',
       en: 'V_R = F · t_R. Likewise the dead volume V_M = F · t_M (mobile-phase volume in the column plus connections).\n\nThe basic relation of chromatography: V_R = V_M + K · V_S. An unretained analyte (K = 0) elutes in the dead volume; the larger K, the more volume is needed.\n\nThe adjusted retention volume V′_R = V_R − V_M = K · V_S, and k = V′_R / V_M holds for volumes just as for times.',
     },
     usage: {
