@@ -106,7 +106,7 @@ export const ATOMIC_FORMULAS: FormulaDef[] = [
     equation: (x) => x.E - 0.75 * 13.6057 * E_CHARGE * (x.Z - 1) ** 2,
     solve: { E: (x) => 0.75 * 13.6057 * E_CHARGE * (x.Z - 1) ** 2, Z: (x) => 1 + Math.sqrt(x.E / (0.75 * 13.6057 * E_CHARGE)) },
     defaultUnknown: 'E',
-    assumptions: l('Basit perdeleme modeli (σ = 1); gerçek değerlerden birkaç % sapabilir.', 'Simple screening model (σ = 1); may differ from real values by a few %.'),
+    assumptions: l('Basit perdeleme modeli (σ = 1): Z ≲ 45 için %1–3 içinde doğrudur. Ağır elementlerde Kα\'yı giderek daha fazla küçük verir (W %−8, Pb %−11; göreli etkiler); ölçülen enerjiden bulunan Z 1–5 birim yanlış çıkabilir. Element tanımlamada tablodaki Kα enerjilerini kullanın.', 'Simple screening model (σ = 1): within about 1–3 % for Z ≲ 45. It underestimates Kα increasingly for heavier elements (W −8 %, Pb −11 %; relativistic effects), so Z obtained from a measured energy can be off by 1–5. Use tabulated Kα energies for identification.'),
     sources: ['[K] 37.7'],
     examples: [{ values: { Z: 29 }, unknown: 'E', expected: 0.75 * 13.6057 * E_CHARGE * 784, description: l('Bakır: ≈ 8,0 keV', 'Copper: ≈ 8.0 keV') }],
     keywords: ['Moseley', 'XRF', 'Kα', 'atom numarası'],
@@ -180,8 +180,8 @@ export const ATOMIC_FORMULAS: FormulaDef[] = [
     purpose: l('Kaynağın v hızıyla hareket ettirilmesiyle γ-ışını enerjisinde oluşan kaymadır; Mössbauer spektrumunun x ekseni (mm/s) budur.', 'Shift of the γ-ray energy produced by moving the source at velocity v; this is the x-axis (mm/s) of a Mössbauer spectrum.'),
     formula: 'ΔE = (v / c) · E_γ',
     variables: [
-      v('dE', 'ΔE', 'Enerji kayması', 'Energy shift', 'energy', { unit: 'neV' }),
-      v('vel', 'v', 'Kaynak hızı', 'Source velocity', 'speed', { unit: 'mm/s' }),
+      v('dE', 'ΔE', 'Enerji kayması', 'Energy shift', 'energy', { unit: 'neV', scale: 'linear', min: -1e-15, max: 1e-15 }),
+      v('vel', 'v', 'Kaynak hızı', 'Source velocity', 'speed', { unit: 'mm/s', scale: 'linear', min: -1e3, max: 1e3 }),
       v('Eg', 'E_γ', 'γ-ışını enerjisi', 'γ-ray energy', 'energy', { unit: 'keV' }),
     ],
     equation: (x) => x.dE - (x.vel / C_LIGHT) * x.Eg,
@@ -283,6 +283,6 @@ export const MS_FORMULAS: FormulaDef[] = [
     defaultUnknown: 'f',
     sources: ['[C] 22.6–22.7'],
     examples: [{ values: { mz: 500, B: 7 }, unknown: 'f', expected: 214985.6 }],
-    keywords: ['ICR', 'siklotron', 'cyclotron', 'FT-ICR', 'Orbitrap'],
+    keywords: ['ICR', 'siklotron', 'cyclotron', 'FT-ICR'],
   }),
 ];

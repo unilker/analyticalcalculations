@@ -224,13 +224,13 @@ export const ATOMIC_DETAILS: Record<string, ToolDetail> = {
         'Bir XRF spektrumundaki Kα pikinin hangi elemente ait olduğunu yaklaşık olarak bulmak.',
         'Bir elementin Kα enerjisini tahmin edip uygun dedektör ya da analizör kristali seçmek.',
         'Bragg yasasıyla birlikte, Kα dalga boyundan (λ = h·c / E) kırınım açısını öngörmek.',
-        'Kesin tanımlama için tablo değerleri kullanılmalıdır.',
+        'Model Z ≲ 45 için %1–3 içinde doğrudur; ağır elementlerde Kα’yı belirgin biçimde küçük verir (W %−8, Pb %−11). Ölçülen enerjiden Z bulunurken 1–5 birimlik hata olabilir; kesin tanımlama için tablo değerleri kullanılmalıdır.',
       ],
       en: [
         'Roughly identifying the element responsible for a Kα peak in an XRF spectrum.',
         'Estimating an element’s Kα energy to choose a suitable detector or analysing crystal.',
         'Together with Bragg’s law, predicting a diffraction angle from the Kα wavelength (λ = h·c / E).',
-        'For exact identification use tabulated values.',
+        'The model is within about 1–3 % for Z ≲ 45 but clearly underestimates Kα for heavy elements (W −8 %, Pb −11 %). Z obtained from a measured energy can be off by 1–5; use tabulated values for exact identification.',
       ],
     },
     solution: {

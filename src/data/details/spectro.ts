@@ -367,12 +367,12 @@ export const SPECTRO_DETAILS: Record<string, ToolDetail> = {
     usage: {
       tr: [
         'Floresans kalibrasyonunun doğrusal kalacağı üst derişim sınırını tahmin etmek.',
-        'Seyreltme gerekip gerekmediğine karar vermek: uyarma dalga boyunda A ≲ 0,05 tutmak genellikle yeterlidir.',
+        'Seyreltme gerekip gerekmediğine karar vermek: uyarma dalga boyunda A ≲ 0,01–0,02 tutmak sapmayı yaklaşık %1–2’de tutar; A = 0,05’te sapma zaten ≈ %5’tir.',
         'Hesaplanan sapma yalnızca birincil soğurma etkisini gösterir; ikincil iç süzgeç etkisi ayrıca değerlendirilmelidir.',
       ],
       en: [
         'Estimating the upper concentration limit for a linear fluorescence calibration.',
-        'Deciding whether to dilute: keeping A ≲ 0.05 at the excitation wavelength is usually sufficient.',
+        'Deciding whether to dilute: keeping A ≲ 0.01–0.02 at the excitation wavelength keeps the deviation to about 1–2 %; at A = 0.05 it is already ≈ 5 %.',
         'The calculated deviation covers only the primary absorption effect; secondary inner-filter effects must be considered separately.',
       ],
     },

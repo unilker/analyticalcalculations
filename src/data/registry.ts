@@ -365,7 +365,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
   custom({
     id: 'alpha-fractions',
     module: 'acidbase',
-    name: l('α-Fraksiyonları ve dağılım diyagramı', 'α fractions & distribution diagram'),
+    name: l('α kesirleri ve tür dağılım diyagramı', 'α fractions & distribution diagram'),
     purpose: l(
       'Poliprotik bir asidin (en çok 4 pKa) türlerinin pH\'a göre kesirlerini hesaplar ve grafiğini çizer; log C–pH diyagramı da gösterilebilir.',
       'Fractions of each species of a polyprotic acid (up to 4 pKa values) versus pH, with a plot; a log C–pH diagram can also be shown.',
@@ -613,7 +613,7 @@ export const CUSTOM_TOOLS: CustomToolDef[] = [
       'Molekül formülünden monoizotopik kütleyi, M, M+1, M+2… piklerinin bağıl şiddetlerini ve halka + çift bağ sayısını (DBE) hesaplar; Cl ve Br içeren iyonları tanımakta kullanılır.',
       'Monoisotopic mass, relative intensities of the M, M+1, M+2… peaks and rings plus double bonds (DBE) from a molecular formula; helps recognise ions containing Cl and Br.',
     ),
-    formula: 'DBE = C − (H + X)/2 + N/2 + 1',
+    formula: 'DBE = C + Si − (H + X + Na + K)/2 + (N + P + B)/2 + 1',
     sources: ['[T] 11.2', '[K] 42', '[H] 4.4'],
     keywords: ['izotop', 'isotope', 'M+1', 'M+2', 'DBE', 'doymamışlık', 'monoizotopik', 'klor', 'brom'],
   }),

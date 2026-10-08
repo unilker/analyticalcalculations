@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
+import { complexFormula } from '../../core/equilibria';
 import { parseList, parseNumber, parseTable } from '../../core/format';
 import { kineticOrders, leastSquares, lineweaverBurk, twoLineFit } from '../../core/fitting';
 import { isotopePattern } from '../../core/massSpec';
@@ -382,7 +383,8 @@ export function IsotopePatternTool({ color }: ToolProps) {
             <BarChart bars={r.peaks.filter((p) => p.relative >= 0.1).map((p) => ({ label: p.offset === 0 ? 'M' : `M+${p.offset}`, value: p.relative }))} color={color} valueLabel={(v) => fmt(v)} />
           </Card>
           <ResultBox>
-            <StatRow label={L('Monoizotopik kütle', 'Monoisotopic mass')} value={`${r.monoisotopic.toFixed(4)} u`} strong />
+            <StatRow label={L('Monoizotopik kütle (nötr)', 'Monoisotopic mass (neutral)')} value={`${r.monoisotopic.toFixed(4)} u`} strong />
+            <Text style={{ fontSize: 12, color: colors.textMuted }}>{L('Nötr formülün kütleleridir; katyon için yük başına 0,000549 u (elektron kütlesi) çıkarın.', 'Masses are for the neutral formula; for a cation subtract 0.000549 u (electron mass) per charge.')}</Text>
             <StatRow label={L('Ortalama molar kütle', 'Average molar mass')} value={`${fmt(r.average)} g/mol`} />
             {r.dbe !== undefined && <StatRow label={L('Halka + çift bağ (DBE)', 'Rings + double bonds (DBE)')} value={fmt(r.dbe)} strong />}
             {r.peaks.filter((p) => p.relative >= 0.1).map((p) => (
@@ -553,7 +555,7 @@ export function MoleRatioTool({ color }: ToolProps) {
           </Card>
           <ResultBox>
             <StatRow label={L('Kesişim (oran ya da dönüm noktası)', 'Intersection (ratio or end point)')} value={fmt(r.x)} strong />
-            <StatRow label={L('En yakın tam sayı', 'Nearest integer')} value={String(Math.round(r.x))} />
+            <StatRow label={L('En yakın basit oran (x = mol L / mol M ise)', 'Nearest simple ratio (if x is mol L / mol M)')} value={complexFormula(r.x)} />
           </ResultBox>
         </>
       ) : (

@@ -1,5 +1,6 @@
 import { kineticOrders, leastSquares, lineweaverBurk, twoLineFit } from '../core/fitting';
-import { isotopePattern } from '../core/massSpec';
+import { complexFormula } from '../core/equilibria';
+import { dbe, isotopePattern } from '../core/massSpec';
 import { controlChart, factorialEffects, samplesNeeded, screening, uncertaintyBudget, youdenEffects } from '../core/quality';
 
 const near = (a: number, b: number, tol: number) => expect(Math.abs(a - b)).toBeLessThanOrEqual(tol);
@@ -132,5 +133,23 @@ describe('fitting', () => {
 describe('floating-point residue', () => {
   it('reports an exactly cancelling Youden effect as 0', () => {
     expect(youdenEffects([5.04, 5.12, 5.08, 5.15, 4.95, 5.03, 4.99, 5.06])[6]).toBe(0);
+  });
+});
+
+describe('audit regressions (spectroscopy and MS)', () => {
+  it('names metal-rich complexes correctly', () => {
+    expect(complexFormula(2.004)).toBe('ML₂');
+    expect(complexFormula(0.5)).toBe('M₂L');
+    expect(complexFormula(1.5)).toBe('M₂L₃');
+    expect(complexFormula(1)).toBe('ML');
+  });
+  it('DBE counts Na, K as monovalent and B as trivalent', () => {
+    expect(dbe([{ symbol: 'C', count: 7 }, { symbol: 'H', count: 5 }, { symbol: 'O', count: 2 }, { symbol: 'Na', count: 1 }])).toBe(5);
+    expect(dbe([{ symbol: 'C', count: 6 }, { symbol: 'H', count: 7 }, { symbol: 'B', count: 1 }, { symbol: 'O', count: 2 }])).toBe(4);
+  });
+  it('monoisotopic mass uses the most abundant isotope (¹¹B)', () => {
+    const r = isotopePattern('C6H7BO2');
+    if (!r.ok) throw new Error(r.error);
+    near(r.monoisotopic, 122.054, 2e-3);
   });
 });

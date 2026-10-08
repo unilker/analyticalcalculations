@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
-import { craigDistribution, gaussian, ionicStrength, jobIntersection, logGammaDavies, logGammaExtended, logGammaLimiting, vanDeemterOptimum } from '../../core/equilibria';
+import { complexFormula, craigDistribution, gaussian, ionicStrength, jobIntersection, logGammaDavies, logGammaExtended, logGammaLimiting, vanDeemterOptimum } from '../../core/equilibria';
 import { parseNumber, parseTable } from '../../core/format';
 import { ACID_BASE_INDICATORS, EDTA_KF, POTENTIALS, REDOX_INDICATORS } from '../../data/tables/v2tables';
 import { useApp } from '../../i18n/AppSettings';
@@ -345,7 +345,7 @@ export function JobTool({ color }: ToolProps) {
           <ResultBox>
             <StatRow label={L('Kesişim x_L', 'Intersection x_L')} value={fmt(r.x)} strong />
             <StatRow label={L('Ligand : metal oranı', 'Ligand : metal ratio')} value={`${fmt(r.ratio)} : 1`} strong />
-            <StatRow label={L('En yakın tam sayı oranı', 'Nearest integer ratio')} value={`ML${Math.round(r.ratio) > 1 ? Math.round(r.ratio) : ''}`.replace(/(\d)$/, (d) => '₀₁₂₃₄₅₆₇₈₉'[+d])} />
+            <StatRow label={L('En yakın basit oran', 'Nearest simple ratio')} value={complexFormula(r.ratio)} />
           </ResultBox>
           <Notice text={L('Doğrular maksimumun iki yanındaki doğrusal noktalara uydurulur; maksimuma bitişik eğrisel noktalar (her yanda en az 2 nokta kaldıkça) hesaba katılmaz.', 'Lines are fitted to the linear points on each side of the maximum; the curved points next to the maximum are skipped while at least 2 points remain on each side.')} />
         </>

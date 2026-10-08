@@ -84,7 +84,8 @@ export function isotopePattern(formula: string, maxOffset = 12): IsotopeResult {
   for (const { symbol, count } of mm.composition) {
     const iso = ISOTOPES[symbol];
     const base = iso[0][0];
-    mono += base * count;
+    // IUPAC monoisotopic mass uses each element's most abundant isotope (¹¹B rather than ¹⁰B).
+    mono += iso.reduce((best, cur) => (cur[1] > best[1] ? cur : best))[0] * count;
     const atom = iso.map(([m, a]) => ({ off: Math.round(m - base), p: a / 100, m }));
     for (let k = 0; k < count; k++) {
       const next: [number, number][] = Array.from({ length: Math.min(dist.length + 4, maxOffset + 1) }, () => [0, 0]);
@@ -108,10 +109,13 @@ export function isotopePattern(formula: string, maxOffset = 12): IsotopeResult {
   return { ok: true, monoisotopic: mono, average: mm.molarMass, peaks, dbe: dbe(mm.composition) };
 }
 
-/** Rings plus double bonds: DBE = C + Si − (H + X)/2 + (N + P)/2 + 1. */
+/**
+ * Rings plus double bonds: DBE = C + Si − (H + X + Na + K)/2 + (N + P + B)/2 + 1.
+ * Tetravalent C, Si; trivalent N, P, B; monovalent H, halogens, Na, K; divalent O, S ignored.
+ */
 export function dbe(comp: { symbol: string; count: number }[]): number | undefined {
   const n = (s: string) => comp.find((c) => c.symbol === s)?.count ?? 0;
   if (!n('C') && !n('Si')) return undefined;
   const halogens = n('F') + n('Cl') + n('Br') + n('I');
-  return n('C') + n('Si') - (n('H') + halogens) / 2 + (n('N') + n('P')) / 2 + 1;
+  return n('C') + n('Si') - (n('H') + halogens + n('Na') + n('K')) / 2 + (n('N') + n('P') + n('B')) / 2 + 1;
 }

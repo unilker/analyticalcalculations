@@ -80,3 +80,24 @@ export function jobIntersection(
   const xi = (R.b - L.b) / (L.m - R.m);
   return { x: xi, y: L.m * xi + L.b, ratio: xi / (1 - xi), left: L, right: R };
 }
+
+const SUBSCRIPT = '₀₁₂₃₄₅₆₇₈₉';
+
+/**
+ * Complex formula for a ligand : metal ratio, using the nearest simple fraction L/M = p/q with
+ * p, q ≤ 4: 2 → "ML₂", 0.5 → "M₂L", 1.5 → "M₂L₃".
+ */
+export function complexFormula(ratio: number): string {
+  if (!(ratio > 0) || !Number.isFinite(ratio)) return '—';
+  let best = { p: 1, q: 1, err: Infinity };
+  for (let q = 1; q <= 4; q++) {
+    for (let p = 1; p <= 4; p++) {
+      const err = Math.abs(Math.log(ratio / (p / q)));
+      if (err < best.err - 1e-12) best = { p, q, err };
+    }
+  }
+  const g = (a: number, b: number): number => (b ? g(b, a % b) : a);
+  const d = g(best.p, best.q);
+  const sub = (n: number) => (n > 1 ? SUBSCRIPT[n] : '');
+  return `M${sub(best.q / d)}L${sub(best.p / d)}`;
+}
