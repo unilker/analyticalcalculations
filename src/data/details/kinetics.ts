@@ -61,7 +61,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
 
   'half-life': {
     concept: {
-      tr: 'Yarılanma süresi (t½), tepkimeye giren maddenin derişiminin (ya da radyoaktif bir çekirdeğin aktifliğinin) başlangıç değerinin yarısına inmesi için geçen süredir. Birinci derece süreçlerde t½ başlangıç derişiminden bağımsızdır; bu yüzden bir tepkimenin ya da radyoizotopun ne kadar “hızlı” olduğunu tek bir sayıyla anlatmanın en pratik yoludur.',
+      tr: 'Yarılanma süresi (t½), tepkimeye giren maddenin derişiminin (ya da radyoaktif bir çekirdeğin aktivitesinin) başlangıç değerinin yarısına inmesi için geçen süredir. Birinci derece süreçlerde t½ başlangıç derişiminden bağımsızdır; bu yüzden bir tepkimenin ya da radyoizotopun ne kadar “hızlı” olduğunu tek bir sayıyla anlatmanın en pratik yoludur.',
       en: 'The half-life (t½) is the time required for the concentration of a reactant (or the activity of a radionuclide) to fall to half of its initial value. For first-order processes t½ does not depend on the starting concentration, which makes it the most convenient single number for describing how “fast” a reaction or a radioisotope is.',
     },
     meaning: {
@@ -169,7 +169,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
       en: 'Enzymes are used in analytical chemistry both as highly selective reagents and as analytes (e.g. blood glucose determined with glucose oxidase). The initial rate of an enzyme-catalysed reaction first increases linearly with substrate concentration and then levels off at an upper limit (V_max) when all active sites of the enzyme are occupied. The Michaelis–Menten equation describes this saturation behaviour.',
     },
     meaning: {
-      tr: 'Mekanizma: E + S ⇌ ES → E + P. Enzim–substrat kompleksi [ES] için kararlı durum yaklaşımı (d[ES]/dt ≈ 0) uygulanınca v = V_max[S]/(K_m + [S]) elde edilir. Burada K_m = (k₋₁ + k₂)/k₁ ve V_max = k₂[E]_toplam’dır.\n\n• [S] = K_m iken v = V_max/2; K_m bu yüzden derişim birimindedir.\n• [S] ≪ K_m: v ≈ (V_max/K_m)[S]; hız substrat derişimiyle doğru orantılıdır → substrat tayini.\n• [S] ≫ K_m: v ≈ V_max; hız [S]’den bağımsız, enzim derişimiyle orantılıdır → enzim aktifliği tayini.\n\nEşitlik başlangıç hızları için geçerlidir; tepkime ilerledikçe substrat tükenir ve ürün inhibisyonu ortaya çıkabilir.',
+      tr: 'Mekanizma: E + S ⇌ ES → E + P. Enzim–substrat kompleksi [ES] için kararlı durum yaklaşımı (d[ES]/dt ≈ 0) uygulanınca v = V_max[S]/(K_m + [S]) elde edilir. Burada K_m = (k₋₁ + k₂)/k₁ ve V_max = k₂[E]_toplam’dır.\n\n• [S] = K_m iken v = V_max/2; K_m bu yüzden derişim birimindedir.\n• [S] ≪ K_m: v ≈ (V_max/K_m)[S]; hız substrat derişimiyle doğru orantılıdır → substrat tayini.\n• [S] ≫ K_m: v ≈ V_max; hız [S]’den bağımsız, enzim derişimiyle orantılıdır → enzim aktivitesi tayini.\n\nEşitlik başlangıç hızları için geçerlidir; tepkime ilerledikçe substrat tükenir ve ürün inhibisyonu ortaya çıkabilir.',
       en: 'Mechanism: E + S ⇌ ES → E + P. Applying the steady-state approximation to the enzyme–substrate complex (d[ES]/dt ≈ 0) gives v = V_max[S]/(K_m + [S]), where K_m = (k₋₁ + k₂)/k₁ and V_max = k₂[E]_total.\n\n• When [S] = K_m, v = V_max/2; K_m therefore has concentration units.\n• [S] ≪ K_m: v ≈ (V_max/K_m)[S]; the rate is proportional to substrate concentration → substrate assays.\n• [S] ≫ K_m: v ≈ V_max; the rate is independent of [S] and proportional to enzyme concentration → enzyme activity assays.\n\nThe equation applies to initial rates; as the reaction proceeds the substrate is depleted and product inhibition may appear.',
     },
     usage: {
@@ -321,18 +321,18 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
 
   'radioactive-decay': {
     concept: {
-      tr: 'Radyoaktif bozunma, kararsız bir çekirdeğin kendiliğinden α, β ya da γ ışıması yaparak başka bir çekirdeğe dönüşmesidir. Bozunma kendiliğinden ve rastgele bir süreç olduğundan, birim zamandaki bozunma sayısı yalnızca mevcut çekirdek sayısıyla orantılıdır: süreç birinci derecedir ve hız sabiti sıcaklık ya da kimyasal ortamdan pratikte etkilenmez.\n\nRadyokimyasal ölçümlerde numune ve standart çoğu zaman farklı zamanlarda sayılır; kısa ömürlü izotoplarda bu nedenle aktifliklerin ortak bir referans zamanına göre düzeltilmesi gerekir.',
+      tr: 'Radyoaktif bozunma, kararsız bir çekirdeğin kendiliğinden α, β ya da γ ışıması yaparak başka bir çekirdeğe dönüşmesidir. Bozunma kendiliğinden ve rastgele bir süreç olduğundan, birim zamandaki bozunma sayısı yalnızca mevcut çekirdek sayısıyla orantılıdır: süreç birinci derecedir ve hız sabiti sıcaklık ya da kimyasal ortamdan pratikte etkilenmez.\n\nRadyokimyasal ölçümlerde numune ve standart çoğu zaman farklı zamanlarda sayılır; kısa ömürlü izotoplarda bu nedenle aktivitelerin ortak bir referans zamanına göre düzeltilmesi gerekir.',
       en: 'Radioactive decay is the spontaneous transformation of an unstable nucleus into another nucleus with emission of α, β or γ radiation. Because decay is spontaneous and random, the number of decays per unit time is proportional only to the number of nuclei present: the process is first order, and its rate constant is practically unaffected by temperature or chemical environment.\n\nIn radiochemical work sample and standard are often counted at different times, so with short-lived isotopes the activities must be corrected to a common reference time.',
     },
     meaning: {
-      tr: 'Aktiflik (A), birim zamandaki bozunma sayısıdır: A = λN. SI birimi becquerel’dir (1 Bq = 1 bozunma/s); eski birim curie, 1 Ci = 3,7 × 10¹⁰ Bq.\n\nN = N₀e^(−λt) olduğundan A = A₀e^(−λt). λ = ln 2/t½ yerine konunca e^(−λt) = (½)^(t/t½) olur; araçtaki A = A₀ · (½)^(t/t½) biçimi budur.\n\n• t/t½ oranı, geçen yarılanma süresi sayısıdır; t ve t½ aynı birimde olmalıdır.\n• Tersine çözüm (A₀ = A / (½)^(t/t½)) bozunma düzeltmesidir: ölçüm anındaki aktiflikten referans zamanındaki aktiflik bulunur.',
+      tr: 'Aktivite (A), birim zamandaki bozunma sayısıdır: A = λN. SI birimi becquerel’dir (1 Bq = 1 bozunma/s); eski birim curie, 1 Ci = 3,7 × 10¹⁰ Bq.\n\nN = N₀e^(−λt) olduğundan A = A₀e^(−λt). λ = ln 2/t½ yerine konunca e^(−λt) = (½)^(t/t½) olur; araçtaki A = A₀ · (½)^(t/t½) biçimi budur.\n\n• t/t½ oranı, geçen yarılanma süresi sayısıdır; t ve t½ aynı birimde olmalıdır.\n• Tersine çözüm (A₀ = A / (½)^(t/t½)) bozunma düzeltmesidir: ölçüm anındaki aktiviteden referans zamanındaki aktivite bulunur.',
       en: 'Activity (A) is the number of decays per unit time: A = λN. Its SI unit is the becquerel (1 Bq = 1 decay/s); the older unit is the curie, 1 Ci = 3.7 × 10¹⁰ Bq.\n\nSince N = N₀e^(−λt), A = A₀e^(−λt). Substituting λ = ln 2/t½ gives e^(−λt) = (½)^(t/t½), which is the form A = A₀ · (½)^(t/t½) used in the tool.\n\n• t/t½ is the number of half-lives elapsed; t and t½ must be in the same unit.\n• Solving backwards (A₀ = A / (½)^(t/t½)) is a decay correction: the activity at a reference time is obtained from the activity at the time of measurement.',
     },
     usage: {
       tr: [
-        'Belirli bir süre sonra kalan aktifliği ya da çekirdek sayısını hesaplamak.',
+        'Belirli bir süre sonra kalan aktiviteyi ya da çekirdek sayısını hesaplamak.',
         'Farklı zamanlarda sayılan numune ve standartları ortak bir referans zamanına düzeltmek.',
-        'İki aktiflik ölçümünden yarılanma süresini ya da bir örneğin yaşını bulmak.',
+        'İki aktivite ölçümünden yarılanma süresini ya da bir örneğin yaşını bulmak.',
         'Tek bir radyonüklid için geçerlidir; ana çekirdekten ürün oluşumu (ana–ürün dengesi) varsa ayrı ele alınmalıdır.',
       ],
       en: [
@@ -359,7 +359,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     mistakes: {
       tr: [
         't ve t½’yi farklı birimlerde girmek (gün ile yıl).',
-        'Dedektörün verdiği sayım hızını (cpm) aktiflik sanmak; ikisi dedektör verimiyle ilişkilidir.',
+        'Dedektörün verdiği sayım hızını (cpm) aktivite sanmak; ikisi dedektör verimiyle ilişkilidir.',
         'Sayım süresi yarılanma süresine göre uzunsa sayım sırasında oluşan bozunmayı ihmal etmek.',
       ],
       en: [
@@ -373,18 +373,18 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
 
   'activity-atoms': {
     concept: {
-      tr: 'Uzun ömürlü radyoizotoplar genellikle tartılamayacak kadar küçük miktarlarda bulunur; buna karşın aktiflikleri kolayca ölçülür. Aktiflik ile çekirdek sayısı arasındaki A = λN ilişkisi, ölçülen aktiflikten numunedeki atom sayısına ve madde miktarına geçmeyi sağlar. Bu, radyokimyasal yöntemlerin son derece düşük miktarları belirleyebilmesinin temelidir.',
+      tr: 'Uzun ömürlü radyoizotoplar genellikle tartılamayacak kadar küçük miktarlarda bulunur; buna karşın aktiviteleri kolayca ölçülür. Aktivite ile çekirdek sayısı arasındaki A = λN ilişkisi, ölçülen aktiviteden numunedeki atom sayısına ve madde miktarına geçmeyi sağlar. Bu, radyokimyasal yöntemlerin son derece düşük miktarları belirleyebilmesinin temelidir.',
       en: 'Long-lived radioisotopes are often present in quantities far too small to weigh, yet their activity is easy to measure. The relation A = λN between activity and number of nuclei allows the measured activity to be converted into the number of atoms and the amount of substance in the sample. This is why radiochemical methods can determine extremely small quantities.',
     },
     meaning: {
-      tr: 'A = λN, λ = ln 2/t½ ve N = n · N_A birleştirilince A = (ln 2/t½) · n · N_A elde edilir.\n\n• A becquerel (s⁻¹) ise t½ saniyeye çevrilmelidir; 1 yıl = 365,25 × 86 400 s.\n• Aynı aktiflik için t½ ne kadar uzunsa o kadar çok atom gerekir. Kısa ömürlü bir izotopun çok az miktarı bile yüksek aktiflik gösterir.\n• Özgül aktiflik (Bq/g) bu ilişkiden A/m olarak bulunur.\n\n“Uzun ömürlü” koşulu, ölçüm süresince aktifliğin pratikte değişmemesini ifade eder; aksi hâlde ölçüm anına göre bozunma düzeltmesi gerekir.',
+      tr: 'A = λN, λ = ln 2/t½ ve N = n · N_A birleştirilince A = (ln 2/t½) · n · N_A elde edilir.\n\n• A becquerel (s⁻¹) ise t½ saniyeye çevrilmelidir; 1 yıl = 365,25 × 86 400 s.\n• Aynı aktivite için t½ ne kadar uzunsa o kadar çok atom gerekir. Kısa ömürlü bir izotopun çok az miktarı bile yüksek aktivite gösterir.\n• Özgül aktivite (Bq/g) bu ilişkiden A/m olarak bulunur.\n\n“Uzun ömürlü” koşulu, ölçüm süresince aktivitenin pratikte değişmemesini ifade eder; aksi hâlde ölçüm anına göre bozunma düzeltmesi gerekir.',
       en: 'Combining A = λN, λ = ln 2/t½ and N = n · N_A gives A = (ln 2/t½) · n · N_A.\n\n• With A in becquerels (s⁻¹), t½ must be converted to seconds; 1 year = 365.25 × 86 400 s.\n• For the same activity, the longer t½ is, the more atoms are needed. A tiny amount of a short-lived isotope already shows a high activity.\n• The specific activity (Bq/g) follows from this relation as A/m.\n\n“Long-lived” means the activity does not change appreciably during the measurement; otherwise a decay correction to the time of measurement is needed.',
     },
     usage: {
       tr: [
-        'Ölçülen aktiflikten radyoizotopun mol ya da atom sayısını bulmak.',
-        'Bilinen bir miktarın beklenen aktifliğini ya da özgül aktifliğini hesaplamak.',
-        'Bilinen miktar ve ölçülen aktiflikten çok uzun bir yarılanma süresini tahmin etmek.',
+        'Ölçülen aktiviteden radyoizotopun mol ya da atom sayısını bulmak.',
+        'Bilinen bir miktarın beklenen aktivitesini ya da özgül aktivitesinini hesaplamak.',
+        'Bilinen miktar ve ölçülen aktiviteden çok uzun bir yarılanma süresini tahmin etmek.',
         'A, dedektörde sayılan değil gerçek bozunma hızıdır; sayım hızı önce dedektör verimiyle düzeltilmelidir.',
       ],
       en: [
@@ -410,8 +410,8 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     },
     mistakes: {
       tr: [
-        't½’yi yıl olarak bırakıp aktifliği Bq (s⁻¹) olarak kullanmak.',
-        'Sayım hızını (cpm) doğrudan aktiflik yerine koymak.',
+        't½’yi yıl olarak bırakıp aktiviteyi Bq (s⁻¹) olarak kullanmak.',
+        'Sayım hızını (cpm) doğrudan aktivite yerine koymak.',
         'λ ile t½’yi karıştırmak (λ = ln 2/t½, t½ = ln 2/λ).',
       ],
       en: [
@@ -436,7 +436,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
       tr: [
         'Bir sayımın bağıl standart sapmasını tahmin etmek.',
         'İstenen kesinlik için gereken toplam sayımı ve sayım hızından gereken süreyi planlamak.',
-        'Aktiflik düşük ve fon yüksekse net sayımın belirsizliği belirgin biçimde artar; fon da yeterince uzun sayılmalıdır.',
+        'Aktivite düşük ve fon yüksekse net sayımın belirsizliği belirgin biçimde artar; fon da yeterince uzun sayılmalıdır.',
         'Yalnızca ham (düzeltilmemiş) sayımlara uygulanır.',
       ],
       en: [
@@ -477,11 +477,11 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
 
   'isotope-dilution': {
     concept: {
-      tr: 'İzotop seyreltme, analitin tamamının geri kazanılmasının zor olduğu karmaşık numunelerde kullanılan güçlü bir yöntemdir. Numuneye, analitin radyoaktif olarak işaretlenmiş bir biçiminden (izleyici) bilinen kütle ve aktiflikte eklenir. İşaretli ve işaretsiz moleküller tamamen karıştıktan sonra analitin yalnızca bir kısmının saf olarak ayrılması yeterlidir; ayrılan kısmın özgül aktifliğindeki azalma, numunedeki analit miktarını verir.\n\nAynı ilke kararlı izotoplar ve kütle spektrometrisiyle de uygulanır (IDMS) ve yüksek doğruluklu referans yöntemlerin temelini oluşturur.',
+      tr: 'İzotop seyreltme, analitin tamamının geri kazanılmasının zor olduğu karmaşık numunelerde kullanılan güçlü bir yöntemdir. Numuneye, analitin radyoaktif olarak işaretlenmiş bir biçiminden (izleyici) bilinen kütle ve aktivitede eklenir. İşaretli ve işaretsiz moleküller tamamen karıştıktan sonra analitin yalnızca bir kısmının saf olarak ayrılması yeterlidir; ayrılan kısmın özgül aktivitesindeki azalma, numunedeki analit miktarını verir.\n\nAynı ilke kararlı izotoplar ve kütle spektrometrisiyle de uygulanır (IDMS) ve yüksek doğruluklu referans yöntemlerin temelini oluşturur.',
       en: 'Isotope dilution is a powerful method for complex samples in which complete recovery of the analyte is difficult. A known mass and activity of a radioactively labelled form of the analyte (the tracer) is added to the sample. After labelled and unlabelled molecules have mixed completely, it is enough to isolate only part of the analyte in pure form; the decrease in specific activity of the isolated portion gives the amount of analyte in the sample.\n\nThe same principle is applied with stable isotopes and mass spectrometry (IDMS) and underlies high-accuracy reference methods.',
     },
     meaning: {
-      tr: 'İzleyicinin özgül aktifliği A_T/w_T’dir. Numuneyle karıştıktan sonra toplam aktiflik değişmez, ancak w_x + w_T kütlesine yayılır; karışımın özgül aktifliği A_T/(w_x + w_T) olur. Ayrılan saf kısım da aynı özgül aktifliğe sahiptir: A_A/w_A = A_T/(w_x + w_T).\n\nBu eşitlik w_x için çözülünce wₓ = (A_T/A_A) · w_A − w_T bulunur.\n\n• Geri kazanım verimi formülde yer almaz; ayrılan kısmın saf olması yeterlidir.\n• A_T ve A_A aynı koşullarda (aynı dedektör, geometri ve referans zamanı) ölçülmelidir; oran kullanıldığı için sayım hızları da (cpm) girilebilir.\n• İzleyici kütlesi ihmal edilebilecek kadar küçükse wₓ ≈ (A_T/A_A) · w_A.',
+      tr: 'İzleyicinin özgül aktivitesi A_T/w_T’dir. Numuneyle karıştıktan sonra toplam aktivite değişmez, ancak w_x + w_T kütlesine yayılır; karışımın özgül aktivitesi A_T/(w_x + w_T) olur. Ayrılan saf kısım da aynı özgül aktiviteye sahiptir: A_A/w_A = A_T/(w_x + w_T).\n\nBu eşitlik w_x için çözülünce wₓ = (A_T/A_A) · w_A − w_T bulunur.\n\n• Geri kazanım verimi formülde yer almaz; ayrılan kısmın saf olması yeterlidir.\n• A_T ve A_A aynı koşullarda (aynı dedektör, geometri ve referans zamanı) ölçülmelidir; oran kullanıldığı için sayım hızları da (cpm) girilebilir.\n• İzleyici kütlesi ihmal edilebilecek kadar küçükse wₓ ≈ (A_T/A_A) · w_A.',
       en: 'The specific activity of the tracer is A_T/w_T. After mixing with the sample the total activity is unchanged but is spread over a mass w_x + w_T, so the specific activity of the mixture is A_T/(w_x + w_T). The isolated pure portion has the same specific activity: A_A/w_A = A_T/(w_x + w_T).\n\nSolving for w_x gives wₓ = (A_T/A_A) · w_A − w_T.\n\n• The recovery does not appear in the formula; the isolated portion only has to be pure.\n• A_T and A_A must be measured under the same conditions (same detector, geometry and reference time); because a ratio is used, count rates (cpm) may be entered.\n• If the tracer mass is negligible, wₓ ≈ (A_T/A_A) · w_A.',
     },
     usage: {
@@ -515,7 +515,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     mistakes: {
       tr: [
         'Eklenen izleyicinin kütlesini (w_T) çıkarmayı unutmak.',
-        'A_A yerine ayrılan kısmın özgül aktifliğini, A_T yerine toplam aktifliği karışık biçimde kullanmak; iki değer aynı türden (toplam aktiflik ya da sayım hızı) olmalıdır.',
+        'A_A yerine ayrılan kısmın özgül aktivitesini, A_T yerine toplam aktiviteyi karışık biçimde kullanmak; iki değer aynı türden (toplam aktivite ya da sayım hızı) olmalıdır.',
         'İzotopik denge kurulmadan ayırma yapmak.',
       ],
       en: [
@@ -529,11 +529,11 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
 
   'naa-comparator': {
     concept: {
-      tr: 'Nötron aktivasyon analizinde (NAA) numune nötronlarla ışınlanır; kararlı çekirdekler nötron yakalayarak radyoaktif izotoplara dönüşür ve bunların yaydığı ışıma (çoğunlukla γ) ölçülür. Oluşan aktifliği mutlak olarak hesaplamak için nötron akısı, tesir kesiti ve dedektör verimi gibi belirsizliği yüksek büyüklükler gerekir.\n\nKarşılaştırma (komparatör) yönteminde bu büyüklüklerin hiçbirine gerek yoktur: analitin bilinen miktarını içeren bir standart, numuneyle birlikte ışınlanır ve aynı koşullarda sayılır. Böylece tüm ortak çarpanlar oranda sadeleşir.',
+      tr: 'Nötron aktivasyon analizinde (NAA) numune nötronlarla ışınlanır; kararlı çekirdekler nötron yakalayarak radyoaktif izotoplara dönüşür ve bunların yaydığı ışıma (çoğunlukla γ) ölçülür. Oluşan aktiviteyi mutlak olarak hesaplamak için nötron akısı, tesir kesiti ve dedektör verimi gibi belirsizliği yüksek büyüklükler gerekir.\n\nKarşılaştırma (komparatör) yönteminde bu büyüklüklerin hiçbirine gerek yoktur: analitin bilinen miktarını içeren bir standart, numuneyle birlikte ışınlanır ve aynı koşullarda sayılır. Böylece tüm ortak çarpanlar oranda sadeleşir.',
       en: 'In neutron activation analysis (NAA) the sample is irradiated with neutrons; stable nuclei capture neutrons and become radioactive isotopes whose emitted radiation (usually γ) is measured. Calculating the induced activity absolutely requires quantities with large uncertainties, such as the neutron flux, cross-section and detector efficiency.\n\nThe comparator method needs none of these: a standard containing a known amount of the analyte is irradiated together with the sample and counted under the same conditions, so all common factors cancel in the ratio.',
     },
     meaning: {
-      tr: 'Aynı ışınlama süresi ve akıda oluşan aktiflik, hedef elementin kütlesiyle doğru orantılıdır; aynı bekleme süresinden sonra aynı geometride sayılan aktiflikler için de bu orantı korunur:\n\nAₓ/A_s = wₓ/w_s  →  wₓ = w_s · Aₓ/A_s.\n\n• Akı, tesir kesiti, izotop bolluğu, doygunluk ve bozunma çarpanları ile dedektör verimi oranda sadeleşir.\n• Standardın ve numunenin sayımı farklı zamanlarda yapılırsa aktiflikler ortak bir zamana göre bozunma düzeltmesinden geçirilmelidir.\n• Sonuç kütle olarak çıkar; numune kütlesine bölünerek yüzde ya da ppm’e çevrilir.',
+      tr: 'Aynı ışınlama süresi ve akıda oluşan aktivite, hedef elementin kütlesiyle doğru orantılıdır; aynı bekleme süresinden sonra aynı geometride sayılan aktiviteler için de bu orantı korunur:\n\nAₓ/A_s = wₓ/w_s  →  wₓ = w_s · Aₓ/A_s.\n\n• Akı, tesir kesiti, izotop bolluğu, doygunluk ve bozunma çarpanları ile dedektör verimi oranda sadeleşir.\n• Standardın ve numunenin sayımı farklı zamanlarda yapılırsa aktiviteler ortak bir zamana göre bozunma düzeltmesinden geçirilmelidir.\n• Sonuç kütle olarak çıkar; numune kütlesine bölünerek yüzde ya da ppm’e çevrilir.',
       en: 'For the same irradiation time and flux, the induced activity is proportional to the mass of the target element; the proportionality still holds for activities counted after the same delay and in the same geometry:\n\nAₓ/A_s = wₓ/w_s  →  wₓ = w_s · Aₓ/A_s.\n\n• Flux, cross-section, isotopic abundance, saturation and decay factors, and detector efficiency all cancel in the ratio.\n• If sample and standard are counted at different times, the activities must be decay-corrected to a common time.\n• The result is a mass; divide by the sample mass to obtain percent or ppm.',
     },
     usage: {
@@ -551,7 +551,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     solution: {
       tr: [
         'Verilen: standart 0,950 g çelik, %0,463 Mn → w_s = 0,950 g × 0,00463 = 4,3985 mg Mn.',
-        'Ölçülen aktiflikler: Aₓ = 2542, A_s = 1984 (aynı birimde sayım hızları); Aₓ/A_s = 1,281.',
+        'Ölçülen aktiviteler: Aₓ = 2542, A_s = 1984 (aynı birimde sayım hızları); Aₓ/A_s = 1,281.',
         'wₓ = 4,3985 mg × 1,281 (numune 1,000 g ise bu %0,564 Mn demektir).',
         'Sonuç: wₓ = 5,636 mg Mn.',
       ],
@@ -579,18 +579,18 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
 
   'naa-activity': {
     concept: {
-      tr: 'Nötron ışınlaması sırasında hedef çekirdekler sabit bir hızla radyoaktif ürüne dönüşürken oluşan ürün de kendi yarılanma süresiyle bozunur. Bu iki süreç dengeye yaklaştıkça aktiflik artmayı bırakır ve doygunluk aktifliğine ulaşır. Aktivasyon eşitliği, ışınlama koşullarından beklenen aktifliği hesaplayarak deneyin planlanmasını (ışınlama ve bekleme süresinin seçimi, ölçülebilirlik tahmini) sağlar.',
+      tr: 'Nötron ışınlaması sırasında hedef çekirdekler sabit bir hızla radyoaktif ürüne dönüşürken oluşan ürün de kendi yarılanma süresiyle bozunur. Bu iki süreç dengeye yaklaştıkça aktivite artmayı bırakır ve doygunluk aktivitesine ulaşır. Aktivasyon eşitliği, ışınlama koşullarından beklenen aktiviteyi hesaplayarak deneyin planlanmasını (ışınlama ve bekleme süresinin seçimi, ölçülebilirlik tahmini) sağlar.',
       en: 'During neutron irradiation the target nuclei are converted into the radioactive product at a constant rate, while the product itself decays with its own half-life. As these two processes approach balance the activity stops growing and reaches the saturation activity. The activation equation predicts the activity expected from the irradiation conditions and is used to plan an experiment (choice of irradiation and decay times, estimate of detectability).',
     },
     meaning: {
-      tr: 'Hedef çekirdek sayısı N = m·θ·N_A/M’dir (θ: hedef izotopun doğal bolluğu). Ürünün oluşma hızı R = N·σ·φ’dir; σ tesir kesiti (1 barn = 10⁻²⁴ cm²), φ nötron akısıdır (cm⁻² s⁻¹).\n\ndN*/dt = R − λN* denklemi integre edilince ışınlama sonundaki aktiflik:\nA₀ = N·σ·φ · (1 − e^(−λ·t_ı)).\n\n• (1 − e^(−λt_ı)) doygunluk çarpanıdır: 1 t½’de 0,5, 5 t½’de yaklaşık 0,97’dir; daha uzun ışınlama kazanç sağlamaz.\n• N·σ·φ doygunluk aktifliğidir (Bq).\n• Işınlama bittikten t_b süre sonra sayım yapılıyorsa bozunma çarpanı eklenir: A = A₀ · e^(−λt_b). Bu araç ışınlama sonundaki aktifliği verir.\n\nEşitlik ince numune (öz-perdeleme yok) ve düzgün akı varsayar.',
+      tr: 'Hedef çekirdek sayısı N = m·θ·N_A/M’dir (θ: hedef izotopun doğal bolluğu). Ürünün oluşma hızı R = N·σ·φ’dir; σ tesir kesiti (1 barn = 10⁻²⁴ cm²), φ nötron akısıdır (cm⁻² s⁻¹).\n\ndN*/dt = R − λN* denklemi integre edilince ışınlama sonundaki aktivite:\nA₀ = N·σ·φ · (1 − e^(−λ·t_ı)).\n\n• (1 − e^(−λt_ı)) doygunluk çarpanıdır: 1 t½’de 0,5, 5 t½’de yaklaşık 0,97’dir; daha uzun ışınlama kazanç sağlamaz.\n• N·σ·φ doygunluk aktivitesidir (Bq).\n• Işınlama bittikten t_b süre sonra sayım yapılıyorsa bozunma çarpanı eklenir: A = A₀ · e^(−λt_b). Bu araç ışınlama sonundaki aktiviteyi verir.\n\nEşitlik ince numune (öz-perdeleme yok) ve düzgün akı varsayar.',
       en: 'The number of target nuclei is N = m·θ·N_A/M (θ: natural abundance of the target isotope). The product is formed at a rate R = N·σ·φ, where σ is the cross-section (1 barn = 10⁻²⁴ cm²) and φ the neutron flux (cm⁻² s⁻¹).\n\nIntegrating dN*/dt = R − λN* gives the activity at the end of irradiation:\nA₀ = N·σ·φ · (1 − e^(−λ·t_i)).\n\n• (1 − e^(−λt_i)) is the saturation factor: 0.5 after 1 t½ and about 0.97 after 5 t½; longer irradiation brings no gain.\n• N·σ·φ is the saturation activity (Bq).\n• If counting starts a time t_d after the end of irradiation, a decay factor is added: A = A₀ · e^(−λt_d). This tool gives the activity at the end of irradiation.\n\nThe equation assumes a thin sample (no self-shielding) and a uniform flux.',
     },
     usage: {
       tr: [
-        'Bir NAA deneyinde ışınlama sonunda beklenen aktifliği tahmin etmek.',
+        'Bir NAA deneyinde ışınlama sonunda beklenen aktiviteyi tahmin etmek.',
         'Uygun ışınlama süresini seçmek: kısa ömürlü ürünlerde birkaç yarılanma süresi yeterlidir.',
-        'Tersinden, ölçülen aktiflikten element kütlesini hesaplamak (mutlak yöntem); akı ve tesir kesitindeki belirsizlik nedeniyle karşılaştırma yöntemi genellikle daha doğrudur.',
+        'Tersinden, ölçülen aktiviteden element kütlesini hesaplamak (mutlak yöntem); akı ve tesir kesitindeki belirsizlik nedeniyle karşılaştırma yöntemi genellikle daha doğrudur.',
         'Tesir kesiti nötron enerjisine bağlıdır; çizelge değerleri çoğunlukla termal nötronlar içindir.',
       ],
       en: [
@@ -603,7 +603,7 @@ export const KINETICS_DETAILS: Record<string, ToolDetail> = {
     solution: {
       tr: [
         'Verilen: m = 1000 mg (1 g) Al, θ = 1, M = 26,98 g/mol, σ = 0,231 barn, φ = 1 × 10¹² cm⁻² s⁻¹, t_ı = 10 dk, t½(²⁸Al) = 2,24 dk.',
-        'N = 1 g × 6,022 × 10²³ mol⁻¹ / 26,98 g/mol = 2,232 × 10²² atom; N·σ·φ = 2,232 × 10²² × 0,231 × 10⁻²⁴ cm² × 10¹² cm⁻² s⁻¹ = 5,156 × 10⁹ Bq (doygunluk aktifliği).',
+        'N = 1 g × 6,022 × 10²³ mol⁻¹ / 26,98 g/mol = 2,232 × 10²² atom; N·σ·φ = 2,232 × 10²² × 0,231 × 10⁻²⁴ cm² × 10¹² cm⁻² s⁻¹ = 5,156 × 10⁹ Bq (doygunluk aktivitesi).',
         'Doygunluk çarpanı: t_ı/t½ = 4,461 → 1 − (½)^4,461 = 0,9546.',
         'Sonuç: A₀ = 5,156 × 10⁹ Bq × 0,9546 = 4,922 × 10⁹ Bq = 4922 MBq.',
       ],

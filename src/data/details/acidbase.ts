@@ -12,7 +12,7 @@ export const ACIDBASE_DETAILS: Record<string, ToolDetail> = {
       en: 'Strong acids such as HCl, HNO₃ and HClO₄ ionise completely in water. In most cases [H⁺] is therefore simply the analytical concentration of the acid and pH = −log C is enough.\n\nWater, however, also ionises (autoprotolysis: H₂O ⇌ H⁺ + OH⁻, Kw = 1.0 × 10⁻¹⁴ at 25 °C). When the acid is very dilute, below roughly 10⁻⁶ M, the H⁺ supplied by water can no longer be neglected. This tool includes the water contribution and is therefore correct at any concentration.',
     },
     meaning: {
-      tr: 'Yük denkliği: [H⁺] = [A⁻] + [OH⁻]. Asit tamamen iyonlaştığından [A⁻] = C, ayrıca [OH⁻] = Kw/[H⁺]. Bunlar yerine konunca:\n\n[H⁺]² − C·[H⁺] − Kw = 0  →  [H⁺] = C/2 + √(C² + 4Kw)/2\n\n• C² ≫ 4Kw ise (C ≳ 10⁻⁶ M) [H⁺] ≈ C olur.\n• C ≪ √Kw ise [H⁺] ≈ √Kw = 1,0 × 10⁻⁷ M olur; asit ne kadar seyreltilirse seyreltilsin pH 7’yi geçmez.\n• Örnek: 1,0 × 10⁻⁸ M HCl’nin pH’ı 8 değil, 6,98’dir.\n\nHesap 25 °C ve aktiflik katsayısı 1 kabulüyle yapılır.',
+      tr: 'Yük denkliği: [H⁺] = [A⁻] + [OH⁻]. Asit tamamen iyonlaştığından [A⁻] = C, ayrıca [OH⁻] = Kw/[H⁺]. Bunlar yerine konunca:\n\n[H⁺]² − C·[H⁺] − Kw = 0  →  [H⁺] = C/2 + √(C² + 4Kw)/2\n\n• C² ≫ 4Kw ise (C ≳ 10⁻⁶ M) [H⁺] ≈ C olur.\n• C ≪ √Kw ise [H⁺] ≈ √Kw = 1,0 × 10⁻⁷ M olur; asit ne kadar seyreltilirse seyreltilsin pH 7’yi geçmez.\n• Örnek: 1,0 × 10⁻⁸ M HCl’nin pH’ı 8 değil, 6,98’dir.\n\nHesap 25 °C ve aktivite katsayısı 1 kabulüyle yapılır.',
       en: 'Charge balance: [H⁺] = [A⁻] + [OH⁻]. Because the acid is fully ionised [A⁻] = C, and [OH⁻] = Kw/[H⁺]. Substituting:\n\n[H⁺]² − C·[H⁺] − Kw = 0  →  [H⁺] = C/2 + √(C² + 4Kw)/2\n\n• If C² ≫ 4Kw (C ≳ 10⁻⁶ M), [H⁺] ≈ C.\n• If C ≪ √Kw, [H⁺] ≈ √Kw = 1.0 × 10⁻⁷ M; however far the acid is diluted, the pH never exceeds 7.\n• Example: 1.0 × 10⁻⁸ M HCl has pH 6.98, not 8.\n\nThe calculation assumes 25 °C and unit activity coefficients.',
     },
     usage: {
@@ -634,7 +634,7 @@ export const ACIDBASE_DETAILS: Record<string, ToolDetail> = {
         'Belirli bir pH’ta hangi türün baskın olduğunu ve derişimini bulmak (tür dağılımı).',
         'Tampon pH’ı seçmek ve titrasyon eğrilerini yorumlamak.',
         'Çözünürlük, kompleksleşme ve EDTA titrasyonlarında gereken α değerlerini sağlamak.',
-        'Hesap derişimlerle yapılır (aktiflik katsayıları 1); en çok 4 pKa girilebilir.',
+        'Hesap derişimlerle yapılır (aktivite katsayıları 1); en çok 4 pKa girilebilir.',
       ],
       en: [
         'Finding which species dominates at a given pH and its concentration (speciation).',

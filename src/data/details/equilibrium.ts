@@ -164,11 +164,11 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
 
   activity: {
     concept: {
-      tr: 'İdeal bir çözeltide her iyon, çevresindeki iyonlardan bağımsız davranır. Gerçekte ise bir katyonun çevresinde anyonlar, bir anyonun çevresinde katyonlar biraz daha fazla bulunur. Bu “iyon atmosferi” iyonun yükünü kısmen perdeler ve iyon, derişiminin düşündürdüğünden daha az etkin davranır.\n\nAktiflik (aktivite) a, bir türün dengeye ve elektrot potansiyeline katkısını belirleyen “etkin derişim”dir. Derişimle aktiflik katsayısı γ üzerinden ilişkilidir. Termodinamik denge sabitleri ve pH elektrotlarının yanıtı aslında aktivitelere göre tanımlanır.',
+      tr: 'İdeal bir çözeltide her iyon, çevresindeki iyonlardan bağımsız davranır. Gerçekte ise bir katyonun çevresinde anyonlar, bir anyonun çevresinde katyonlar biraz daha fazla bulunur. Bu “iyon atmosferi” iyonun yükünü kısmen perdeler ve iyon, derişiminin düşündürdüğünden daha az etkin davranır.\n\nAktivite (a), bir türün dengeye ve elektrot potansiyeline katkısını belirleyen “etkin derişim”dir. Derişimle aktivite katsayısı γ üzerinden ilişkilidir. Termodinamik denge sabitleri ve pH elektrotlarının yanıtı aslında aktivitelere göre tanımlanır.',
       en: 'In an ideal solution each ion behaves independently of its neighbours. In reality a cation is surrounded by slightly more anions than cations, and vice versa. This “ionic atmosphere” partly screens the ion’s charge, so the ion behaves as if it were less concentrated than it is.\n\nThe activity a is the “effective concentration” that determines a species’ contribution to an equilibrium or to an electrode potential. It is related to concentration through the activity coefficient γ. Thermodynamic equilibrium constants and the response of pH electrodes are in fact defined in terms of activities.',
     },
     meaning: {
-      tr: 'a = γ · C. Kesin tanımda a = γ · C / C° (C° = 1 M) olduğundan aktiflik birimsizdir; pratikte M ile aynı sayısal değerle yazılır.\n\n• Çok seyreltik çözeltilerde γ → 1 ve a ≈ C olur.\n• İyonik şiddet arttıkça γ küçülür ve a, C’den daha düşük kalır.\n• Yükü büyük iyonlarda (z = 2, 3) γ, aynı iyonik şiddette tek yüklü iyonlara göre çok daha küçüktür.\n• Yüksüz moleküller için düşük iyonik şiddette γ ≈ 1 alınır.\n\nγ değeri iyonik şiddetten Debye–Hückel ya da Davies eşitlikleriyle tahmin edilir.',
+      tr: 'a = γ · C. Kesin tanımda a = γ · C / C° (C° = 1 M) olduğundan aktivite birimsizdir; pratikte M ile aynı sayısal değerle yazılır.\n\n• Çok seyreltik çözeltilerde γ → 1 ve a ≈ C olur.\n• İyonik şiddet arttıkça γ küçülür ve a, C’den daha düşük kalır.\n• Yükü büyük iyonlarda (z = 2, 3) γ, aynı iyonik şiddette tek yüklü iyonlara göre çok daha küçüktür.\n• Yüksüz moleküller için düşük iyonik şiddette γ ≈ 1 alınır.\n\nγ değeri iyonik şiddetten Debye–Hückel ya da Davies eşitlikleriyle tahmin edilir.',
       en: 'a = γ · C. Strictly a = γ · C / C° (C° = 1 M), so activity is dimensionless; in practice it is written with the same number as the molarity.\n\n• In very dilute solutions γ → 1 and a ≈ C.\n• As ionic strength increases γ falls and a stays below C.\n• Highly charged ions (z = 2, 3) have much smaller γ than singly charged ions at the same ionic strength.\n• For neutral molecules γ ≈ 1 at low ionic strength.\n\nγ is estimated from the ionic strength with the Debye–Hückel or Davies equations.',
     },
     usage: {
@@ -199,7 +199,7 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
     },
     mistakes: {
       tr: [
-        'Aktiflik katsayısının yalnızca iyonun kendi derişimine bağlı olduğunu sanmak; γ, çözeltideki tüm iyonların oluşturduğu iyonik şiddete bağlıdır.',
+        'Aktivite katsayısının yalnızca iyonun kendi derişimine bağlı olduğunu sanmak; γ, çözeltideki tüm iyonların oluşturduğu iyonik şiddete bağlıdır.',
         'γ’yı 1’den büyük ya da negatif almak (seyreltik ve orta derişimli çözeltilerde 0 < γ ≤ 1).',
         'pH ölçümünü [H⁺] derişimi sanmak; ölçülen, H⁺ aktivitesidir.',
       ],
@@ -214,7 +214,7 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
 
   'debye-huckel': {
     concept: {
-      tr: 'Debye–Hückel kuramı, aktiflik katsayısını iyon atmosferi modeliyle hesaplar. Her iyon, zıt yüklü iyonların hafifçe ağır bastığı bir bulutla çevrilidir. Bu bulut iyonu kararlı kılar ve etkin derişimini düşürür. Etki iyonun yükünün karesiyle ve çözeltinin iyonik şiddetinin kareköküyle büyür.\n\nKuramın en basit biçimi olan sınır yasası, iyonları nokta yük kabul eder ve yalnızca çok seyreltik çözeltilerde geçerlidir. Genişletilmiş eşitlik, hidratlaşmış iyonun sonlu boyutunu (α) da hesaba katarak geçerlilik aralığını yaklaşık 0,1 M iyonik şiddete kadar genişletir.',
+      tr: 'Debye–Hückel kuramı, aktivite katsayısını iyon atmosferi modeliyle hesaplar. Her iyon, zıt yüklü iyonların hafifçe ağır bastığı bir bulutla çevrilidir. Bu bulut iyonu kararlı kılar ve etkin derişimini düşürür. Etki iyonun yükünün karesiyle ve çözeltinin iyonik şiddetinin kareköküyle büyür.\n\nKuramın en basit biçimi olan sınır yasası, iyonları nokta yük kabul eder ve yalnızca çok seyreltik çözeltilerde geçerlidir. Genişletilmiş eşitlik, hidratlaşmış iyonun sonlu boyutunu (α) da hesaba katarak geçerlilik aralığını yaklaşık 0,1 M iyonik şiddete kadar genişletir.',
       en: 'Debye–Hückel theory calculates activity coefficients from the ionic-atmosphere model. Every ion is surrounded by a cloud in which ions of opposite charge slightly predominate. The cloud stabilises the ion and lowers its effective concentration. The effect grows with the square of the ion’s charge and with the square root of the ionic strength.\n\nThe simplest form, the limiting law, treats ions as point charges and holds only in very dilute solutions. The extended equation includes the finite size of the hydrated ion (α) and extends the range to an ionic strength of about 0.1 M.',
     },
     meaning: {
@@ -223,7 +223,7 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
     },
     usage: {
       tr: [
-        'Tek tek iyonların aktiflik katsayısını, iyonik şiddet yaklaşık 0,1 M’ye kadar tahmin etmek.',
+        'Tek tek iyonların aktivite katsayısını, iyonik şiddet yaklaşık 0,1 M’ye kadar tahmin etmek.',
         'Ka, Ksp gibi termodinamik sabitleri belirli bir iyonik şiddetteki derişim sabitlerine çevirmek için γ sağlamak.',
         'α bilinmiyorsa Davies eşitliğini kullanın.',
         'μ > 0,1 M’de hata büyür; kuram iyon çifti oluşumunu ve özgül etkileşimleri hesaba katmaz.',
@@ -266,7 +266,7 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
 
   davies: {
     concept: {
-      tr: 'Genişletilmiş Debye–Hückel eşitliği her iyon için bir hidratlaşmış boyut (α) değeri ister. Bu değer pek çok iyon, özellikle organik ve karmaşık iyonlar için bilinmez. Davies eşitliği iyon boyutu yerine tüm iyonlar için ortak, deneysel bir düzeltme kullanır.\n\nBöylece yalnızca iyonun yükü ve çözeltinin iyonik şiddeti bilinerek aktiflik katsayısı tahmin edilebilir. Eşitlik yaklaşık 0,5 M iyonik şiddete kadar makul sonuç verir ve doğal sular ile tampon çözeltilerin hesaplarında yaygın olarak kullanılır.',
+      tr: 'Genişletilmiş Debye–Hückel eşitliği her iyon için bir hidratlaşmış boyut (α) değeri ister. Bu değer pek çok iyon, özellikle organik ve karmaşık iyonlar için bilinmez. Davies eşitliği iyon boyutu yerine tüm iyonlar için ortak, deneysel bir düzeltme kullanır.\n\nBöylece yalnızca iyonun yükü ve çözeltinin iyonik şiddeti bilinerek aktivite katsayısı tahmin edilebilir. Eşitlik yaklaşık 0,5 M iyonik şiddete kadar makul sonuç verir ve doğal sular ile tampon çözeltilerin hesaplarında yaygın olarak kullanılır.',
       en: 'The extended Debye–Hückel equation needs a hydrated size α for every ion, which is unknown for many ions, especially organic and complex ones. The Davies equation replaces the individual ion size with a common empirical correction for all ions.\n\nThe activity coefficient can then be estimated from just the charge of the ion and the ionic strength of the solution. It gives reasonable values up to an ionic strength of about 0.5 M and is widely used for natural waters and buffer calculations.',
     },
     meaning: {
@@ -275,7 +275,7 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
     },
     usage: {
       tr: [
-        'İyon boyutu bilinmediğinde aktiflik katsayısını tahmin etmek.',
+        'İyon boyutu bilinmediğinde aktivite katsayısını tahmin etmek.',
         'Yaklaşık 0,1–0,5 M iyonik şiddet aralığında Debye–Hückel’e göre daha gerçekçi değer elde etmek.',
         'Çok seyreltik çözeltilerde (μ < 0,01 M) sınır yasası ve genişletilmiş Debye–Hückel ile neredeyse aynı sonucu verir.',
         'μ > 0,5 M’de ve iyon çifti oluşturan sistemlerde güvenilir değildir.',
@@ -318,7 +318,7 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
 
   'thermodynamic-k': {
     concept: {
-      tr: 'Tablolardaki denge sabitleri genellikle termodinamik sabitlerdir (K°). Aktivitelerle tanımlanırlar ve sonsuz seyreltik çözeltiye karşılık gelirler. Laboratuvarda ise çoğu zaman tuz içeren çözeltilerde çalışılır ve derişimlerle hesap yapmak isteriz. Derişimlerle yazılan sabit (Kc) iyonik şiddete bağlıdır.\n\nİnert bir tuz (ör. KNO₃) eklendikçe iyonların aktiflik katsayıları düşer. Bu yüzden aynı aktivite çarpımını sağlamak için daha fazla iyon gerekir ve zayıf asitlerin iyonlaşması ile az çözünen tuzların çözünürlüğü artar. Bu olaya yabancı iyon (inert tuz) etkisi denir.',
+      tr: 'Tablolardaki denge sabitleri genellikle termodinamik sabitlerdir (K°). Aktivitelerle tanımlanırlar ve sonsuz seyreltik çözeltiye karşılık gelirler. Laboratuvarda ise çoğu zaman tuz içeren çözeltilerde çalışılır ve derişimlerle hesap yapmak isteriz. Derişimlerle yazılan sabit (Kc) iyonik şiddete bağlıdır.\n\nİnert bir tuz (ör. KNO₃) eklendikçe iyonların aktivite katsayıları düşer. Bu yüzden aynı aktivite çarpımını sağlamak için daha fazla iyon gerekir ve zayıf asitlerin iyonlaşması ile az çözünen tuzların çözünürlüğü artar. Bu olaya yabancı iyon (inert tuz) etkisi denir.',
       en: 'Tabulated equilibrium constants are usually thermodynamic constants (K°), defined with activities and corresponding to infinite dilution. In the laboratory, however, we often work in salt-containing solutions and want to calculate with concentrations. The constant written with concentrations (Kc) depends on ionic strength.\n\nAs an inert salt (e.g. KNO₃) is added, activity coefficients fall. More ions are then needed to reach the same activity product, so weak acids dissociate more and sparingly soluble salts become more soluble. This is called the diverse-ion (inert-salt) effect.',
     },
     meaning: {
@@ -370,7 +370,7 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
 
   'solubility-activity': {
     concept: {
-      tr: 'Az çözünen bir tuzun çözünürlüğü, termodinamik çözünürlük çarpımı (Ksp) ile belirlenir. Ksp aktivitelerle tanımlıdır. Çözeltiye çökelekle ortak iyonu olmayan inert bir tuz (ör. KNO₃ ya da NaNO₃) eklendiğinde iyonik şiddet artar ve aktiflik katsayıları düşer.\n\nAktivite çarpımı Ksp’ye eşit kalmak zorunda olduğundan, γ’lar küçüldükçe çözünmüş iyon derişimleri artar. Bu nedenle tuzun çözünürlüğü saf suya göre biraz yükselir. Etki, gravimetrik analizde yıkama sıvısının ve ortamın seçiminde dikkate alınır.',
+      tr: 'Az çözünen bir tuzun çözünürlüğü, termodinamik çözünürlük çarpımı (Ksp) ile belirlenir. Ksp aktivitelerle tanımlıdır. Çözeltiye çökelekle ortak iyonu olmayan inert bir tuz (ör. KNO₃ ya da NaNO₃) eklendiğinde iyonik şiddet artar ve aktivite katsayıları düşer.\n\nAktivite çarpımı Ksp’ye eşit kalmak zorunda olduğundan, γ’lar küçüldükçe çözünmüş iyon derişimleri artar. Bu nedenle tuzun çözünürlüğü saf suya göre biraz yükselir. Etki, gravimetrik analizde yıkama sıvısının ve ortamın seçiminde dikkate alınır.',
       en: 'The solubility of a sparingly soluble salt is governed by its thermodynamic solubility product (Ksp), which is defined with activities. When an inert salt sharing no ion with the precipitate (e.g. KNO₃ or NaNO₃) is added, the ionic strength rises and the activity coefficients fall.\n\nBecause the activity product must still equal Ksp, smaller γ values mean higher dissolved ion concentrations, and the salt becomes somewhat more soluble than in pure water. This matters when choosing the medium and wash liquid in gravimetric analysis.',
     },
     meaning: {
@@ -422,7 +422,7 @@ export const EQUILIBRIUM_DETAILS: Record<string, ToolDetail> = {
 
   'ionic-strength': {
     concept: {
-      tr: 'İyonik şiddet (μ), çözeltideki tüm iyonların toplam elektriksel “kalabalığını” ölçer. İyonlar arasındaki etkileşimler yüke çok duyarlı olduğundan, μ hesaplanırken her iyonun derişimi yükünün karesiyle ağırlıklandırılır.\n\nAktiflik katsayıları türün kendisine değil, büyük ölçüde μ’ye bağlıdır. Bu yüzden aktivite düzeltmesinin ilk adımı her zaman iyonik şiddeti hesaplamaktır. Bu araç μ’yü hesaplar ve her iyon için sınır yasası, genişletilmiş Debye–Hückel ve Davies eşitliklerinden γ değerlerini yan yana verir.',
+      tr: 'İyonik şiddet (μ), çözeltideki tüm iyonların toplam elektriksel “kalabalığını” ölçer. İyonlar arasındaki etkileşimler yüke çok duyarlı olduğundan, μ hesaplanırken her iyonun derişimi yükünün karesiyle ağırlıklandırılır.\n\nAktivite katsayıları türün kendisine değil, büyük ölçüde μ’ye bağlıdır. Bu yüzden aktivite düzeltmesinin ilk adımı her zaman iyonik şiddeti hesaplamaktır. Bu araç μ’yü hesaplar ve her iyon için sınır yasası, genişletilmiş Debye–Hückel ve Davies eşitliklerinden γ değerlerini yan yana verir.',
       en: 'Ionic strength (μ) measures the total electrical “crowding” produced by all ions in a solution. Because interactions between ions are very sensitive to charge, each ion’s concentration is weighted by the square of its charge.\n\nActivity coefficients depend mainly on μ, not on the identity of the other ions, so the first step of any activity correction is to calculate the ionic strength. This tool computes μ and lists, side by side, the γ of each ion from the limiting law, the extended Debye–Hückel equation and the Davies equation.',
     },
     meaning: {
