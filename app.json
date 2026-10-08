@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Analitik Kimya Hesaplayıcı",
+    "name": "Analitik Kimya",
     "slug": "analitik-kimya",
     "version": "3.0.0",
     "orientation": "default",
@@ -8,7 +8,20 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "net.kimyager.analitikkimya"
+      "bundleIdentifier": "net.kimyager.analitikkimya",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
+          }
+        ]
+      }
     },
     "android": {
       "package": "net.kimyager.analitikkimya",
@@ -18,7 +31,13 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.VIBRATE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -28,7 +47,22 @@
     "plugins": [
       "expo-router",
       "expo-status-bar",
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#F7B500"
+        }
+      ],
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Analitik Kimya, telefon yana çevrildiğinde ekranı döndürme düğmesini göstermek için ivmeölçeri kullanır. Hareket verisi saklanmaz ve cihazdan çıkmaz. / Analitik Kimya uses the accelerometer only to show the rotate-screen button when the phone is turned sideways. Motion data are not stored and never leave the device."
+        }
+      ]
     ],
     "scheme": "analitikkimya",
     "experiments": {

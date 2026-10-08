@@ -148,5 +148,10 @@ değişkenler için geri dönüş testi).
   türev çalışmanın tanıtımında kullanma hakkı vermez (Bölüm 6); bunun için izin alınmalıdır.
 - Yazılım “olduğu gibi” sunulur; sonuçların doğruluğu için garanti verilmez (Bölüm 7–8).
 
+## Gizlilik
+
+Uygulama kişisel veri toplamaz; ayrıntılar [PRIVACY.md](PRIVACY.md) ve
+https://kimyager.net/uygulamalar/analitik-kimya-hesaplayici/gizlilik/ adresindedir (iki metin aynı tutulur).
+
 This app is open source under the Apache License 2.0. Redistributions must keep the `LICENSE`
 and `NOTICE` files and credit the original author, Dr. İlker ÜN (https://kimyager.net/en/).

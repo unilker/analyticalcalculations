@@ -9,6 +9,10 @@ import { colors, palette } from '../theme/colors';
 const DEVELOPER = 'Dr. İlker ÜN';
 const WEBSITE = { tr: 'https://kimyager.net/', en: 'https://kimyager.net/en/' } as const;
 const LICENSE_URL = 'https://www.apache.org/licenses/LICENSE-2.0';
+const PRIVACY_URL = {
+  tr: 'https://kimyager.net/uygulamalar/analitik-kimya-hesaplayici/gizlilik/',
+  en: 'https://kimyager.net/en/apps/analytical-chemistry-calculator/privacy/',
+} as const;
 
 export default function Settings() {
   const { t, lang, setLang, sigFigs, setSigFigs, rotation, setRotation } = useApp();
@@ -60,6 +64,9 @@ export default function Settings() {
               {`© 2026 ${DEVELOPER}. ${t('license')} `}
               <Text style={{ color: palette.red, textDecorationLine: 'underline' }}>apache.org/licenses/LICENSE-2.0</Text>
             </Text>
+          </Pressable>
+          <Pressable accessibilityRole="link" onPress={() => Linking.openURL(PRIVACY_URL[lang])} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
+            <Text style={{ fontSize: 15, fontWeight: '700', color: palette.red, textDecorationLine: 'underline' }}>{t('privacyPolicy')}</Text>
           </Pressable>
         </Card>
         <Card>
