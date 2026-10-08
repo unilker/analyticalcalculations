@@ -33,6 +33,10 @@ export const STRINGS = {
   sigFigs: { tr: 'Anlamlı rakam sayısı', en: 'Significant figures' },
   about: { tr: 'Hakkında', en: 'About' },
   developer: { tr: 'Geliştirici', en: 'Developer' },
+  license: {
+    tr: 'Açık kaynak: Apache Lisansı 2.0. Kodu kullanan ya da değiştiren herkes geliştiriciye atıf yapmalıdır.',
+    en: 'Open source: Apache License 2.0. Anyone who uses or modifies the code must credit the developer.',
+  },
   rotation: { tr: 'Ekran yönü', en: 'Screen orientation' },
   rotationButton: { tr: 'Düğmeyle değiştir', en: 'Switch with a button' },
   rotationAuto: { tr: 'Otomatik döndür', en: 'Rotate automatically' },

@@ -8,6 +8,7 @@ import { colors, palette } from '../theme/colors';
 
 const DEVELOPER = 'Dr. İlker ÜN';
 const WEBSITE = { tr: 'https://kimyager.net/', en: 'https://kimyager.net/en/' } as const;
+const LICENSE_URL = 'https://www.apache.org/licenses/LICENSE-2.0';
 
 export default function Settings() {
   const { t, lang, setLang, sigFigs, setSigFigs, rotation, setRotation } = useApp();
@@ -53,6 +54,12 @@ export default function Settings() {
           >
             <Text style={{ fontSize: 14, color: colors.textMuted }}>{t('website')}:</Text>
             <Text style={{ fontSize: 15, fontWeight: '700', color: palette.red, textDecorationLine: 'underline' }}>{WEBSITE[lang].replace(/^https:\/\//, '').replace(/\/$/, '')}</Text>
+          </Pressable>
+          <Pressable accessibilityRole="link" onPress={() => Linking.openURL(LICENSE_URL)} style={({ pressed }) => ({ opacity: pressed ? 0.6 : 1 })}>
+            <Text style={{ fontSize: 13, lineHeight: 19, color: colors.textMuted }}>
+              {`© 2026 ${DEVELOPER}. ${t('license')} `}
+              <Text style={{ color: palette.red, textDecorationLine: 'underline' }}>apache.org/licenses/LICENSE-2.0</Text>
+            </Text>
           </Pressable>
         </Card>
         <Card>

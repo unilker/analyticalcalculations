@@ -135,3 +135,18 @@ src/
 kesinlik için `solve` ile kapalı çözümler de verilebilir. `examples` alanına kitaptan bir örnek
 eklediğinizde test paketi eşitliği otomatik olarak doğrular (kapalı çözüm, sayısal çözüm ve tüm
 değişkenler için geri dönüş testi).
+
+## Lisans
+
+© 2026 Dr. İlker ÜN ([kimyager.net](https://kimyager.net)). Bu uygulama
+[Apache Lisansı 2.0](LICENSE) ile yayımlanan açık kaynaklı bir yazılımdır.
+
+- Kod; eğitim, kişisel ya da ticari amaçla kullanılabilir, değiştirilebilir ve dağıtılabilir.
+- Kodu ya da türev bir çalışmayı dağıtan herkes `LICENSE` ve [`NOTICE`](NOTICE) dosyalarını korumak,
+  telif bildirimini silmemek ve değiştirdiği dosyaları belirtmek zorundadır (atıf zorunludur).
+- Lisans, “Analitik Kimya Hesaplayıcı” adını, uygulama simgesini ya da geliştiricinin adını
+  türev çalışmanın tanıtımında kullanma hakkı vermez (Bölüm 6); bunun için izin alınmalıdır.
+- Yazılım “olduğu gibi” sunulur; sonuçların doğruluğu için garanti verilmez (Bölüm 7–8).
+
+This app is open source under the Apache License 2.0. Redistributions must keep the `LICENSE`
+and `NOTICE` files and credit the original author, Dr. İlker ÜN (https://kimyager.net/en/).
