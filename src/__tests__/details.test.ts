@@ -3,10 +3,10 @@ import { solveFormula } from '../core/solver';
 import type { FormulaDef } from '../core/types';
 import { findUnit, fromBase } from '../core/units';
 import { TOOL_DETAILS } from '../data/details';
-import { ALL_TOOLS, TOOL_BY_ID } from '../data/registry';
+import { ALL_TOOLS, MODULES, TOOL_BY_ID } from '../data/registry';
 
-/** Modules whose every tool must have a detailed explanation. */
-const COMPLETE_MODULES = ['conc'];
+/** Every tool in every module must have a detailed explanation. */
+const COMPLETE_MODULES = MODULES.map((m) => m.id);
 
 describe('tool details', () => {
   const entries = Object.entries(TOOL_DETAILS);
